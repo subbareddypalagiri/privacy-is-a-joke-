@@ -16,10 +16,15 @@
 
 @layer base {
   body {
-    font-family: 'Inter', 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Bungee', 'Bungee Tint', sans-serif;
     color: #ffffff;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    letter-spacing: 0.02em;
+  }
+
+  h1, h2, h3, h4, h5, h6, p, span, a, button, input, div {
+    font-family: 'Bungee', 'Bungee Tint', sans-serif;
   }
 }
 
