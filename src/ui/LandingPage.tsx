@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { LiveThreatRadar } from './components/LiveThreatRadar';
 import { LiveEntropyWaveform } from './components/LiveEntropyWaveform';
+import { KineticMeshGrid } from './components/KineticMeshGrid';
 
 export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -301,14 +302,47 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 17-Vector Sovereign Defense Grid Section */}
+      {/* Interactive Kinetic Mesh Grid Playground Section (Matching Image 2 Reference) */}
+      <section className="max-w-7xl mx-auto px-6 py-16 relative z-10 border-t border-[#27272a]">
+        <div className="relative rounded-3xl overflow-hidden border border-[#27272a] bg-[#09090b] shadow-[0_25px_80px_rgba(0,0,0,0.9)] min-h-[440px] sm:min-h-[500px] flex flex-col items-center justify-center p-8 sm:p-12 text-center">
+          {/* Interactive Kinetic Warp & Ripple Mesh Canvas */}
+          <div className="absolute inset-0 z-0">
+            <KineticMeshGrid theme="cyan" interactive={true} />
+          </div>
+
+          {/* Foreground Interactive Content */}
+          <div className="relative z-10 pointer-events-none max-w-3xl mx-auto flex flex-col items-center">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/15 bg-black/75 backdrop-blur-xl shadow-lg mb-5 pointer-events-auto">
+              <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse" />
+              <span className="text-xs font-medium text-[#e4e4e7] tracking-wide">
+                Interactive Background
+              </span>
+            </div>
+
+            <h2 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-tight mb-4 drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
+              Move your cursor. Click anywhere.
+            </h2>
+
+            <p className="text-sm sm:text-base text-[#a1a1aa] max-w-xl mx-auto leading-relaxed drop-shadow-md">
+              A kinetic grid that warps toward the pointer and ripples on every click.
+            </p>
+
+            <div className="mt-7 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md text-xs text-sky-300 font-mono pointer-events-auto">
+              <Sparkles className="w-3.5 h-3.5 text-sky-400" />
+              <span>Interactive mesh responds live to cursor pull & click shockwaves</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 22-Vector Sovereign Defense Grid Section */}
       <section id="vectors" className="max-w-7xl mx-auto px-6 py-20 relative z-10 border-t border-[#27272a]">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-xs font-mono uppercase tracking-widest text-amber-400 font-bold px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20">
             COMPREHENSIVE SURVEILLANCE SINKHOLE
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white mt-4 font-display">
-            The 17-Vector Sovereign Defense Grid
+            The 22-Vector Sovereign Defense Grid
           </h2>
           <p className="text-sm sm:text-base text-[#a1a1aa] mt-3 leading-relaxed">
             Eliminates behavioral profiling across your network, OS hardware, and browser runtime with zero performance impact.
@@ -317,70 +351,70 @@ export default function LandingPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           
-          <div className="p-6 rounded-2xl bg-[#0c0c0e] border border-[#27272a] hover:border-red-500/40 transition-all group">
+          <div className="p-6 rounded-2xl bg-[#0c0c0e] border border-[#27272a] hover:border-red-500/50 hover:shadow-[0_0_30px_rgba(239,68,68,0.12)] transition-all group">
             <div className="w-10 h-10 rounded-xl bg-red-500/10 text-red-400 flex items-center justify-center mb-4 border border-red-500/20 group-hover:scale-110 transition-transform">
               <EyeOff className="w-5 h-5" />
             </div>
-            <h3 className="text-base font-bold text-white font-display">1. Shopping Ad Tracker Sinkhole</h3>
+            <h3 className="text-base font-semibold text-white">1. Shopping Ad Tracker Sinkhole</h3>
             <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
               100% blocks and drops surveillance packets from Criteo, Taboola, Outbrain, and invasive retargeting ad networks.
             </p>
-            <span className="mt-4 inline-block text-[10px] font-mono text-red-400 uppercase font-bold">100% SINKHOLED</span>
+            <span className="mt-4 inline-block text-[10px] font-mono text-red-400 uppercase font-semibold px-2 py-0.5 rounded bg-red-500/10 border border-red-500/20">100% SINKHOLED</span>
           </div>
 
-          <div className="p-6 rounded-2xl bg-[#0c0c0e] border border-[#27272a] hover:border-orange-500/40 transition-all group">
+          <div className="p-6 rounded-2xl bg-[#0c0c0e] border border-[#27272a] hover:border-orange-500/50 hover:shadow-[0_0_30px_rgba(249,115,22,0.12)] transition-all group">
             <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-400 flex items-center justify-center mb-4 border border-orange-500/20 group-hover:scale-110 transition-transform">
               <Unlink className="w-5 h-5" />
             </div>
-            <h3 className="text-base font-bold text-white font-display">2. CNAME Cloak Unmasking</h3>
+            <h3 className="text-base font-semibold text-white">2. CNAME Cloak Unmasking</h3>
             <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
               Detects third-party trackers disguised as first-party subdomains (e.g. Adobe Omniture, Keywee) and sinks them at the DNS layer.
             </p>
-            <span className="mt-4 inline-block text-[10px] font-mono text-orange-400 uppercase font-bold">UNCLOAKED IN RAM</span>
+            <span className="mt-4 inline-block text-[10px] font-mono text-orange-400 uppercase font-semibold px-2 py-0.5 rounded bg-orange-500/10 border border-orange-500/20">UNCLOAKED IN RAM</span>
           </div>
 
-          <div className="p-6 rounded-2xl bg-[#0c0c0e] border border-[#27272a] hover:border-purple-500/40 transition-all group">
+          <div className="p-6 rounded-2xl bg-[#0c0c0e] border border-[#27272a] hover:border-purple-500/50 hover:shadow-[0_0_30px_rgba(168,85,247,0.12)] transition-all group">
             <div className="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center mb-4 border border-purple-500/20 group-hover:scale-110 transition-transform">
               <Binary className="w-5 h-5" />
             </div>
-            <h3 className="text-base font-bold text-white font-display">3. URL Clickstream Stripper</h3>
+            <h3 className="text-base font-semibold text-white">3. URL Clickstream Stripper</h3>
             <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
               Purges tracking parameters (`fbclid`, `gclid`, `ttclid`, `utm_*`) while strictly preserving legitimate state tokens.
             </p>
-            <span className="mt-4 inline-block text-[10px] font-mono text-purple-400 uppercase font-bold">STRIPPED ON THE FLY</span>
+            <span className="mt-4 inline-block text-[10px] font-mono text-purple-400 uppercase font-semibold px-2 py-0.5 rounded bg-purple-500/10 border border-purple-500/20">STRIPPED ON THE FLY</span>
           </div>
 
-          <div className="p-6 rounded-2xl bg-[#0c0c0e] border border-[#27272a] hover:border-amber-500/40 transition-all group">
+          <div className="p-6 rounded-2xl bg-[#0c0c0e] border border-[#27272a] hover:border-amber-500/50 hover:shadow-[0_0_30px_rgba(245,158,11,0.12)] transition-all group">
             <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-4 border border-amber-500/20 group-hover:scale-110 transition-transform">
               <Globe className="w-5 h-5" />
             </div>
-            <h3 className="text-base font-bold text-white font-display">4. Encrypted Client Hello (ECH)</h3>
+            <h3 className="text-base font-semibold text-white">4. Encrypted Client Hello (ECH)</h3>
             <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
               Synthesizes RFC 9460 HTTPS Type 65 records, concealing outer SNI from ISP monitoring and local middleboxes.
             </p>
-            <span className="mt-4 inline-block text-[10px] font-mono text-amber-400 uppercase font-bold">RFC 9460 CONCEALED</span>
+            <span className="mt-4 inline-block text-[10px] font-mono text-amber-400 uppercase font-semibold px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/20">RFC 9460 CONCEALED</span>
           </div>
 
-          <div className="p-6 rounded-2xl bg-[#0c0c0e] border border-[#27272a] hover:border-emerald-500/40 transition-all group">
+          <div className="p-6 rounded-2xl bg-[#0c0c0e] border border-[#27272a] hover:border-emerald-500/50 hover:shadow-[0_0_30px_rgba(16,185,129,0.12)] transition-all group">
             <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-4 border border-emerald-500/20 group-hover:scale-110 transition-transform">
               <Sparkles className="w-5 h-5" />
             </div>
-            <h3 className="text-base font-bold text-white font-display">5. Canvas & WebGPU Farbling</h3>
+            <h3 className="text-base font-semibold text-white">5. Canvas & WebGPU Farbling</h3>
             <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
               Injects imperceptible differential noise into 2D canvas `getImageData` and WebGPU shader render targets.
             </p>
-            <span className="mt-4 inline-block text-[10px] font-mono text-emerald-400 uppercase font-bold">FUZZED PER ORIGIN</span>
+            <span className="mt-4 inline-block text-[10px] font-mono text-emerald-400 uppercase font-semibold px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20">FUZZED PER ORIGIN</span>
           </div>
 
-          <div className="p-6 rounded-2xl bg-[#0c0c0e] border border-[#27272a] hover:border-blue-500/40 transition-all group">
-            <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-4 border border-blue-500/20 group-hover:scale-110 transition-transform">
+          <div className="p-6 rounded-2xl bg-[#0c0c0e] border border-[#27272a] hover:border-sky-500/50 hover:shadow-[0_0_30px_rgba(14,165,233,0.12)] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-400 flex items-center justify-center mb-4 border border-sky-500/20 group-hover:scale-110 transition-transform">
               <Mic className="w-5 h-5" />
             </div>
-            <h3 className="text-base font-bold text-white font-display">6. AudioContext Scrambler</h3>
+            <h3 className="text-base font-semibold text-white">6. AudioContext Scrambler</h3>
             <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
               Adds randomized micro-jitter to audio oscillator frequencies, breaking ultrasonic cross-device tracking beacons.
             </p>
-            <span className="mt-4 inline-block text-[10px] font-mono text-blue-400 uppercase font-bold">DISPERSED JITTER</span>
+            <span className="mt-4 inline-block text-[10px] font-mono text-sky-400 uppercase font-semibold px-2 py-0.5 rounded bg-sky-500/10 border border-sky-500/20">DISPERSED JITTER</span>
           </div>
 
         </div>

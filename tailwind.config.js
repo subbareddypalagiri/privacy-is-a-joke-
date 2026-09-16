@@ -41,11 +41,11 @@ export default {
         }
       },
       fontFamily: {
-        bungee: ['Bungee Tint', 'sans-serif'],
+        bungee: ['Bungee', 'Bungee Tint', 'sans-serif'],
         bungeeTint: ['Bungee Tint', 'sans-serif'],
-        display: ['Bungee Tint', 'sans-serif'],
-        sans: ['Bungee Tint', 'sans-serif'],
-        mainTitle: ['Bungee Tint', 'sans-serif'],
+        display: ['Inter', 'Geist', 'Plus Jakarta Sans', '-apple-system', 'sans-serif'],
+        sans: ['Inter', 'Geist', 'Plus Jakarta Sans', '-apple-system', 'sans-serif'],
+        mainTitle: ['Bungee', 'sans-serif'],
         mono: ['Geist Mono', 'JetBrains Mono', 'Space Mono', 'Fira Code', 'monospace'],
       },
       boxShadow: {
