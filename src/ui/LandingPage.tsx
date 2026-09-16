@@ -187,16 +187,73 @@ export default function LandingPage() {
           </button>
         </div>
 
-        {/* Showcase Container with the Exact Radiant Orange Horizon Glow */}
+        {/* Showcase Container with Aceternity Curved Glowing Orange Horizon Arc Dome */}
         <div className="w-full max-w-5xl relative pb-16">
-          {/* CRISP GLOWING ORANGE TOP EDGE LINE ONLY */}
-          <div 
-            className="absolute -top-[1px] left-1/2 -translate-x-1/2 w-[75%] max-w-[750px] h-[2px] pointer-events-none z-20"
-            style={{
-              background: `linear-gradient(90deg, transparent 0%, rgba(245, 158, 11, 0.3) 10%, #f59e0b 50%, rgba(245, 158, 11, 0.3) 90%, transparent 100%)`,
-              boxShadow: `0 0 10px 1.5px rgba(245, 158, 11, 0.85), 0 0 20px 3px rgba(234, 88, 12, 0.45)`
-            }}
-          />
+          {/* ACETERNITY CURVED GLOWING ORANGE HORIZON DOME */}
+          <div className="absolute -top-24 sm:-top-28 left-1/2 -translate-x-1/2 w-[1000px] h-[160px] pointer-events-none z-20 overflow-visible flex items-center justify-center">
+            {/* Soft Ambient Planetary Flare behind the curve */}
+            <div 
+              className="absolute top-8 left-1/2 -translate-x-1/2 w-[720px] h-[90px] pointer-events-none"
+              style={{
+                background: `radial-gradient(ellipse 65% 55% at 50% 60%, rgba(245, 158, 11, 0.5) 0%, rgba(234, 88, 12, 0.2) 50%, transparent 80%)`,
+                filter: `blur(28px)`
+              }}
+            />
+
+            {/* The SVG Curved Horizon Dome Arc */}
+            <svg 
+              viewBox="0 0 1000 160" 
+              className="w-full h-full pointer-events-none overflow-visible"
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <defs>
+                <linearGradient id="aceternityOrangeArc" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#f59e0b" stopOpacity="0" />
+                  <stop offset="15%" stopColor="#f59e0b" stopOpacity="0.4" />
+                  <stop offset="50%" stopColor="#fef08a" stopOpacity="1" />
+                  <stop offset="85%" stopColor="#f59e0b" stopOpacity="0.4" />
+                  <stop offset="100%" stopColor="#f59e0b" stopOpacity="0" />
+                </linearGradient>
+                <filter id="arcNeonGlow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="6" result="blur1" />
+                  <feGaussianBlur stdDeviation="14" result="blur2" />
+                  <feMerge>
+                    <feMergeNode in="blur2" />
+                    <feMergeNode in="blur1" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+
+              {/* Faint Outer Glowing Halo Arc */}
+              <path 
+                d="M 40 145 Q 500 15 960 145" 
+                stroke="#f59e0b" 
+                strokeWidth="5" 
+                strokeOpacity="0.25"
+                filter="url(#arcNeonGlow)"
+              />
+
+              {/* Medium Radiance Arc */}
+              <path 
+                d="M 40 145 Q 500 15 960 145" 
+                stroke="#fbbf24" 
+                strokeWidth="2.5" 
+                strokeOpacity="0.6"
+              />
+
+              {/* Crisp Razor-Sharp Center Laser Arc */}
+              <path 
+                d="M 40 145 Q 500 15 960 145" 
+                stroke="url(#aceternityOrangeArc)" 
+                strokeWidth="1.8" 
+                style={{
+                  filter: `drop-shadow(0 0 10px rgba(245, 158, 11, 0.95)) drop-shadow(0 0 20px rgba(234, 88, 12, 0.7))`
+                }}
+              />
+            </svg>
+          </div>
 
           {/* Dashboard Window Shell */}
           <div className="relative z-10 rounded-2xl overflow-hidden border border-[#27272a] bg-[#0c0c0e] shadow-[0_25px_80px_rgba(0,0,0,0.9)]">
