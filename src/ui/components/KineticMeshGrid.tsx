@@ -92,7 +92,8 @@ export const KineticMeshGrid: React.FC<{
     window.addEventListener('resize', resize);
 
     const handleMouseMove = (e: MouseEvent) => {
-      const rect = container.getBoundingClientRect();
+      if (!canvas) return;
+      const rect = canvas.getBoundingClientRect();
       mouseRef.current.targetX = e.clientX - rect.left;
       mouseRef.current.targetY = e.clientY - rect.top;
       mouseRef.current.isHovering = true;
@@ -105,7 +106,8 @@ export const KineticMeshGrid: React.FC<{
     };
 
     const handleClick = (e: MouseEvent) => {
-      const rect = container.getBoundingClientRect();
+      if (!canvas) return;
+      const rect = canvas.getBoundingClientRect();
       const clickX = e.clientX - rect.left;
       const clickY = e.clientY - rect.top;
 
@@ -113,18 +115,16 @@ export const KineticMeshGrid: React.FC<{
         x: clickX,
         y: clickY,
         startTime: performance.now(),
-        maxRadius: Math.max(width, height) * 1.2,
-        speed: 0.42,
-        amplitude: 28,
+        maxRadius: Math.max(width, height) * 1.5,
+        speed: 0.52,
+        amplitude: 34,
       });
-
-      setClickCount((prev) => prev + 1);
     };
 
     if (interactive) {
-      container.addEventListener('mousemove', handleMouseMove);
-      container.addEventListener('mouseleave', handleMouseLeave);
-      container.addEventListener('click', handleClick);
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mouseleave', handleMouseLeave);
+      window.addEventListener('click', handleClick);
     }
 
     const themeColors = {
@@ -339,9 +339,9 @@ export const KineticMeshGrid: React.FC<{
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', resize);
       if (interactive) {
-        container.removeEventListener('mousemove', handleMouseMove);
-        container.removeEventListener('mouseleave', handleMouseLeave);
-        container.removeEventListener('click', handleClick);
+        window.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('mouseleave', handleMouseLeave);
+        window.removeEventListener('click', handleClick);
       }
     };
   }, [theme, interactive]);

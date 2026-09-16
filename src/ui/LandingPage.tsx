@@ -3,7 +3,8 @@ import {
   Shield, Download, Radio, ArrowRight, Menu, X, 
   ExternalLink, Search, Bell, Activity, Lock, Smartphone,
   CheckCircle2, Cpu, Zap, Globe, Sparkles, Layers, Landmark,
-  EyeOff, Unlink, Binary, Sliders, Mic, FileCode, Check, RefreshCw
+  EyeOff, Unlink, Binary, Sliders, Mic, FileCode, Check, RefreshCw,
+  Timer, Database, ShieldCheck, Key, Orbit, Brain
 } from 'lucide-react';
 import { LiveThreatRadar } from './components/LiveThreatRadar';
 import { LiveEntropyWaveform } from './components/LiveEntropyWaveform';
@@ -29,22 +30,18 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-[#000000] text-white selection:bg-amber-500/30 selection:text-amber-200 relative overflow-x-hidden font-sans">
-      {/* Background Matrix & Lighting */}
+      {/* FULL-PAGE INTERACTIVE KINETIC MESH BACKGROUND */}
       <div className="fixed inset-0 pointer-events-none z-0">
-        {/* Subtle dot matrix grid */}
-        <div 
-          className="absolute inset-0 opacity-[0.12]" 
-          style={{
-            backgroundImage: `radial-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px)`,
-            backgroundSize: `32px 32px`
-          }} 
+        <KineticMeshGrid 
+          theme="cyan" 
+          interactive={true} 
+          className="w-full h-full opacity-65"
         />
-        
-        {/* Top ambient white cone */}
+        {/* Ambient Top Light Beam */}
         <div 
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[450px] opacity-40"
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[480px] pointer-events-none opacity-30"
           style={{
-            background: `radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.03) 50%, transparent 80%)`
+            background: `radial-gradient(ellipse at 50% 0%, rgba(56, 189, 248, 0.25), rgba(245, 158, 11, 0.08) 50%, transparent 80%)`
           }}
         />
       </div>
@@ -302,39 +299,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Interactive Kinetic Mesh Grid Playground Section (Matching Image 2 Reference) */}
-      <section className="max-w-7xl mx-auto px-6 py-16 relative z-10 border-t border-[#27272a]">
-        <div className="relative rounded-3xl overflow-hidden border border-[#27272a] bg-[#09090b] shadow-[0_25px_80px_rgba(0,0,0,0.9)] min-h-[440px] sm:min-h-[500px] flex flex-col items-center justify-center p-8 sm:p-12 text-center">
-          {/* Interactive Kinetic Warp & Ripple Mesh Canvas */}
-          <div className="absolute inset-0 z-0">
-            <KineticMeshGrid theme="cyan" interactive={true} />
-          </div>
-
-          {/* Foreground Interactive Content */}
-          <div className="relative z-10 pointer-events-none max-w-3xl mx-auto flex flex-col items-center">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/15 bg-black/75 backdrop-blur-xl shadow-lg mb-5 pointer-events-auto">
-              <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse" />
-              <span className="text-xs font-medium text-[#e4e4e7] tracking-wide">
-                Interactive Background
-              </span>
-            </div>
-
-            <h2 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-tight mb-4 drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
-              Move your cursor. Click anywhere.
-            </h2>
-
-            <p className="text-sm sm:text-base text-[#a1a1aa] max-w-xl mx-auto leading-relaxed drop-shadow-md">
-              A kinetic grid that warps toward the pointer and ripples on every click.
-            </p>
-
-            <div className="mt-7 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md text-xs text-sky-300 font-mono pointer-events-auto">
-              <Sparkles className="w-3.5 h-3.5 text-sky-400" />
-              <span>Interactive mesh responds live to cursor pull & click shockwaves</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* 22-Vector Sovereign Defense Grid Section */}
       <section id="vectors" className="max-w-7xl mx-auto px-6 py-20 relative z-10 border-t border-[#27272a]">
         <div className="text-center max-w-3xl mx-auto mb-16">
@@ -351,7 +315,8 @@ export default function LandingPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           
-          <div className="p-6 rounded-2xl bg-[#0c0c0e] border border-[#27272a] hover:border-red-500/50 hover:shadow-[0_0_30px_rgba(239,68,68,0.12)] transition-all group">
+          {/* Vector 1 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-red-500/50 hover:shadow-[0_0_30px_rgba(239,68,68,0.12)] transition-all group">
             <div className="w-10 h-10 rounded-xl bg-red-500/10 text-red-400 flex items-center justify-center mb-4 border border-red-500/20 group-hover:scale-110 transition-transform">
               <EyeOff className="w-5 h-5" />
             </div>
@@ -362,7 +327,8 @@ export default function LandingPage() {
             <span className="mt-4 inline-block text-[10px] font-mono text-red-400 uppercase font-semibold px-2 py-0.5 rounded bg-red-500/10 border border-red-500/20">100% SINKHOLED</span>
           </div>
 
-          <div className="p-6 rounded-2xl bg-[#0c0c0e] border border-[#27272a] hover:border-orange-500/50 hover:shadow-[0_0_30px_rgba(249,115,22,0.12)] transition-all group">
+          {/* Vector 2 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-orange-500/50 hover:shadow-[0_0_30px_rgba(249,115,22,0.12)] transition-all group">
             <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-400 flex items-center justify-center mb-4 border border-orange-500/20 group-hover:scale-110 transition-transform">
               <Unlink className="w-5 h-5" />
             </div>
@@ -373,7 +339,8 @@ export default function LandingPage() {
             <span className="mt-4 inline-block text-[10px] font-mono text-orange-400 uppercase font-semibold px-2 py-0.5 rounded bg-orange-500/10 border border-orange-500/20">UNCLOAKED IN RAM</span>
           </div>
 
-          <div className="p-6 rounded-2xl bg-[#0c0c0e] border border-[#27272a] hover:border-purple-500/50 hover:shadow-[0_0_30px_rgba(168,85,247,0.12)] transition-all group">
+          {/* Vector 3 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-purple-500/50 hover:shadow-[0_0_30px_rgba(168,85,247,0.12)] transition-all group">
             <div className="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center mb-4 border border-purple-500/20 group-hover:scale-110 transition-transform">
               <Binary className="w-5 h-5" />
             </div>
@@ -384,7 +351,8 @@ export default function LandingPage() {
             <span className="mt-4 inline-block text-[10px] font-mono text-purple-400 uppercase font-semibold px-2 py-0.5 rounded bg-purple-500/10 border border-purple-500/20">STRIPPED ON THE FLY</span>
           </div>
 
-          <div className="p-6 rounded-2xl bg-[#0c0c0e] border border-[#27272a] hover:border-amber-500/50 hover:shadow-[0_0_30px_rgba(245,158,11,0.12)] transition-all group">
+          {/* Vector 4 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-amber-500/50 hover:shadow-[0_0_30px_rgba(245,158,11,0.12)] transition-all group">
             <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-4 border border-amber-500/20 group-hover:scale-110 transition-transform">
               <Globe className="w-5 h-5" />
             </div>
@@ -395,7 +363,8 @@ export default function LandingPage() {
             <span className="mt-4 inline-block text-[10px] font-mono text-amber-400 uppercase font-semibold px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/20">RFC 9460 CONCEALED</span>
           </div>
 
-          <div className="p-6 rounded-2xl bg-[#0c0c0e] border border-[#27272a] hover:border-emerald-500/50 hover:shadow-[0_0_30px_rgba(16,185,129,0.12)] transition-all group">
+          {/* Vector 5 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-emerald-500/50 hover:shadow-[0_0_30px_rgba(16,185,129,0.12)] transition-all group">
             <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-4 border border-emerald-500/20 group-hover:scale-110 transition-transform">
               <Sparkles className="w-5 h-5" />
             </div>
@@ -406,7 +375,8 @@ export default function LandingPage() {
             <span className="mt-4 inline-block text-[10px] font-mono text-emerald-400 uppercase font-semibold px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20">FUZZED PER ORIGIN</span>
           </div>
 
-          <div className="p-6 rounded-2xl bg-[#0c0c0e] border border-[#27272a] hover:border-sky-500/50 hover:shadow-[0_0_30px_rgba(14,165,233,0.12)] transition-all group">
+          {/* Vector 6 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-sky-500/50 hover:shadow-[0_0_30px_rgba(14,165,233,0.12)] transition-all group">
             <div className="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-400 flex items-center justify-center mb-4 border border-sky-500/20 group-hover:scale-110 transition-transform">
               <Mic className="w-5 h-5" />
             </div>
@@ -415,6 +385,198 @@ export default function LandingPage() {
               Adds randomized micro-jitter to audio oscillator frequencies, breaking ultrasonic cross-device tracking beacons.
             </p>
             <span className="mt-4 inline-block text-[10px] font-mono text-sky-400 uppercase font-semibold px-2 py-0.5 rounded bg-sky-500/10 border border-sky-500/20">DISPERSED JITTER</span>
+          </div>
+
+          {/* Vector 7 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-indigo-500/50 hover:shadow-[0_0_30px_rgba(99,102,241,0.12)] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-4 border border-indigo-500/20 group-hover:scale-110 transition-transform">
+              <Timer className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-semibold text-white">7. Precision Timer Jitter Clamping</h3>
+            <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
+              Clamps `performance.now()` to 20μs intervals, defeating micro-architectural CPU cache side-channel attacks.
+            </p>
+            <span className="mt-4 inline-block text-[10px] font-mono text-indigo-400 uppercase font-semibold px-2 py-0.5 rounded bg-indigo-500/10 border border-indigo-500/20">20μS CLAMPED</span>
+          </div>
+
+          {/* Vector 8 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-emerald-500/50 hover:shadow-[0_0_30px_rgba(16,185,129,0.12)] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-4 border border-emerald-500/20 group-hover:scale-110 transition-transform">
+              <Landmark className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-semibold text-white">8. Zone A Critical Infrastructure Safe-Pass</h3>
+            <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
+              Whitelists SBI, HDFC, UIDAI Gov, and Razorpay payment gateways with 0ms latency and zero TLS interference.
+            </p>
+            <span className="mt-4 inline-block text-[10px] font-mono text-emerald-400 uppercase font-semibold px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20">0MS ZERO-FAIL</span>
+          </div>
+
+          {/* Vector 9 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-rose-500/50 hover:shadow-[0_0_30px_rgba(244,63,94,0.12)] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-400 flex items-center justify-center mb-4 border border-rose-500/20 group-hover:scale-110 transition-transform">
+              <Activity className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-semibold text-white">9. Shannon Graph Entropy Poisoning</h3>
+            <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
+              Injects synthetic random-walk telemetry queries maximizing Shannon entropy $H(X) = 2.58$ bits, blinding Big Tech AI graphs.
+            </p>
+            <span className="mt-4 inline-block text-[10px] font-mono text-rose-400 uppercase font-semibold px-2 py-0.5 rounded bg-rose-500/10 border border-rose-500/20">H(X) = 2.58 MAX</span>
+          </div>
+
+          {/* Vector 10 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(6,182,212,0.12)] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-4 border border-cyan-500/20 group-hover:scale-110 transition-transform">
+              <Sliders className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-semibold text-white">10. Human-Drift Poisson Kinematics</h3>
+            <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
+              Generates organic human-like dwell times and keystroke intervals with natural Poisson cognitive variance.
+            </p>
+            <span className="mt-4 inline-block text-[10px] font-mono text-cyan-400 uppercase font-semibold px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/20">POISSON DRIFT</span>
+          </div>
+
+          {/* Vector 11 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-blue-500/50 hover:shadow-[0_0_30px_rgba(59,130,246,0.12)] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-4 border border-blue-500/20 group-hover:scale-110 transition-transform">
+              <Smartphone className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-semibold text-white">11. Mobile Zero-Install Encrypted DNS</h3>
+            <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
+              Generates native Apple iOS `.mobileconfig` and Android DoT private DNS with 0% battery impact and zero heavy apps.
+            </p>
+            <span className="mt-4 inline-block text-[10px] font-mono text-blue-400 uppercase font-semibold px-2 py-0.5 rounded bg-blue-500/10 border border-blue-500/20">ZERO-INSTALL</span>
+          </div>
+
+          {/* Vector 12 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-yellow-500/50 hover:shadow-[0_0_30px_rgba(234,179,8,0.12)] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-yellow-500/10 text-yellow-400 flex items-center justify-center mb-4 border border-yellow-500/20 group-hover:scale-110 transition-transform">
+              <Zap className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-semibold text-white">12. Bitwise Bloom Filter Sub-5ns Acceleration</h3>
+            <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
+              Evaluates 7-hash bitwise Bloom filter in $O(1)$ memory, guaranteeing immediate sub-5ns execution for benign queries.
+            </p>
+            <span className="mt-4 inline-block text-[10px] font-mono text-yellow-400 uppercase font-semibold px-2 py-0.5 rounded bg-yellow-500/10 border border-yellow-500/20">&lt;5NS LOOKUP</span>
+          </div>
+
+          {/* Vector 13 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-lime-500/50 hover:shadow-[0_0_30px_rgba(132,204,22,0.12)] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-lime-500/10 text-lime-400 flex items-center justify-center mb-4 border border-lime-500/20 group-hover:scale-110 transition-transform">
+              <RefreshCw className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-semibold text-white">13. Double-Buffered Atomic Hot-Swap Engine</h3>
+            <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
+              Updates threat blocklists in real time via pointer swaps with zero downtime, guarded by a 50-rule sanity threshold.
+            </p>
+            <span className="mt-4 inline-block text-[10px] font-mono text-lime-400 uppercase font-semibold px-2 py-0.5 rounded bg-lime-500/10 border border-lime-500/20">ATOMIC HOT-SWAP</span>
+          </div>
+
+          {/* Vector 14 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-fuchsia-500/50 hover:shadow-[0_0_30px_rgba(217,70,239,0.12)] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-fuchsia-500/10 text-fuchsia-400 flex items-center justify-center mb-4 border border-fuchsia-500/20 group-hover:scale-110 transition-transform">
+              <Database className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-semibold text-white">14. Meta CAPI & Google Synthetic Honey Poisoner</h3>
+            <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
+              Fabricates structured, cryptographically plausible click IDs (`fbclid`, `gclid`), polluting Big Tech server conversion feeds.
+            </p>
+            <span className="mt-4 inline-block text-[10px] font-mono text-fuchsia-400 uppercase font-semibold px-2 py-0.5 rounded bg-fuchsia-500/10 border border-fuchsia-500/20">HONEY POISONED</span>
+          </div>
+
+          {/* Vector 15 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-violet-500/50 hover:shadow-[0_0_30px_rgba(139,92,246,0.12)] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-violet-500/10 text-violet-400 flex items-center justify-center mb-4 border border-violet-500/20 group-hover:scale-110 transition-transform">
+              <ShieldCheck className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-semibold text-white">15. JA4 / TLS 1.3 ClientHello Normalizer</h3>
+            <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
+              Standardizes outbound TLS extension order and cipher suites to match canonical browser fingerprints, defeating network-level JA4 trackers.
+            </p>
+            <span className="mt-4 inline-block text-[10px] font-mono text-violet-400 uppercase font-semibold px-2 py-0.5 rounded bg-violet-500/10 border border-violet-500/20">JA4 NORMALIZED</span>
+          </div>
+
+          {/* Vector 16 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-teal-500/50 hover:shadow-[0_0_30px_rgba(20,184,166,0.12)] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-teal-500/10 text-teal-400 flex items-center justify-center mb-4 border border-teal-500/20 group-hover:scale-110 transition-transform">
+              <Lock className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-semibold text-white">16. Post-Quantum Kyber-768 Lattice Cryptography</h3>
+            <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
+              Protects communications against quantum decryption with NIST FIPS 203 ML-KEM polynomial lattice key encapsulation.
+            </p>
+            <span className="mt-4 inline-block text-[10px] font-mono text-teal-400 uppercase font-semibold px-2 py-0.5 rounded bg-teal-500/10 border border-teal-500/20">NIST ML-KEM-768</span>
+          </div>
+
+          {/* Vector 17 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-emerald-500/50 hover:shadow-[0_0_30px_rgba(16,185,129,0.12)] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-4 border border-emerald-500/20 group-hover:scale-110 transition-transform">
+              <Key className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-semibold text-white">17. Zero-Knowledge Merkle State Anonymity</h3>
+            <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
+              Cryptographically proves threat inclusion without leaking client IP, device fingerprint, or session identity.
+            </p>
+            <span className="mt-4 inline-block text-[10px] font-mono text-emerald-400 uppercase font-semibold px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20">ZK-BLINDED</span>
+          </div>
+
+          {/* Vector 18 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-amber-500/50 hover:shadow-[0_0_30px_rgba(245,158,11,0.12)] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-4 border border-amber-500/20 group-hover:scale-110 transition-transform">
+              <Binary className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-semibold text-white">18. Fully Homomorphic Encryption (FHE / BFV)</h3>
+            <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
+              Performs encrypted domain lookups directly over ciphertext polynomial rings without decrypting the queried domain.
+            </p>
+            <span className="mt-4 inline-block text-[10px] font-mono text-amber-400 uppercase font-semibold px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/20">FHE CIPHERTEXT</span>
+          </div>
+
+          {/* Vector 19 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-sky-500/50 hover:shadow-[0_0_30px_rgba(14,165,233,0.12)] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-400 flex items-center justify-center mb-4 border border-sky-500/20 group-hover:scale-110 transition-transform">
+              <Orbit className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-semibold text-white">19. Quantum Key Distribution (QKD BB84)</h3>
+            <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
+              Maintains Bell state entanglement $|\Phi^+\rangle$ with $F &gt; 0.95$ and detects eavesdroppers if QBER exceeds 11%.
+            </p>
+            <span className="mt-4 inline-block text-[10px] font-mono text-sky-400 uppercase font-semibold px-2 py-0.5 rounded bg-sky-500/10 border border-sky-500/20">QKD ENTANGLED</span>
+          </div>
+
+          {/* Vector 20 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-emerald-500/50 hover:shadow-[0_0_30px_rgba(16,185,129,0.12)] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-4 border border-emerald-500/20 group-hover:scale-110 transition-transform">
+              <ShieldCheck className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-semibold text-white">20. NIST FIPS 204 ML-DSA-87 Digital Signatures</h3>
+            <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
+              Authenticates internal rules via $8 \times 7$ high-dimensional lattice matrix digital signatures over $R_q$.
+            </p>
+            <span className="mt-4 inline-block text-[10px] font-mono text-emerald-400 uppercase font-semibold px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20">FIPS 204 SIGNED</span>
+          </div>
+
+          {/* Vector 21 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-orange-500/50 hover:shadow-[0_0_30px_rgba(249,115,22,0.12)] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-400 flex items-center justify-center mb-4 border border-orange-500/20 group-hover:scale-110 transition-transform">
+              <Brain className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-semibold text-white">21. Neuromorphic Biometric Camouflage</h3>
+            <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
+              Synthesizes 10.2Hz physiological neuromotor micro-tremors and 3rd-order jerk derivatives, bypassing Turnstile and bot ML.
+            </p>
+            <span className="mt-4 inline-block text-[10px] font-mono text-orange-400 uppercase font-semibold px-2 py-0.5 rounded bg-orange-500/10 border border-orange-500/20">10.2HZ TREMOR</span>
+          </div>
+
+          {/* Vector 22 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-red-500/50 hover:shadow-[0_0_30px_rgba(239,68,68,0.12)] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-red-500/10 text-red-400 flex items-center justify-center mb-4 border border-red-500/20 group-hover:scale-110 transition-transform">
+              <Activity className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-semibold text-white">22. GAN Adversarial FGSM Embedding Poisoning</h3>
+            <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
+              Injects $L_\infty$-bounded FGSM perturbations to force neural loss maximization ($L &gt; 4.0$) on ad recommendation networks.
+            </p>
+            <span className="mt-4 inline-block text-[10px] font-mono text-red-400 uppercase font-semibold px-2 py-0.5 rounded bg-red-500/10 border border-red-500/20">FGSM MAX LOSS</span>
           </div>
 
         </div>
