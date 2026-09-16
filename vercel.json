@@ -1,0 +1,10 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/dashboard", "destination": "/dashboard.html" },
+    { "source": "/popup", "destination": "/popup.html" },
+    { "source": "/landing", "destination": "/landing.html" }
+  ]
+}
