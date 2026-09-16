@@ -187,99 +187,59 @@ export default function LandingPage() {
           </button>
         </div>
 
-        {/* Showcase Container with Aceternity Curved Glowing Orange Horizon Arc Dome */}
-        <div className="w-full max-w-5xl relative pb-16">
-          {/* ACETERNITY CURVED GLOWING ORANGE HORIZON DOME WITH RADIANT LIGHT EXPOSURE */}
-          <div className="absolute -top-24 sm:-top-28 left-1/2 -translate-x-1/2 w-[1000px] h-[160px] pointer-events-none z-20 overflow-visible flex items-center justify-center">
-            
-            {/* 1. Volumetric Light Exposure Beam (Radiating upwards into space) */}
-            <div 
-              className="absolute -top-16 left-1/2 -translate-x-1/2 w-[880px] h-[200px] pointer-events-none"
-              style={{
-                background: `radial-gradient(ellipse 70% 65% at 50% 100%, rgba(254, 240, 138, 0.75) 0%, rgba(245, 158, 11, 0.5) 35%, rgba(234, 88, 12, 0.18) 70%, transparent 100%)`,
-                filter: `blur(36px)`
-              }}
-            />
+        {/* Showcase Container with Aceternity Curved Glowing Orange Planet Horizon Arc */}
+        <div className="w-full max-w-5xl relative pb-16 mt-2">
+          {/* 1. Volumetric Atmospheric Solar Flare along the curve */}
+          <div 
+            className="absolute -top-36 left-1/2 -translate-x-1/2 w-[1050px] h-[240px] pointer-events-none z-0"
+            style={{
+              background: `radial-gradient(ellipse 70% 55% at 50% 85%, rgba(245, 158, 11, 0.7) 0%, rgba(234, 88, 12, 0.35) 40%, rgba(180, 83, 9, 0.1) 70%, transparent 100%)`,
+              filter: `blur(45px)`
+            }}
+          />
 
-            {/* 2. Conic Atmospheric Solar Rays Exposure */}
-            <div 
-              className="absolute -top-24 left-1/2 -translate-x-1/2 w-[950px] h-[240px] pointer-events-none opacity-85 animate-pulse-glow"
-              style={{
-                background: `conic-gradient(from 230deg at 50% 100%, transparent 0deg, rgba(254, 240, 138, 0.2) 30deg, rgba(255, 255, 255, 0.45) 50deg, rgba(254, 240, 138, 0.2) 70deg, transparent 100deg)`,
-                filter: `blur(26px)`
-              }}
-            />
-
-            {/* 3. Intense Solar Corona Core Flare right at the Apex */}
-            <div 
-              className="absolute top-[8px] left-1/2 -translate-x-1/2 w-[480px] h-[30px] pointer-events-none"
-              style={{
-                background: `radial-gradient(ellipse 85% 100% at 50% 50%, rgba(255, 255, 255, 1) 0%, rgba(254, 240, 138, 0.9) 35%, rgba(245, 158, 11, 0.5) 70%, transparent 100%)`,
-                filter: `blur(7px)`
-              }}
-            />
-
-            {/* 4. The SVG Curved Horizon Dome Arc with Diffused Light Fill */}
+          {/* 2. Precision Curved Glowing SVG Planet Arc */}
+          <div className="absolute -top-28 left-1/2 -translate-x-1/2 w-[1100px] h-[170px] pointer-events-none z-10 overflow-visible">
             <svg 
-              viewBox="0 0 1000 160" 
-              className="w-full h-full pointer-events-none overflow-visible"
+              viewBox="0 0 1100 170" 
+              className="w-full h-full"
               fill="none" 
               xmlns="http://www.w3.org/2000/svg"
             >
               <defs>
-                <linearGradient id="aceternityOrangeArc" x1="0%" y1="0%" x2="100%" y2="0%">
+                <linearGradient id="aceternityArcGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                   <stop offset="0%" stopColor="#f59e0b" stopOpacity="0" />
-                  <stop offset="15%" stopColor="#f59e0b" stopOpacity="0.5" />
-                  <stop offset="50%" stopColor="#ffffff" stopOpacity="1" />
-                  <stop offset="85%" stopColor="#f59e0b" stopOpacity="0.5" />
+                  <stop offset="20%" stopColor="#f59e0b" stopOpacity="0.45" />
+                  <stop offset="50%" stopColor="#fbbf24" stopOpacity="1" />
+                  <stop offset="80%" stopColor="#f59e0b" stopOpacity="0.45" />
                   <stop offset="100%" stopColor="#f59e0b" stopOpacity="0" />
                 </linearGradient>
-                <linearGradient id="arcLightExposureFill" x1="50%" y1="0%" x2="50%" y2="100%">
-                  <stop offset="0%" stopColor="#fef08a" stopOpacity="0.35" />
-                  <stop offset="60%" stopColor="#f59e0b" stopOpacity="0.1" />
-                  <stop offset="100%" stopColor="#f59e0b" stopOpacity="0" />
-                </linearGradient>
-                <filter id="arcNeonGlow" x="-20%" y="-20%" width="140%" height="140%">
-                  <feGaussianBlur stdDeviation="8" result="blur1" />
-                  <feGaussianBlur stdDeviation="18" result="blur2" />
+                <filter id="arcLaserGlow" x="-20%" y="-40%" width="140%" height="180%">
+                  <feGaussianBlur stdDeviation="4" result="blur" />
                   <feMerge>
-                    <feMergeNode in="blur2" />
-                    <feMergeNode in="blur1" />
+                    <feMergeNode in="blur" />
                     <feMergeNode in="SourceGraphic" />
                   </feMerge>
                 </filter>
               </defs>
 
-              {/* Diffused Atmosphere Under-Glow */}
+              {/* Faint Outer Corona Arc */}
               <path 
-                d="M 40 145 Q 500 15 960 145 L 960 160 L 40 160 Z" 
-                fill="url(#arcLightExposureFill)" 
-              />
-
-              {/* Faint Outer Glowing Halo Arc */}
-              <path 
-                d="M 40 145 Q 500 15 960 145" 
+                d="M 20 160 Q 550 15 1080 160" 
                 stroke="#f59e0b" 
-                strokeWidth="7" 
-                strokeOpacity="0.3"
-                filter="url(#arcNeonGlow)"
+                strokeWidth="6" 
+                strokeOpacity="0.35"
+                filter="blur(8px)"
               />
 
-              {/* Medium Radiance Arc */}
+              {/* Intense Sharp Glowing Horizon Arc Line */}
               <path 
-                d="M 40 145 Q 500 15 960 145" 
-                stroke="#fbbf24" 
-                strokeWidth="3" 
-                strokeOpacity="0.75"
-              />
-
-              {/* Crisp Razor-Sharp Center Laser Arc */}
-              <path 
-                d="M 40 145 Q 500 15 960 145" 
-                stroke="url(#aceternityOrangeArc)" 
-                strokeWidth="2" 
+                d="M 20 160 Q 550 15 1080 160" 
+                stroke="url(#aceternityArcGradient)" 
+                strokeWidth="2.5" 
+                filter="url(#arcLaserGlow)"
                 style={{
-                  filter: `drop-shadow(0 0 12px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 25px rgba(245, 158, 11, 0.9))`
+                  filter: "drop-shadow(0 0 14px rgba(245, 158, 11, 0.95)) drop-shadow(0 0 32px rgba(234, 88, 12, 0.65))"
                 }}
               />
             </svg>
