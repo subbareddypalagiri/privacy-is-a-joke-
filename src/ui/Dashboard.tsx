@@ -108,9 +108,17 @@ export const Dashboard: React.FC = () => {
           }} 
         />
         <div 
-          className="absolute -top-32 left-1/2 -translate-x-1/2 w-[900px] h-[450px] opacity-40"
+          className="absolute -top-20 left-1/2 -translate-x-1/2 w-[1100px] h-[480px] pointer-events-none"
           style={{
-            background: `radial-gradient(ellipse at 50% 0%, rgba(245, 158, 11, 0.35), rgba(217, 119, 6, 0.1) 50%, transparent 80%)`
+            background: `radial-gradient(ellipse 65% 55% at 50% 10%, rgba(245, 158, 11, 0.75) 0%, rgba(234, 88, 12, 0.45) 35%, rgba(180, 83, 9, 0.15) 65%, transparent 100%)`,
+            filter: `blur(45px)`
+          }}
+        />
+        <div 
+          className="absolute -top-10 left-1/2 -translate-x-1/2 w-[700px] h-[220px] pointer-events-none"
+          style={{
+            background: `radial-gradient(ellipse 55% 45% at 50% 20%, rgba(255, 215, 64, 0.9) 0%, rgba(245, 158, 11, 0.6) 45%, transparent 100%)`,
+            filter: `blur(28px)`
           }}
         />
       </div>
