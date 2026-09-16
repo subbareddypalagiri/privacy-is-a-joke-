@@ -191,37 +191,37 @@ export default function LandingPage() {
 
         {/* Showcase Container with the Exact Radiant Orange Horizon Glow */}
         <div className="w-full max-w-5xl relative pb-16">
-          {/* THE RADIANT ELEVATED ORANGE HORIZON GLOW (MOVED UP & INTENSIFIED) */}
-          {/* Layer 1: Wide High-Altitude Atmospheric Solar Flare */}
+          {/* THE RADIANT BALANCED ORANGE HORIZON GLOW (CALIBRATED DOWNWARDS) */}
+          {/* Layer 1: Atmospheric Solar Flare */}
           <div 
-            className="absolute -top-72 left-1/2 -translate-x-1/2 w-[1150px] h-[520px] pointer-events-none z-0"
+            className="absolute -top-40 left-1/2 -translate-x-1/2 w-[980px] h-[340px] pointer-events-none z-0"
             style={{
-              background: `radial-gradient(ellipse 70% 60% at 50% 50%, rgba(245, 158, 11, 0.85) 0%, rgba(234, 88, 12, 0.6) 35%, rgba(194, 65, 12, 0.25) 65%, transparent 100%)`,
-              filter: `blur(60px)`
+              background: `radial-gradient(ellipse 70% 60% at 50% 80%, rgba(245, 158, 11, 0.75) 0%, rgba(234, 88, 12, 0.45) 40%, rgba(194, 65, 12, 0.15) 70%, transparent 100%)`,
+              filter: `blur(48px)`
             }}
           />
-          {/* Layer 2: Concentrated Radiant Sunburst Core */}
+          {/* Layer 2: Concentrated Radiant Core right above console */}
           <div 
-            className="absolute -top-48 left-1/2 -translate-x-1/2 w-[850px] h-[320px] pointer-events-none z-0"
+            className="absolute -top-24 left-1/2 -translate-x-1/2 w-[780px] h-[200px] pointer-events-none z-0"
             style={{
-              background: `radial-gradient(ellipse 60% 55% at 50% 55%, rgba(255, 215, 64, 0.98) 0%, rgba(245, 158, 11, 0.9) 30%, rgba(217, 119, 6, 0.5) 65%, transparent 100%)`,
-              filter: `blur(36px)`
+              background: `radial-gradient(ellipse 60% 55% at 50% 85%, rgba(255, 215, 64, 0.95) 0%, rgba(245, 158, 11, 0.8) 35%, rgba(217, 119, 6, 0.3) 70%, transparent 100%)`,
+              filter: `blur(28px)`
             }}
           />
-          {/* Layer 3: Vibrant Horizon Glow immediately above the console */}
+          {/* Layer 3: Vibrant Immediate Crest on the horizon */}
           <div 
-            className="absolute -top-20 left-1/2 -translate-x-1/2 w-[680px] h-[160px] pointer-events-none z-0"
+            className="absolute -top-10 left-1/2 -translate-x-1/2 w-[620px] h-[100px] pointer-events-none z-0"
             style={{
-              background: `radial-gradient(ellipse 55% 50% at 50% 80%, rgba(255, 230, 100, 1) 0%, rgba(245, 158, 11, 0.95) 45%, transparent 100%)`,
-              filter: `blur(20px)`
+              background: `radial-gradient(ellipse 55% 50% at 50% 95%, rgba(255, 235, 130, 1) 0%, rgba(245, 158, 11, 0.85) 50%, transparent 100%)`,
+              filter: `blur(16px)`
             }}
           />
           {/* Layer 4: Laser Edge Horizon Line Rim on top of console */}
           <div 
-            className="absolute -top-[1px] left-1/2 -translate-x-1/2 w-[720px] h-[2px] pointer-events-none z-20"
+            className="absolute -top-[1px] left-1/2 -translate-x-1/2 w-[680px] h-[2px] pointer-events-none z-20"
             style={{
               background: `linear-gradient(90deg, transparent 0%, rgba(245, 158, 11, 0.5) 15%, rgba(255, 255, 255, 1) 50%, rgba(245, 158, 11, 0.5) 85%, transparent 100%)`,
-              boxShadow: `0 -4px 30px 6px rgba(245, 158, 11, 0.95), 0 -8px 60px 14px rgba(234, 88, 12, 0.75)`
+              boxShadow: `0 -3px 24px 4px rgba(245, 158, 11, 0.85), 0 -6px 45px 10px rgba(234, 88, 12, 0.6)`
             }}
           />
 
