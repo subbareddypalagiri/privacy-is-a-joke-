@@ -14,6 +14,7 @@ import { AnimatedMetricCounter } from './components/AnimatedMetricCounter';
 import { NeuromorphicTremorOscilloscope } from './components/NeuromorphicTremorOscilloscope';
 import { QuantumEntanglementScope } from './components/QuantumEntanglementScope';
 import { LiveEvasionTestBench } from './components/LiveEvasionTestBench';
+import { MilitaryEcosystemMatrix } from './components/MilitaryEcosystemMatrix';
 
 interface DaemonStats {
   running: boolean;
@@ -238,6 +239,9 @@ export const Dashboard: React.FC = () => {
             </div>
           </div>
         </section>
+ 
+        {/* DEFCON-1 Military Sovereign Unified Ecosystem Matrix */}
+        <MilitaryEcosystemMatrix />
 
         {/* Central Tactical Tri-Pillar: Radar, Switch, Shannon Waveform */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">

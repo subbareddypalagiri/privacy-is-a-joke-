@@ -17,6 +17,9 @@ import { QuantumKeyDistributionEngine } from '../src/crypto/qkd_entanglement';
 import { DilithiumSignatureEngine } from '../src/crypto/pqc_digital_signatures';
 import { NeuromorphicCamouflageEngine } from '../src/kernel/neuromorphic_camouflager';
 import { AdversarialGANPoisoner } from '../src/kernel/gan_adversarial_poisoner';
+import { ZeroClickQuarantineEngine } from '../src/crypto/zero_click_quarantine';
+import { MilitaryChaffEngine } from '../src/crypto/military_chaff_engine';
+import { InformationTheoreticOtpEngine } from '../src/crypto/information_theoretic_otp';
 
 let passed = 0;
 let failed = 0;
@@ -248,8 +251,42 @@ async function runTestSuite() {
   assert(perturbation.adversarialVector.length === 16, 'Synthesizes 16-dim adversarial latent interest vector');
   assert(perturbation.neuralLossMaximized > 4.0, `Forces neural loss maximization (${perturbation.neuralLossMaximized} > 4.0)`);
 
+  // 23. Anti-Zero-Click Pegasus Spyware & C2 Beacon Quarantine
+  console.log('\n23. Anti-Zero-Click Pegasus Spyware & C2 Quarantine:');
+  const quarantine = new ZeroClickQuarantineEngine();
+  const pegasusVerdict = quarantine.evaluateQuery('nso-pegasus-c2-relay.internal');
+  assert(pegasusVerdict.quarantined, 'Identifies and quarantines NSO Pegasus zero-click signature');
+  assert(pegasusVerdict.threatLevel === 'CRITICAL_ZERO_CLICK_C2', 'Assigns CRITICAL_ZERO_CLICK_C2 threat level');
+  assert(quarantine.isQuarantined('nso-pegasus-c2-relay.internal'), 'Verifies host exists in active quarantine isolation set');
+  const cleanDomainVerdict = quarantine.evaluateQuery('clean-encyclopedia.org');
+  assert(!cleanDomainVerdict.quarantined, 'Allows clean organic domain traffic');
+
+  // 24. Military-Grade Steganographic Chaff & Constant-MTU Padding
+  console.log('\n24. Constant-MTU Steganographic Chaff (Traffic Analysis Defense):');
+  const chaff = new MilitaryChaffEngine();
+  const smallPayload = Buffer.from('DNS_QUERY_PAYLOAD_32_BYTES');
+  const padded = chaff.padToUniformMtu(smallPayload);
+  assert(padded.paddedLength === 512, `Normalizes variable 26B payload to uniform 512-byte MTU block (${padded.paddedLength}B)`);
+  assert(padded.paddingBytesAdded > 0, `Appends ${padded.paddingBytesAdded} bytes of cryptographic chaff noise`);
+  const dummyChaff = chaff.generateDummyChaffPacket(1024);
+  assert(chaff.isChaffPacket(dummyChaff), 'Generates valid decoy dummy packet recognized by internal chaff classifier');
+  assert(dummyChaff.length === 1024, 'Synthesizes exact 1024-byte dummy decoy burst');
+
+  // 25. Information-Theoretic One-Time Pad (Shannon Perfect Secrecy)
+  console.log('\n25. Information-Theoretic One-Time Pad (Shannon Perfect Secrecy):');
+  const otp = new InformationTheoreticOtpEngine();
+  const secretMessage = Buffer.from('TOP_SECRET_MILITARY_COORDINATES_APEX');
+  const singleUsePad = otp.generateSingleUsePad(secretMessage.length);
+  const encryptedBundle = otp.encrypt(secretMessage, singleUsePad);
+  assert(encryptedBundle.ciphertext.length === secretMessage.length, 'Generates exact-length ciphertext under Shannon OTP');
+  assert(!encryptedBundle.ciphertext.equals(secretMessage), 'Ciphertext exhibits complete entropy dislocation');
+  const decryptedMessage = otp.decrypt(encryptedBundle.ciphertext, singleUsePad);
+  assert(decryptedMessage.equals(secretMessage), 'Decodes original plaintext with 100% mathematical fidelity');
+  otp.zeroizeMemory(singleUsePad);
+  assert(singleUsePad.every(b => b === 0), 'Zeroizes single-use pad in memory to defeat physical cold-boot attacks');
+
   console.log('\n========================================================');
-  console.log(`📊 FINAL APEX AUDIT RESULTS: ${passed} PASSED | ${failed} FAILED`);
+  console.log(`📊 FINAL APEX MILITARY AUDIT RESULTS: ${passed} PASSED | ${failed} FAILED`);
   console.log('========================================================\n');
 
   if (failed > 0) {

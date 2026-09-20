@@ -16,6 +16,8 @@ import { ECHSynthesizer } from '../core/ech_synthesizer';
 import { ProductionRadixTrie } from '../core/radix_trie';
 import { WindowsNetworkWatcher } from './network_watcher';
 import { startControlApi } from './daemon_api';
+import { ZeroClickQuarantineEngine } from '../crypto/zero_click_quarantine';
+import { MilitaryChaffEngine } from '../crypto/military_chaff_engine';
 import { SecurityEvent, SystemHealthMetrics } from '../core/types';
 
 export class ProductionDnsEngine {
@@ -34,6 +36,8 @@ export class ProductionDnsEngine {
   private echSynthesizer = new ECHSynthesizer();
   private cache = new IndustrialDnsCache(10000);
   private networkWatcher = new WindowsNetworkWatcher();
+  public zeroClickQuarantine = new ZeroClickQuarantineEngine();
+  public militaryChaff = new MilitaryChaffEngine();
 
   private totalQueries: number = 0;
   private blockedQueries: number = 0;
@@ -153,6 +157,14 @@ export class ProductionDnsEngine {
     if (this.bankRouter.isBankOrGovt(domain)) {
       this.recordSecurityEvent(domain, 'BANKING_SAFE_ROUTE', 'ZONE_A_FINANCIAL', Date.now() - start);
       return this.forwardMultiDohDirect(msg, domain, start);
+    }
+
+    // Military Vector 23: Anti-Pegasus Zero-Click Spyware & C2 Quarantine
+    const quarantineVerdict = this.zeroClickQuarantine.evaluateQuery(domain);
+    if (quarantineVerdict.quarantined) {
+      this.blockedQueries += 1;
+      this.recordSecurityEvent(domain, 'BLOCKED_ADTECH', 'ZONE_SINKHOLE', Date.now() - start, quarantineVerdict.matchedSignature || 'ZERO_CLICK_C2');
+      return this.createSinkholeResponse(msg);
     }
 
     // 3. High-Speed Layer 1 Bloom + Layer 2 Suffix Radix Dropper (< 5ns / 0.05ms Sinkhole)
