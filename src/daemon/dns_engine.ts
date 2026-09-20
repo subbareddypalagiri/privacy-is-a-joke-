@@ -98,8 +98,10 @@ export class ProductionDnsEngine {
           resolve();
         });
 
-        this.server.bind(this.port, '127.0.0.1');
-      } catch (err) {
+          this.server.bind(this.port, '0.0.0.0', () => {
+            console.log(`[GhostShield Institutional Engine] 🛡️ Port 53 Listening on 0.0.0.0 (LAN & Mobile Ready)`);
+          });
+        } catch (err) {
         reject(err);
       }
     });
@@ -115,24 +117,27 @@ export class ProductionDnsEngine {
     }
   }
 
-  private async handleQuery(msg: Buffer, rinfo: dgram.RemoteInfo) {
+  public async resolveWireQuery(msg: Buffer): Promise<Buffer> {
     const start = Date.now();
     this.totalQueries += 1;
     const { domain, qType } = this.extractQueryDetails(msg);
     const txId = msg.length >= 2 ? msg.readUInt16BE(0) : 0;
 
     if (!domain) {
-      this.forwardViaMultiDoh(msg, rinfo, 'unknown.domain', txId);
-      return;
+      try {
+        const { response } = await this.multiDoh.resolve(msg);
+        return response;
+      } catch (e) {
+        return this.createSinkholeResponse(msg);
+      }
     }
 
     // 0. Encrypted Client Hello (ECH / RFC 9460 Type 65 HTTPS RR) Synthesis
     if (this.echSynthesizer.isHttpsRecordQuery(qType) && !this.dynamicFilter.isBlocked(domain)) {
       try {
         const echResponse = this.echSynthesizer.synthesizeHttpsECHResponse(domain, txId);
-        this.server?.send(echResponse, rinfo.port, rinfo.address);
         this.recordSecurityEvent(domain, 'FORWARDED_DOH', 'ZONE_B_ENCRYPTED', Date.now() - start, 'ECH-Synthesizer');
-        return;
+        return echResponse;
       } catch (e) {}
     }
 
@@ -140,25 +145,21 @@ export class ProductionDnsEngine {
     const cachedPacket = this.cache.get(domain, txId);
     if (cachedPacket) {
       this.cachedQueries += 1;
-      this.server?.send(cachedPacket, rinfo.port, rinfo.address);
       this.recordSecurityEvent(domain, 'FORWARDED_CACHE_HIT', 'ZONE_B_ENCRYPTED', Date.now() - start);
-      return;
+      return cachedPacket;
     }
 
     // 2. Zone A Banking & Govt Whitelist (100% Uninterrupted Safe Route)
     if (this.bankRouter.isBankOrGovt(domain)) {
       this.recordSecurityEvent(domain, 'BANKING_SAFE_ROUTE', 'ZONE_A_FINANCIAL', Date.now() - start);
-      this.forwardViaMultiDoh(msg, rinfo, domain, txId);
-      return;
+      return this.forwardMultiDohDirect(msg, domain, start);
     }
 
     // 3. High-Speed Layer 1 Bloom + Layer 2 Suffix Radix Dropper (< 5ns / 0.05ms Sinkhole)
     if (this.dynamicFilter.isBlocked(domain)) {
       this.blockedQueries += 1;
       this.recordSecurityEvent(domain, 'BLOCKED_ADTECH', 'ZONE_SINKHOLE', Date.now() - start);
-      const sinkholeResponse = this.createSinkholeResponse(msg);
-      this.server?.send(sinkholeResponse, rinfo.port, rinfo.address);
-      return;
+      return this.createSinkholeResponse(msg);
     }
 
     // 4. CNAME Cloaking Detection (Unmasks Disguised First-Party Trackers)
@@ -166,26 +167,30 @@ export class ProductionDnsEngine {
       this.blockedQueries += 1;
       this.cnameUncloaked += 1;
       this.recordSecurityEvent(domain, 'BLOCKED_CNAME_CLOAK', 'ZONE_SINKHOLE', Date.now() - start);
-      const sinkholeResponse = this.createSinkholeResponse(msg);
-      this.server?.send(sinkholeResponse, rinfo.port, rinfo.address);
-      return;
+      return this.createSinkholeResponse(msg);
     }
 
     // 5. Clean Web Traffic -> Multi-Upstream Racing DoH Engine
-    this.forwardViaMultiDoh(msg, rinfo, domain, txId);
+    return this.forwardMultiDohDirect(msg, domain, start);
   }
 
-  private async forwardViaMultiDoh(msg: Buffer, rinfo: dgram.RemoteInfo, domain: string, txId: number) {
-    const start = Date.now();
+  private async forwardMultiDohDirect(msg: Buffer, domain: string, start: number): Promise<Buffer> {
     try {
       const { response, upstream, latencyMs } = await this.multiDoh.resolve(msg);
       this.forwardedQueries += 1;
       this.cache.set(domain, response, 300, upstream, latencyMs);
-      this.server?.send(response, rinfo.port, rinfo.address);
       this.recordSecurityEvent(domain, 'FORWARDED_DOH', 'ZONE_B_ENCRYPTED', Date.now() - start, upstream);
+      return response;
     } catch (err) {
-      this.forwardUdpFallback(msg, rinfo);
+      return this.createSinkholeResponse(msg);
     }
+  }
+
+  private async handleQuery(msg: Buffer, rinfo: dgram.RemoteInfo) {
+    try {
+      const response = await this.resolveWireQuery(msg);
+      this.server?.send(response, rinfo.port, rinfo.address);
+    } catch (e) {}
   }
 
   private forwardUdpFallback(msg: Buffer, rinfo: dgram.RemoteInfo) {
