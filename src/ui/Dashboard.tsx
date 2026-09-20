@@ -11,6 +11,9 @@ import { LiveThreatRadar } from './components/LiveThreatRadar';
 import { LiveEntropyWaveform } from './components/LiveEntropyWaveform';
 import { LiveInterceptStream } from './components/LiveInterceptStream';
 import { AnimatedMetricCounter } from './components/AnimatedMetricCounter';
+import { NeuromorphicTremorOscilloscope } from './components/NeuromorphicTremorOscilloscope';
+import { QuantumEntanglementScope } from './components/QuantumEntanglementScope';
+import { LiveEvasionTestBench } from './components/LiveEvasionTestBench';
 
 interface DaemonStats {
   running: boolean;
@@ -291,6 +294,12 @@ export const Dashboard: React.FC = () => {
           </div>
 
         </section>
+ 
+        {/* Tier-0 Quantum Cryptographic & Neuromorphic Oscilloscope Telemetry Pair */}
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+          <NeuromorphicTremorOscilloscope />
+          <QuantumEntanglementScope />
+        </section>
 
         {/* 16-Vector Sovereign Defense Grid Matrix */}
         <section className="rounded-3xl p-6 sm:p-8 bg-[#0c0c0e]/90 border border-[#27272a] shadow-2xl">
@@ -385,6 +394,9 @@ export const Dashboard: React.FC = () => {
 
           </div>
         </section>
+ 
+        {/* Interactive Evasion & Poison Test Bench */}
+        <LiveEvasionTestBench />
 
         {/* Post-Quantum Kyber-768 Lattice Cryptography & Zero-Knowledge Merkle Deck */}
         <section className="rounded-3xl p-6 sm:p-8 bg-[#0c0c0e]/90 border border-[#27272a] shadow-2xl relative overflow-hidden">
