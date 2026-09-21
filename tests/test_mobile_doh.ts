@@ -10,7 +10,9 @@ async function testMobileDohAndApi() {
   await new Promise(r => setTimeout(r, 600));
 
   // 1. Test LAN Status endpoint
-  const lanRes = await fetch('http://127.0.0.1:5359/api/mobile/lan-status');
+  const lanRes = await fetch('http://127.0.0.1:5359/api/mobile/lan-status', {
+    headers: { 'Connection': 'close' }
+  });
   const lanData = await lanRes.json();
   console.log('LAN Status Response:', lanData);
   if (!lanData.lanIp || !lanData.dohUrl) {
@@ -18,7 +20,9 @@ async function testMobileDohAndApi() {
   }
 
   // 2. Test Mobile .mobileconfig endpoint
-  const profileRes = await fetch('http://127.0.0.1:5359/api/mobile/profile.mobileconfig');
+  const profileRes = await fetch('http://127.0.0.1:5359/api/mobile/profile.mobileconfig', {
+    headers: { 'Connection': 'close' }
+  });
   const profileXml = await profileRes.text();
   console.log('Profile Content Type:', profileRes.headers.get('content-type'));
   if (!profileXml.includes('com.apple.dnsSettings.managed')) {
@@ -41,7 +45,7 @@ async function testMobileDohAndApi() {
 
   const dohRes = await fetch('http://127.0.0.1:5359/dns-query', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/dns-message' },
+    headers: { 'Content-Type': 'application/dns-message', 'Connection': 'close' },
     body: queryPacket,
   });
 
@@ -53,9 +57,17 @@ async function testMobileDohAndApi() {
     throw new Error('DoH response is not a valid DNS response packet');
   }
 
-  server.close();
-  console.log('✅ ALL MOBILE DOH & LAN TESTS PASSED 100%!');
-  process.exit(0);
+  if (typeof (server as any).closeAllConnections === 'function') {
+    (server as any).closeAllConnections();
+  }
+  server.unref();
+
+  await new Promise<void>((resolve) => {
+    server.close(() => {
+      console.log('✅ ALL MOBILE DOH & LAN TESTS PASSED 100%!');
+      resolve();
+    });
+  });
 }
 
 testMobileDohAndApi().catch(e => {

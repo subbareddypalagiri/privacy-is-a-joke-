@@ -4,11 +4,13 @@ import {
   ExternalLink, Search, Bell, Activity, Lock, Smartphone,
   CheckCircle2, Cpu, Zap, Globe, Sparkles, Layers, Landmark,
   EyeOff, Unlink, Binary, Sliders, Mic, FileCode, Check, RefreshCw,
-  Timer, Database, ShieldCheck, Key, Orbit, Brain
+  Timer, Database, ShieldCheck, Key, Orbit, Brain,
+  ShoppingBag, ShieldAlert
 } from 'lucide-react';
 import { LiveThreatRadar } from './components/LiveThreatRadar';
 import { LiveEntropyWaveform } from './components/LiveEntropyWaveform';
 import { KineticMeshGrid } from './components/KineticMeshGrid';
+import { StalkerDecouplerTestBench } from './components/StalkerDecouplerTestBench';
 import { 
   downloadIosMobileconfig, 
   downloadWindowsZip, 
@@ -78,7 +80,10 @@ export default function LandingPage() {
             {/* Nav Links */}
             <div className="hidden lg:flex items-center justify-center gap-6 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
               <a href="#vectors" className="text-xs text-[#888888] hover:text-white transition-colors tracking-wide">
-                17-Vector Grid
+                28-Vector Matrix
+              </a>
+              <a href="#decoupler" className="text-xs text-amber-400 hover:text-amber-300 transition-colors tracking-wide font-medium">
+                Stalker Decoupler
               </a>
               <a href="#quantum" className="text-xs text-[#888888] hover:text-white transition-colors tracking-wide">
                 Post-Quantum ML-KEM
@@ -352,17 +357,17 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 22-Vector Sovereign Defense Grid Section */}
+      {/* 28-Vector Sovereign Defense Grid + 2026 Decoupler */}
       <section id="vectors" className="max-w-7xl mx-auto px-6 py-20 relative z-10 border-t border-[#27272a]">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-xs font-mono uppercase tracking-widest text-amber-400 font-bold px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20">
             COMPREHENSIVE SURVEILLANCE SINKHOLE
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white mt-4 font-display">
-            The 22-Vector Sovereign Defense Grid
+            The 28-Vector Sovereign Defense Matrix
           </h2>
           <p className="text-sm sm:text-base text-[#a1a1aa] mt-3 leading-relaxed">
-            Eliminates behavioral profiling across your network, OS hardware, and browser runtime with zero performance impact.
+            Eliminates cross-app tracking, carrier injection, state BGP hijacks, and behavioral profiling across network, OS hardware, and mobile runtimes with zero performance impact.
           </p>
         </div>
 
@@ -632,7 +637,101 @@ export default function LandingPage() {
             <span className="mt-4 inline-block text-[10px] font-mono text-red-400 uppercase font-semibold px-2 py-0.5 rounded bg-red-500/10 border border-red-500/20">FGSM MAX LOSS</span>
           </div>
 
+          {/* Vector 23 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-rose-500/50 hover:shadow-[0_0_30px_rgba(244,63,94,0.12)] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-400 flex items-center justify-center mb-4 border border-rose-500/20 group-hover:scale-110 transition-transform">
+              <ShieldAlert className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-semibold text-white">23. Zero-Click Messaging Sandbox</h3>
+            <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
+              Quarantines incoming iMessage, WhatsApp & Telegram attachment media packets in RAM, neutralizing BlastPass zero-click exploits.
+            </p>
+            <span className="mt-4 inline-block text-[10px] font-mono text-rose-400 uppercase font-semibold px-2 py-0.5 rounded bg-rose-500/10 border border-rose-500/20">0-CLICK QUARANTINE</span>
+          </div>
+
+          {/* Vector 24 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(6,182,212,0.12)] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-4 border border-cyan-500/20 group-hover:scale-110 transition-transform">
+              <Radio className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-semibold text-white">24. Military Electronic Counter-Chaff</h3>
+            <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
+              Emits high-density microsecond synthetic decoy traffic bursts at random intervals, masking real packet transmission timing from ISP eavesdroppers.
+            </p>
+            <span className="mt-4 inline-block text-[10px] font-mono text-cyan-400 uppercase font-semibold px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/20">CHAFF DISPERSED</span>
+          </div>
+
+          {/* Vector 25 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-indigo-500/50 hover:shadow-[0_0_30px_rgba(99,102,241,0.12)] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-4 border border-indigo-500/20 group-hover:scale-110 transition-transform">
+              <Key className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-semibold text-white">25. Information-Theoretic One-Time Pad</h3>
+            <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
+              Shannon-perfect $H(M|C) = H(M)$ true OTP entropy stream for high-security payload sealing, mathematically unbreakable by any quantum computer.
+            </p>
+            <span className="mt-4 inline-block text-[10px] font-mono text-indigo-400 uppercase font-semibold px-2 py-0.5 rounded bg-indigo-500/10 border border-indigo-500/20">SHANNON PERFECT OTP</span>
+          </div>
+
+          {/* Vector 26 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-emerald-500/50 hover:shadow-[0_0_30px_rgba(16,185,129,0.12)] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-4 border border-emerald-500/20 group-hover:scale-110 transition-transform">
+              <Layers className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-semibold text-white">26. Deep Packet Inspection Carrier Neutralizer</h3>
+            <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
+              Detects and strips middlebox ad-injection scripts from telecom carriers (Jio, Airtel) and fragments TLS ClientHello to bypass DPI filters.
+            </p>
+            <span className="mt-4 inline-block text-[10px] font-mono text-emerald-400 uppercase font-semibold px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20">DPI INJECTION STRIPPED</span>
+          </div>
+
+          {/* Vector 27 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-amber-500/50 hover:shadow-[0_0_30px_rgba(245,158,11,0.12)] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-4 border border-amber-500/20 group-hover:scale-110 transition-transform">
+              <Globe className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-semibold text-white">27. Autonomous BGP Hijack Sentinel</h3>
+            <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
+              Validates RPKI Route Origin Authorizations (ROA) in real-time, detecting state-level BGP prefix hijacks and failing over to encrypted DoH instantly.
+            </p>
+            <span className="mt-4 inline-block text-[10px] font-mono text-amber-400 uppercase font-semibold px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/20">RPKI ORIGIN VALIDATED</span>
+          </div>
+
+          {/* Vector 28 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-sky-500/50 hover:shadow-[0_0_30px_rgba(14,165,233,0.12)] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-400 flex items-center justify-center mb-4 border border-sky-500/20 group-hover:scale-110 transition-transform">
+              <Zap className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-semibold text-white">28. DNS-over-QUIC (RFC 9250) 0-RTT Multiplexer</h3>
+            <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
+              Next-gen DoQ protocol eliminates TCP Head-of-Line blocking, supports 0-RTT connection resumption, and survives mobile Wi-Fi to 5G network migration.
+            </p>
+            <span className="mt-4 inline-block text-[10px] font-mono text-sky-400 uppercase font-semibold px-2 py-0.5 rounded bg-sky-500/10 border border-sky-500/20">RFC 9250 0-RTT</span>
+          </div>
+
+          {/* 2026 Apex Vector 29 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-amber-500/40 hover:border-amber-400 hover:shadow-[0_0_30px_rgba(245,158,11,0.2)] transition-all group md:col-span-2 lg:col-span-3">
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-10 h-10 rounded-xl bg-amber-500/15 text-amber-400 flex items-center justify-center border border-amber-500/30 group-hover:scale-110 transition-transform">
+                <ShoppingBag className="w-5 h-5" />
+              </div>
+              <span className="text-[10px] font-mono font-bold px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/25">
+                2026 APEX BREAKTHROUGH
+              </span>
+            </div>
+            <h3 className="text-base font-semibold text-white">29. Cross-App Shopping Telemetry & Social Ad Decoupler</h3>
+            <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
+              Cuts the background wire between e-commerce apps (Flipkart, Meesho, Myntra, Amazon) and surveillance networks (Meta Graph API, AppsFlyer, Criteo, Branch.io). View products or add to cart freely without ads following you to Instagram, Facebook, or YouTube — 100% first-party shopping speed preserved.
+            </p>
+            <span className="mt-4 inline-block text-[10px] font-mono text-amber-400 uppercase font-semibold px-2.5 py-0.5 rounded bg-amber-500/10 border border-amber-500/20">WIRE SEVERED AT OS BOUNDARY</span>
+          </div>
+
         </div>
+      </section>
+
+      {/* Interactive Stalker Decoupler Test Bench */}
+      <section id="decoupler" className="max-w-7xl mx-auto px-6 py-12 relative z-10">
+        <StalkerDecouplerTestBench />
       </section>
 
       {/* Post-Quantum & ZK Section */}

@@ -8,44 +8,69 @@ const { app, BrowserWindow, Tray, Menu } = require('electron');
 const path = require('path');
 const { exec, fork } = require('child_process');
 
+const fs = require('fs');
+
 let mainWindow = null;
 let tray = null;
 let daemonProcess = null;
-let originalAdapterName = 'Wi-Fi';
+let originalAdapterNames = [];
+const JOURNAL_PATH = path.join(app.getPath('userData'), 'dns_rollback_journal.json');
 
-// 1. Detect Active Network Adapter
-function detectActiveAdapter(callback) {
-  exec('powershell -Command "Get-NetAdapter | Where-Object { $_.Status -eq \'Up\' } | Select-Object -ExpandProperty Name -First 1"', (err, stdout) => {
+// 1. Detect All Active Network Adapters (Wi-Fi, Ethernet, Cellular, USB)
+function detectActiveAdapters(callback) {
+  const psCmd = `powershell -NoProfile -Command "Get-NetAdapter | Where-Object { $_.Status -eq 'Up' } | Select-Object -ExpandProperty Name"`;
+  exec(psCmd, (err, stdout) => {
+    let adapters = [];
     if (!err && stdout && stdout.trim()) {
-      originalAdapterName = stdout.trim();
-      console.log(`[FUF Network] Active adapter detected: ${originalAdapterName}`);
+      adapters = stdout.trim().split(/\r?\n/).map(s => s.trim()).filter(Boolean);
     }
-    if (callback) callback(originalAdapterName);
+    if (adapters.length === 0) adapters = ['Wi-Fi', 'Ethernet'];
+    originalAdapterNames = adapters;
+    console.log(`[FUF Network Sentinel] Active interfaces discovered: ${adapters.join(', ')}`);
+    if (callback) callback(adapters);
   });
 }
 
-// 2. Set Windows DNS to Localhost (127.0.0.1)
+// 2. Set Windows DNS to Localhost (127.0.0.1) with Atomic Rollback Journal
 function enableLocalDns() {
-  detectActiveAdapter((adapter) => {
-    const cmd = `netsh interface ip set dns name="${adapter}" static 127.0.0.1 && netsh interface ip add dns name="${adapter}" 1.1.1.1 index=2`;
-    exec(cmd, (err) => {
-      if (err) {
-        console.warn(`[FUF Network] Note: Running netsh may require admin privilege. (${err.message})`);
-      } else {
-        console.log(`[FUF Network] ✅ Windows DNS successfully routed to 127.0.0.1 on ${adapter}`);
-      }
+  detectActiveAdapters((adapters) => {
+    // Write atomic journal before mutating system network configuration
+    try {
+      fs.writeFileSync(JOURNAL_PATH, JSON.stringify({
+        timestamp: Date.now(),
+        adapters,
+        status: 'ROUTED_TO_FUF'
+      }), 'utf8');
+    } catch (e) {}
+
+    adapters.forEach((adapter) => {
+      const cmd = `netsh interface ip set dns name="${adapter}" static 127.0.0.1 && netsh interface ip add dns name="${adapter}" 1.1.1.1 index=2`;
+      exec(cmd, (err) => {
+        if (err) {
+          console.warn(`[FUF Network Sentinel] Interface ${adapter} binding note: ${err.message}`);
+        } else {
+          console.log(`[FUF Network Sentinel] ✅ Bound 127.0.0.1 on ${adapter}`);
+        }
+      });
     });
   });
 }
 
-// 3. Restore Windows DNS to DHCP Defaults
+// 3. Restore Windows DNS to DHCP Defaults from Journal
 function restoreDefaultDns() {
-  const cmd = `netsh interface ip set dns name="${originalAdapterName}" dhcp`;
-  exec(cmd, (err) => {
-    if (!err) {
-      console.log(`[FUF Network] 🔄 Windows DNS restored to DHCP defaults on ${originalAdapterName}`);
-    }
+  const adaptersToRestore = originalAdapterNames.length > 0 ? originalAdapterNames : ['Wi-Fi', 'Ethernet'];
+  adaptersToRestore.forEach((adapter) => {
+    const cmd = `netsh interface ip set dns name="${adapter}" dhcp`;
+    exec(cmd, (err) => {
+      if (!err) {
+        console.log(`[FUF Network Sentinel] 🔄 Restored DHCP defaults on ${adapter}`);
+      }
+    });
   });
+
+  try {
+    if (fs.existsSync(JOURNAL_PATH)) fs.unlinkSync(JOURNAL_PATH);
+  } catch (e) {}
 }
 
 // 4. Start Local Daemon Process

@@ -131,8 +131,14 @@ export class MultiUpstreamDoh {
     });
   }
 
+  public destroy(): void {
+    if (this.agent) {
+      this.agent.destroy();
+    }
+  }
+
   private startHealthCheckLoop(): void {
-    setInterval(() => {
+    const timer = setInterval(() => {
       // Rotate / ping to discover lowest latency upstream
       let best = this.providers[0];
       for (const p of this.providers) {
@@ -142,5 +148,8 @@ export class MultiUpstreamDoh {
       }
       this.fastestProvider = best;
     }, 60000);
+    if (timer && typeof timer.unref === 'function') {
+      timer.unref();
+    }
   }
 }

@@ -15,6 +15,7 @@ import { NeuromorphicTremorOscilloscope } from './components/NeuromorphicTremorO
 import { QuantumEntanglementScope } from './components/QuantumEntanglementScope';
 import { LiveEvasionTestBench } from './components/LiveEvasionTestBench';
 import { MilitaryEcosystemMatrix } from './components/MilitaryEcosystemMatrix';
+import { StalkerDecouplerTestBench } from './components/StalkerDecouplerTestBench';
 import { 
   downloadIosMobileconfig, 
   downloadWindowsZip, 
@@ -407,6 +408,9 @@ export const Dashboard: React.FC = () => {
  
         {/* Interactive Evasion & Poison Test Bench */}
         <LiveEvasionTestBench />
+
+        {/* 2026 Apex Vector: Cross-App Telemetry & Shopping Retargeting Decoupler */}
+        <StalkerDecouplerTestBench />
 
         {/* Post-Quantum Kyber-768 Lattice Cryptography & Zero-Knowledge Merkle Deck */}
         <section className="rounded-3xl p-6 sm:p-8 bg-[#0c0c0e]/90 border border-[#27272a] shadow-2xl relative overflow-hidden">

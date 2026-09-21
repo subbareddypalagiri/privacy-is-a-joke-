@@ -18,6 +18,9 @@ export class WindowsNetworkWatcher {
     this.timer = setInterval(() => {
       this.auditAdapterState();
     }, 10000);
+    if (this.timer && typeof this.timer.unref === 'function') {
+      this.timer.unref();
+    }
 
     this.auditAdapterState();
   }

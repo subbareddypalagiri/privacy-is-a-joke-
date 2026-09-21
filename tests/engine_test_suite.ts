@@ -23,6 +23,8 @@ import { InformationTheoreticOtpEngine } from '../src/crypto/information_theoret
 import { DeepPacketInspectionShield } from '../src/crypto/deep_packet_inspection_shield';
 import { BgpHijackSentinel } from '../src/crypto/bgp_hijack_sentinel';
 import { DnsOverQuicStub } from '../src/crypto/dns_over_quic_stub';
+import { CrossAppTelemetryDecoupler } from '../src/core/cross_app_decoupler';
+import { ConstantTimeCryptoAccelerator } from '../src/crypto/wasm_crypto_accelerator';
 
 let passed = 0;
 let failed = 0;
@@ -352,8 +354,57 @@ async function runTestSuite() {
   const doqStats = doq.getStats();
   assert(doqStats.availableServers === 3, 'Three DoQ server endpoints available for failover');
 
+  // 29. Cross-App Telemetry & Shopping Retargeting Decoupler (2026 Apex Vector)
+  console.log('\n29. Cross-App Telemetry & E-Commerce Retargeting Decoupler (Vector 29):');
+  const decoupler = new CrossAppTelemetryDecoupler();
+  const metaIntercept = decoupler.evaluateQuery('graph.facebook.com');
+  assert(metaIntercept.intercepted, 'Severs Meta Graph API mobile app event telemetry beacon');
+  assert(metaIntercept.actionTaken === 'TERMINATED_AT_DEVICE_BOUNDARY', 'Terminates surveillance at OS device boundary before network egress');
+  const appsflyerIntercept = decoupler.evaluateQuery('api.appsflyer.com');
+  assert(appsflyerIntercept.intercepted, 'Sinkholes AppsFlyer attribution telemetry');
+  const criteoIntercept = decoupler.evaluateQuery('static.criteo.net');
+  assert(criteoIntercept.intercepted, 'Blocks Criteo dynamic shopping retargeter');
+  const adjustIntercept = decoupler.evaluateQuery('app.adjust.com');
+  assert(adjustIntercept.intercepted, 'Blocks Adjust cross-app tracker');
+  const inmobiIntercept = decoupler.evaluateQuery('telemetry.sdk.inmobi.com');
+  assert(inmobiIntercept.intercepted, 'Neutralizes InMobi behavioral profiler');
+  const flipkartPass = decoupler.evaluateQuery('flipkart.com');
+  assert(!flipkartPass.intercepted, 'Preserves legitimate Flipkart shopping operations with 0ms penalty');
+  assert(flipkartPass.actionTaken === 'PASSED_CLEAN', 'First-party e-commerce passes clean without interception');
+  const meeshoPass = decoupler.evaluateQuery('meesho.com');
+  assert(!meeshoPass.intercepted, 'Preserves Meesho checkout & cart workflows');
+  const myntraPass = decoupler.evaluateQuery('myntra.com');
+  assert(!myntraPass.intercepted, 'Preserves Myntra catalog & order workflows');
+  const decoy = decoupler.generateAdversarialCartDecoy();
+  assert(decoy.fuf_entropy_signature === 'SEVERED_SURVEILLANCE_CORD', 'Generates adversarial cart decoy to poison server-side ad attribution feeds');
+  assert(decoy.content_category !== undefined && decoy.value === 0.01, 'Decoy payload contains valid synthetic event fields');
+  const decouplerStats = decoupler.getStats();
+  assert(decouplerStats.severedBeacons >= 5, 'Tracks severed attribution beacons count');
+  assert(decouplerStats.poisonedPayloads >= 1, 'Tracks generated poison decoy count');
+
+  // 30. Constant-Time Cryptographic Accelerator (Side-Channel Hardening)
+  console.log('\n30. Constant-Time Cryptographic Accelerator (Side-Channel Hardening):');
+  const reducedSmall = ConstantTimeCryptoAccelerator.constantTimeBarrettReduce(1234);
+  assert(reducedSmall === 1234, 'Barrett reduction preserves values < q');
+  const reducedLarge = ConstantTimeCryptoAccelerator.constantTimeBarrettReduce(3329 + 500);
+  assert(reducedLarge === 500, 'Barrett reduction correctly reduces (q + 500) mod q in branchless constant time');
+  const reducedExact = ConstantTimeCryptoAccelerator.constantTimeBarrettReduce(3329);
+  assert(reducedExact === 0, 'Barrett reduction correctly reduces q mod q to 0');
+  const buf1 = new Uint8Array([1, 2, 3, 4, 5]);
+  const buf2 = new Uint8Array([1, 2, 3, 4, 5]);
+  const buf3 = new Uint8Array([1, 2, 3, 4, 6]);
+  assert(ConstantTimeCryptoAccelerator.constantTimeEqual(buf1, buf2), 'Constant-time comparison returns true for matching digests');
+  assert(!ConstantTimeCryptoAccelerator.constantTimeEqual(buf1, buf3), 'Constant-time comparison returns false for differing digests without early exit');
+  const polyA = new Int16Array(256).fill(100);
+  const polyB = new Int16Array(256).fill(200);
+  const polySum = ConstantTimeCryptoAccelerator.addPolynomialsConstantTime(polyA, polyB);
+  assert(polySum.length === 256 && polySum[0] === 300, 'Constant-time polynomial addition executes correctly over R_q (256 degrees)');
+  const secretVec = ConstantTimeCryptoAccelerator.generateHardenedSecretVector();
+  assert(secretVec.length === 256, 'Generates 256-degree side-channel hardened secret polynomial vector');
+  assert(secretVec.every(c => c >= 0 && c < 3329), 'All coefficients strictly bounded within [0, q-1]');
+
   console.log('\n========================================================');
-  console.log(`📊 FUF 28-VECTOR SOVEREIGN AUDIT FINAL RESULTS: ${passed} PASSED | ${failed} FAILED`);
+  console.log(`📊 FUF 30-VECTOR & 2026 APEX DECOUPLER AUDIT FINAL RESULTS: ${passed} PASSED | ${failed} FAILED`);
   console.log('========================================================\n');
 
   if (failed > 0) {

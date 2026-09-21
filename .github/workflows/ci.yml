@@ -8,7 +8,7 @@ on:
 
 jobs:
   audit-and-build:
-    name: 28-Vector Sovereign Cryptographic Audit & Build
+    name: 30-Vector Sovereign Cryptographic Audit & Build
     runs-on: ubuntu-latest
 
     steps:
@@ -27,7 +27,7 @@ jobs:
       - name: Run TypeScript Typecheck
         run: npm run typecheck
 
-      - name: Execute 28-Vector Apex Sovereign Audit (120 Tests)
+      - name: Execute 30-Vector Apex Sovereign Audit (142 Tests)
         run: npx tsx tests/engine_test_suite.ts
 
       - name: Execute RFC 8484 Mobile LAN DoH Audit

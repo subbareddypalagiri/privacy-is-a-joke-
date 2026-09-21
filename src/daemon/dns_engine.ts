@@ -18,6 +18,7 @@ import { WindowsNetworkWatcher } from './network_watcher';
 import { startControlApi } from './daemon_api';
 import { ZeroClickQuarantineEngine } from '../crypto/zero_click_quarantine';
 import { MilitaryChaffEngine } from '../crypto/military_chaff_engine';
+import { CrossAppTelemetryDecoupler } from '../core/cross_app_decoupler';
 import { SecurityEvent, SystemHealthMetrics } from '../core/types';
 
 export class ProductionDnsEngine {
@@ -38,6 +39,7 @@ export class ProductionDnsEngine {
   private networkWatcher = new WindowsNetworkWatcher();
   public zeroClickQuarantine = new ZeroClickQuarantineEngine();
   public militaryChaff = new MilitaryChaffEngine();
+  public crossAppDecoupler = new CrossAppTelemetryDecoupler();
 
   private totalQueries: number = 0;
   private blockedQueries: number = 0;
@@ -164,6 +166,14 @@ export class ProductionDnsEngine {
     if (quarantineVerdict.quarantined) {
       this.blockedQueries += 1;
       this.recordSecurityEvent(domain, 'BLOCKED_ADTECH', 'ZONE_SINKHOLE', Date.now() - start, quarantineVerdict.matchedSignature || 'ZERO_CLICK_C2');
+      return this.createSinkholeResponse(msg);
+    }
+
+    // 2026 Apex Vector: Cross-App Telemetry & Shopping-to-Social Decoupler
+    const telemetryVerdict = this.crossAppDecoupler.evaluateQuery(domain);
+    if (telemetryVerdict.intercepted) {
+      this.blockedQueries += 1;
+      this.recordSecurityEvent(domain, 'BLOCKED_ADTECH', 'ZONE_SINKHOLE', Date.now() - start, telemetryVerdict.destinationAdBroker);
       return this.createSinkholeResponse(msg);
     }
 
