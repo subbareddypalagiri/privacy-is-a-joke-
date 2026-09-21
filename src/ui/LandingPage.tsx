@@ -9,12 +9,22 @@ import {
 import { LiveThreatRadar } from './components/LiveThreatRadar';
 import { LiveEntropyWaveform } from './components/LiveEntropyWaveform';
 import { KineticMeshGrid } from './components/KineticMeshGrid';
+import { 
+  downloadIosMobileconfig, 
+  downloadWindowsZip, 
+  downloadExtensionZip, 
+  ANDROID_RECOMMENDED_DOT 
+} from './download_helpers';
 
 export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [showMobileModal, setShowMobileModal] = useState(false);
+  const [showWindowsModal, setShowWindowsModal] = useState(false);
+  const [showExtensionModal, setShowExtensionModal] = useState(false);
   const [mobileTab, setMobileTab] = useState<'ios' | 'android'>('ios');
+  const [copiedAndroidDns, setCopiedAndroidDns] = useState(false);
+  const [copiedPsCmd, setCopiedPsCmd] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,10 +33,6 @@ export default function LandingPage() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const downloadIosProfile = () => {
-    window.open('http://127.0.0.1:5354/api/mobile/profile.mobileconfig', '_blank');
-  };
 
   return (
     <div className="min-h-screen bg-[#000000] text-white selection:bg-amber-500/30 selection:text-amber-200 relative overflow-x-hidden font-sans">
@@ -94,7 +100,7 @@ export default function LandingPage() {
                 Control Center
               </button>
               <button 
-                onClick={() => window.open('/dist_installer/FUF Setup 1.0.0.exe', '_blank')}
+                onClick={() => setShowWindowsModal(true)}
                 className="px-3.5 py-1.5 rounded-lg text-xs text-black bg-white hover:bg-neutral-100 transition-all cursor-pointer shadow-sm flex items-center gap-1.5"
               >
                 <Download size={13} />
@@ -121,7 +127,7 @@ export default function LandingPage() {
             <a href="/dashboard.html" className="block text-xs text-amber-400 font-medium py-1">Live Control Center</a>
             <div className="pt-3 border-t border-[#27272a]">
               <button 
-                onClick={() => window.open('/dist_installer/FUF Setup 1.0.0.exe', '_blank')}
+                onClick={() => { setMobileMenuOpen(false); setShowWindowsModal(true); }}
                 className="w-full py-2 bg-white text-black text-xs rounded-lg flex items-center justify-center gap-1.5"
               >
                 <Download size={14} /> Download for Windows
@@ -772,11 +778,21 @@ export default function LandingPage() {
             className="px-6 py-3 rounded-xl font-bold text-xs text-black bg-white hover:bg-neutral-100 transition-all cursor-pointer flex items-center justify-center gap-2 shadow-lg"
           >
             <Smartphone className="w-4 h-4" />
-            <span>Configure Mobile Device</span>
+            <span>Configure Mobile (iOS / Android)</span>
           </button>
-          <button className="px-6 py-3 rounded-xl font-bold text-xs text-white border border-[#27272a] hover:border-amber-500/40 bg-[#0c0c0e] transition-all cursor-pointer flex items-center justify-center gap-2">
+          <button 
+            onClick={() => setShowWindowsModal(true)}
+            className="px-6 py-3 rounded-xl font-bold text-xs text-white border border-[#27272a] hover:border-amber-500/40 bg-[#0c0c0e] transition-all cursor-pointer flex items-center justify-center gap-2"
+          >
             <Download className="w-4 h-4 text-amber-400" />
             <span>Download for Windows</span>
+          </button>
+          <button 
+            onClick={() => setShowExtensionModal(true)}
+            className="px-6 py-3 rounded-xl font-bold text-xs text-white border border-[#27272a] hover:border-purple-500/40 bg-[#0c0c0e] transition-all cursor-pointer flex items-center justify-center gap-2"
+          >
+            <Download className="w-4 h-4 text-purple-400" />
+            <span>Download Extension</span>
           </button>
         </div>
       </section>
@@ -798,50 +814,41 @@ export default function LandingPage() {
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
-            <div className="p-4 rounded-xl bg-[#141417] border border-[#27272a] text-center">
-              <Landmark className="w-5 h-5 text-emerald-400 mx-auto mb-1.5" />
-              <span className="text-xs font-bold text-white">SBI / HDFC / ICICI</span>
-              <p className="text-[10px] text-[#71717a] mt-0.5">Instant OTP Delivery</p>
-            </div>
-
-            <div className="p-4 rounded-xl bg-[#141417] border border-[#27272a] text-center">
-              <Shield className="w-5 h-5 text-emerald-400 mx-auto mb-1.5" />
-              <span className="text-xs font-bold text-white">UIDAI / DigiLocker</span>
-              <p className="text-[10px] text-[#71717a] mt-0.5">Govt Services Verified</p>
-            </div>
-
-            <div className="p-4 rounded-xl bg-[#141417] border border-[#27272a] text-center">
-              <Zap className="w-5 h-5 text-emerald-400 mx-auto mb-1.5" />
-              <span className="text-xs font-bold text-white">Razorpay / UPI</span>
-              <p className="text-[10px] text-[#71717a] mt-0.5">0ms Payment Gateway</p>
-            </div>
-
-            <div className="p-4 rounded-xl bg-[#141417] border border-[#27272a] text-center">
-              <CheckCircle2 className="w-5 h-5 text-emerald-400 mx-auto mb-1.5" />
-              <span className="text-xs font-bold text-white">Income Tax Portal</span>
-              <p className="text-[10px] text-[#71717a] mt-0.5">Zero Captcha Breaking</p>
-            </div>
+            {[
+              { icon: Landmark, name: "State Bank of India", desc: "retail.onlinesbi.sbi" },
+              { icon: Lock, name: "HDFC NetBanking", desc: "netbanking.hdfcbank.com" },
+              { icon: Zap, name: "Razorpay Gateway", desc: "api.razorpay.com" },
+              { icon: ShieldCheck, name: "UIDAI Aadhaar Portal", desc: "uidai.gov.in" },
+            ].map((bank, i) => (
+              <div key={i} className="p-4 rounded-2xl bg-[#141417] border border-[#27272a] flex items-center gap-3">
+                <bank.icon className="w-6 h-6 text-emerald-400 shrink-0" />
+                <div>
+                  <h4 className="text-xs font-bold text-white leading-tight">{bank.name}</h4>
+                  <span className="text-[10px] text-[#71717a] font-mono block mt-0.5">{bank.desc}</span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Mobile Armor Zero-Install Modal */}
+      {/* Mobile Configuration Modal */}
       {showMobileModal && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-xl z-50 flex items-center justify-center p-4 animate-fadeIn">
-          <div className="bg-[#0c0c0e] border border-[#27272a] rounded-3xl max-w-lg w-full p-6 shadow-2xl text-white relative">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
+          <div className="relative w-full max-w-lg p-6 rounded-3xl bg-[#0c0c0e] border border-[#27272a] shadow-2xl">
             <button
               onClick={() => setShowMobileModal(false)}
-              className="absolute top-4 right-4 p-1.5 rounded-full hover:bg-[#18181b] text-[#71717a] hover:text-white cursor-pointer transition-colors"
+              className="absolute top-5 right-5 text-[#71717a] hover:text-white cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <div className="flex items-center gap-3 pb-3 border-b border-[#27272a]">
-              <div className="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center shadow-lg">
-                <Smartphone className="w-5 h-5 text-amber-400" />
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
+                <Smartphone className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-bold text-base text-white">Mobile Armor (Zero-Install)</h3>
+                <h3 className="text-base font-bold text-white font-display">Mobile Armor (Zero-Install)</h3>
                 <p className="text-xs text-[#71717a]">Protect iPhone & Android without downloading any heavy apps</p>
               </div>
             </div>
@@ -883,7 +890,7 @@ export default function LandingPage() {
                     <li>Tap <strong>Install</strong> and authenticate.</li>
                   </ol>
                   <button
-                    onClick={downloadIosProfile}
+                    onClick={downloadIosMobileconfig}
                     className="w-full mt-2 py-3 rounded-xl bg-white hover:bg-neutral-100 text-black font-bold flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer active:scale-98"
                   >
                     <Download className="w-4 h-4" />
@@ -895,11 +902,24 @@ export default function LandingPage() {
                   <p className="text-[#a1a1aa] font-medium leading-relaxed">
                     Uses Android's native <strong>Private DNS (DoT)</strong> engine built into Android 9, 10, 11, 12, 13, 14, 15+.
                   </p>
-                  <div className="space-y-1.5 text-[#71717a]">
+                  <div className="space-y-2 text-[#71717a]">
                     <p>1. Open <strong>Settings &gt; Network &amp; Internet &gt; Private DNS</strong>.</p>
                     <p>2. Select <strong>Private DNS provider hostname</strong>.</p>
-                    <div className="p-2.5 bg-[#09090b] rounded-xl border border-[#27272a] font-mono text-xs text-amber-300 font-bold select-all text-center">
-                      dns.FUF.local
+                    <div className="flex items-center gap-2 p-2.5 bg-[#09090b] rounded-xl border border-[#27272a]">
+                      <span className="font-mono text-xs text-amber-300 font-bold select-all flex-1 text-center">
+                        {ANDROID_RECOMMENDED_DOT}
+                      </span>
+                      <button
+                        onClick={() => {
+                          navigator.clipboard.writeText(ANDROID_RECOMMENDED_DOT);
+                          setCopiedAndroidDns(true);
+                          setTimeout(() => setCopiedAndroidDns(false), 2500);
+                        }}
+                        className="px-3 py-1 bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded-lg text-[11px] font-bold cursor-pointer transition-colors flex items-center gap-1"
+                      >
+                        {copiedAndroidDns ? <Check className="w-3 h-3 text-emerald-400" /> : null}
+                        <span>{copiedAndroidDns ? 'Copied!' : 'Copy'}</span>
+                      </button>
                     </div>
                     <p>3. Tap <strong>Save</strong>. All apps, Flipkart, and games are instantly shielded.</p>
                   </div>
@@ -919,13 +939,160 @@ export default function LandingPage() {
         </div>
       )}
 
+      {/* Windows Download Modal */}
+      {showWindowsModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
+          <div className="relative w-full max-w-lg p-6 rounded-3xl bg-[#0c0c0e] border border-[#27272a] shadow-2xl">
+            <button
+              onClick={() => setShowWindowsModal(false)}
+              className="absolute top-5 right-5 text-[#71717a] hover:text-white cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-lg">
+                🪟
+              </div>
+              <div>
+                <h3 className="text-base font-bold text-white font-display">FUF for Windows Desktop</h3>
+                <p className="text-xs text-[#71717a]">System-level loopback DNS daemon for all browsers & apps</p>
+              </div>
+            </div>
+
+            <div className="mt-5 space-y-3 text-xs">
+              {/* Option 1: One-Click Zip */}
+              <div className="p-4 rounded-2xl bg-[#141417] border border-[#27272a] space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-white">1-Click Standalone Package</span>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold">READY</span>
+                </div>
+                <p className="text-[11px] text-[#71717a]">
+                  Includes one-click activation scripts, DHCP restoration, and DNS daemon configuration.
+                </p>
+                <button
+                  onClick={downloadWindowsZip}
+                  className="w-full mt-1 py-2.5 rounded-xl bg-white hover:bg-neutral-100 text-black font-bold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Download Standalone Package (.ZIP)</span>
+                </button>
+              </div>
+
+              {/* Option 2: PowerShell 1-liner */}
+              <div className="p-4 rounded-2xl bg-[#141417] border border-[#27272a] space-y-2">
+                <span className="font-bold text-white block">One-Line PowerShell Activation</span>
+                <p className="text-[11px] text-[#71717a]">
+                  Run PowerShell as Administrator and paste this command to route DNS locally:
+                </p>
+                <div className="flex items-center gap-2 p-2 bg-[#09090b] rounded-xl border border-[#27272a]">
+                  <code className="text-[10px] text-amber-300 font-mono flex-1 select-all overflow-x-auto whitespace-nowrap">
+                    irm https://raw.githubusercontent.com/subbareddypalagiri/privacy-is-a-joke-/main/scripts/setup_windows_dns.ps1 | iex
+                  </code>
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText('irm https://raw.githubusercontent.com/subbareddypalagiri/privacy-is-a-joke-/main/scripts/setup_windows_dns.ps1 | iex');
+                      setCopiedPsCmd(true);
+                      setTimeout(() => setCopiedPsCmd(false), 2500);
+                    }}
+                    className="px-2.5 py-1 bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded-lg text-[10px] font-bold cursor-pointer transition-colors shrink-0"
+                  >
+                    {copiedPsCmd ? 'Copied!' : 'Copy'}
+                  </button>
+                </div>
+              </div>
+
+              {/* Option 3: GitHub Releases */}
+              <div className="p-3.5 rounded-2xl bg-[#141417] border border-[#27272a] flex items-center justify-between">
+                <div>
+                  <span className="font-bold text-white block text-xs">Official GitHub Releases</span>
+                  <span className="text-[10px] text-[#71717a]">Download NSIS Setup .EXE from repository releases</span>
+                </div>
+                <button
+                  onClick={() => window.open('https://github.com/subbareddypalagiri/privacy-is-a-joke-/releases', '_blank')}
+                  className="px-3 py-1.5 bg-[#1f1f23] hover:bg-[#27272a] text-white border border-[#3f3f46] rounded-xl text-xs font-semibold cursor-pointer transition-colors flex items-center gap-1 shrink-0"
+                >
+                  <ExternalLink className="w-3 h-3" />
+                  <span>Releases</span>
+                </button>
+              </div>
+            </div>
+
+            <div className="mt-4 text-center">
+              <button
+                onClick={() => setShowWindowsModal(false)}
+                className="px-6 py-2 rounded-xl bg-[#141417] hover:bg-[#1f1f23] text-xs font-semibold text-white border border-[#27272a] cursor-pointer transition-colors"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Browser Extension Download Modal */}
+      {showExtensionModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
+          <div className="relative w-full max-w-lg p-6 rounded-3xl bg-[#0c0c0e] border border-[#27272a] shadow-2xl">
+            <button
+              onClick={() => setShowExtensionModal(false)}
+              className="absolute top-5 right-5 text-[#71717a] hover:text-white cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-lg">
+                🧩
+              </div>
+              <div>
+                <h3 className="text-base font-bold text-white font-display">FUF Browser Extension</h3>
+                <p className="text-xs text-[#71717a]">Manifest V3 • Chrome, Edge, Brave, Kiwi & Firefox</p>
+              </div>
+            </div>
+
+            <div className="mt-5 space-y-3 text-xs">
+              <div className="p-4 rounded-2xl bg-[#141417] border border-[#27272a] space-y-2">
+                <p className="text-[11px] text-[#a1a1aa] leading-relaxed">
+                  The FUF extension intercepts in-page trackers, injects 10.2Hz motor tremor to defeat anti-bot telemetry, and sends FGSM adversarial noise to Google/Meta pixels.
+                </p>
+                <button
+                  onClick={downloadExtensionZip}
+                  className="w-full mt-1 py-2.5 rounded-xl bg-purple-500 hover:bg-purple-600 text-white font-bold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Download Extension (.ZIP)</span>
+                </button>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-[#141417] border border-[#27272a] space-y-1.5 text-[#71717a]">
+                <span className="font-bold text-white block text-xs mb-1">Easy 3-Step Setup:</span>
+                <p>1. Extract the downloaded <code className="text-purple-300 font-mono">FUF-Chrome-Extension.zip</code> file.</p>
+                <p>2. Open your browser and go to <code className="text-amber-300 font-mono">chrome://extensions</code> (or <code className="text-amber-300 font-mono">edge://extensions</code>).</p>
+                <p>3. Enable <strong>Developer mode</strong> (top right toggle) and click <strong>Load unpacked</strong>, then select the extracted folder.</p>
+              </div>
+            </div>
+
+            <div className="mt-4 text-center">
+              <button
+                onClick={() => setShowExtensionModal(false)}
+                className="px-6 py-2 rounded-xl bg-[#141417] hover:bg-[#27272a] text-xs font-semibold text-white border border-[#27272a] cursor-pointer transition-colors"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Footer */}
       <footer className="max-w-7xl mx-auto px-6 py-10 border-t border-[#27272a] text-center text-xs font-mono text-[#71717a] flex flex-col sm:flex-row justify-between items-center gap-3 relative z-10">
         <span>FUF Apex v4.0 Institutional Matrix • 100% Free & Open-Source</span>
         <div className="flex items-center gap-6">
           <a href="/dashboard.html" className="hover:text-white transition-colors">Control Center</a>
-          <a href="/dist_installer/FUF Setup 1.0.0.exe" className="hover:text-white transition-colors">Windows App</a>
-          <a href="#vectors" className="hover:text-white transition-colors">17 Vectors</a>
+          <button onClick={() => setShowWindowsModal(true)} className="hover:text-white transition-colors cursor-pointer">Windows App</button>
+          <button onClick={() => setShowExtensionModal(true)} className="hover:text-white transition-colors cursor-pointer">Extension</button>
+          <button onClick={() => setShowMobileModal(true)} className="hover:text-white transition-colors cursor-pointer">Mobile</button>
         </div>
       </footer>
     </div>

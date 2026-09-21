@@ -15,6 +15,12 @@ import { NeuromorphicTremorOscilloscope } from './components/NeuromorphicTremorO
 import { QuantumEntanglementScope } from './components/QuantumEntanglementScope';
 import { LiveEvasionTestBench } from './components/LiveEvasionTestBench';
 import { MilitaryEcosystemMatrix } from './components/MilitaryEcosystemMatrix';
+import { 
+  downloadIosMobileconfig, 
+  downloadWindowsZip, 
+  downloadExtensionZip, 
+  ANDROID_RECOMMENDED_DOT 
+} from './download_helpers';
 
 interface DaemonStats {
   running: boolean;
@@ -487,11 +493,11 @@ export const Dashboard: React.FC = () => {
                 </p>
               </div>
               <button 
-                onClick={() => window.open('/dist_installer/FUF Setup 1.0.0.exe', '_blank')}
+                onClick={downloadWindowsZip}
                 className="mt-4 w-full py-2.5 bg-white hover:bg-neutral-100 text-black rounded-xl text-xs font-semibold cursor-pointer transition-colors flex items-center justify-center gap-1.5 shadow-md"
               >
                 <Download className="w-3.5 h-3.5" />
-                <span>Download .EXE</span>
+                <span>Download Package (.ZIP)</span>
               </button>
             </div>
 
@@ -509,14 +515,14 @@ export const Dashboard: React.FC = () => {
                 onClick={() => { setMobileTab('android'); setShowMobileModal(true); }}
                 className="mt-4 w-full py-2.5 bg-[#1f1f23] hover:bg-[#27272a] text-white border border-[#3f3f46] rounded-xl text-xs font-semibold cursor-pointer transition-colors flex items-center justify-center gap-1.5"
               >
-                <Smartphone className="w-3.5 h-3.5" />
-                <span>Configure Android</span>
+                <Smartphone className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Configure DoT</span>
               </button>
             </div>
 
-            <div className="p-5 rounded-2xl bg-[#141417] border border-[#27272a] flex flex-col justify-between hover:border-blue-500/40 transition-all group shadow-lg">
+            <div className="p-5 rounded-2xl bg-[#141417] border border-[#27272a] flex flex-col justify-between hover:border-cyan-500/40 transition-all group shadow-lg">
               <div>
-                <div className="w-8 h-8 rounded-xl bg-[#1f1f23] flex items-center justify-center text-blue-400 font-bold text-sm mb-3 group-hover:scale-110 transition-transform">
+                <div className="w-8 h-8 rounded-xl bg-[#1f1f23] flex items-center justify-center text-cyan-400 font-bold text-sm mb-3 group-hover:scale-110 transition-transform">
                   🍏
                 </div>
                 <h4 className="font-bold text-sm text-white">Apple iOS / iPadOS</h4>
@@ -525,7 +531,7 @@ export const Dashboard: React.FC = () => {
                 </p>
               </div>
               <button 
-                onClick={() => { setMobileTab('ios'); setShowMobileModal(true); }}
+                onClick={downloadIosMobileconfig}
                 className="mt-4 w-full py-2.5 bg-[#1f1f23] hover:bg-[#27272a] text-white border border-[#3f3f46] rounded-xl text-xs font-semibold cursor-pointer transition-colors flex items-center justify-center gap-1.5"
               >
                 <Download className="w-3.5 h-3.5" />
@@ -544,11 +550,11 @@ export const Dashboard: React.FC = () => {
                 </p>
               </div>
               <button 
-                onClick={() => window.open('chrome://extensions', '_blank')}
+                onClick={downloadExtensionZip}
                 className="mt-4 w-full py-2.5 bg-[#1f1f23] hover:bg-[#27272a] text-white border border-[#3f3f46] rounded-xl text-xs font-semibold cursor-pointer transition-colors flex items-center justify-center gap-1.5"
               >
-                <ExternalLink className="w-3.5 h-3.5" />
-                <span>Load Unpacked</span>
+                <Download className="w-3.5 h-3.5" />
+                <span>Download Extension (.ZIP)</span>
               </button>
             </div>
           </div>
@@ -648,7 +654,7 @@ export const Dashboard: React.FC = () => {
                     <li>Tap <strong>Install</strong> and authenticate.</li>
                   </ol>
                   <button
-                    onClick={downloadIosProfile}
+                    onClick={downloadIosMobileconfig}
                     className="w-full mt-2 py-3 rounded-xl bg-white hover:bg-neutral-100 text-black font-bold flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer active:scale-98"
                   >
                     <Download className="w-4 h-4" />
@@ -660,11 +666,19 @@ export const Dashboard: React.FC = () => {
                   <p className="text-[#a1a1aa] font-medium leading-relaxed">
                     Uses Android's native <strong>Private DNS (DoT)</strong> engine built into Android 9, 10, 11, 12, 13, 14, 15+.
                   </p>
-                  <div className="space-y-1.5 text-[#71717a]">
+                  <div className="space-y-2 text-[#71717a]">
                     <p>1. Open <strong>Settings &gt; Network &amp; Internet &gt; Private DNS</strong>.</p>
                     <p>2. Select <strong>Private DNS provider hostname</strong>.</p>
-                    <div className="p-2.5 bg-[#09090b] rounded-xl border border-[#27272a] font-mono text-xs text-amber-300 font-bold select-all text-center">
-                      dns.FUF.local
+                    <div className="flex items-center gap-2 p-2.5 bg-[#09090b] rounded-xl border border-[#27272a]">
+                      <span className="font-mono text-xs text-amber-300 font-bold select-all flex-1 text-center">
+                        {ANDROID_RECOMMENDED_DOT}
+                      </span>
+                      <button
+                        onClick={() => navigator.clipboard.writeText(ANDROID_RECOMMENDED_DOT)}
+                        className="px-3 py-1 bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded-lg text-[11px] font-bold cursor-pointer transition-colors"
+                      >
+                        Copy
+                      </button>
                     </div>
                     <p>3. Tap <strong>Save</strong>. All apps, Flipkart, and games are instantly shielded.</p>
                   </div>

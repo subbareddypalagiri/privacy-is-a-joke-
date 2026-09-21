@@ -1,14 +1,27 @@
 import React, { useState } from 'react';
 import { 
   ShieldAlert, ShieldCheck, Cpu, Smartphone, Download, ExternalLink, 
-  CheckCircle2, Radio, Zap, Lock, Terminal, Activity, Layers, Disc
+  CheckCircle2, Radio, Zap, Lock, Terminal, Activity, Layers, Disc, Check
 } from 'lucide-react';
+import { 
+  downloadIosMobileconfig, 
+  downloadWindowsZip, 
+  downloadExtensionZip, 
+  ANDROID_RECOMMENDED_DOT 
+} from '../download_helpers';
 
 export const MilitaryEcosystemMatrix: React.FC = () => {
   const [defconLevel, setDefconLevel] = useState<1 | 3>(1);
   const [activeTab, setActiveTab] = useState<'all' | 'mobile' | 'desktop' | 'extension'>('all');
   const [chaffPaddedBytes, setChaffPaddedBytes] = useState<number>(1420);
   const [otpDigest, setOtpDigest] = useState<string>('0x9a4f...e1c2');
+  const [copiedAndroid, setCopiedAndroid] = useState(false);
+
+  const copyAndroidDns = () => {
+    navigator.clipboard.writeText(ANDROID_RECOMMENDED_DOT);
+    setCopiedAndroid(true);
+    setTimeout(() => setCopiedAndroid(false), 2500);
+  };
 
   const triggerDefconCycle = () => {
     setDefconLevel((prev) => (prev === 1 ? 3 : 1));
@@ -92,11 +105,11 @@ export const MilitaryEcosystemMatrix: React.FC = () => {
               <span className="text-emerald-400 font-bold">System-Wide All Apps</span>
             </div>
             <button 
-              onClick={() => window.open('/api/mobile/android', '_blank')}
+              onClick={copyAndroidDns}
               className="w-full py-2 bg-[#1f1f23] hover:bg-[#27272a] text-white border border-[#3f3f46] rounded-xl text-xs font-mono font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer active:scale-98"
             >
-              <Smartphone className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Configure Android</span>
+              {copiedAndroid ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Smartphone className="w-3.5 h-3.5 text-emerald-400" />}
+              <span>{copiedAndroid ? 'Copied DoT Hostname!' : 'Copy DoT Hostname'}</span>
             </button>
           </div>
         </div>
@@ -124,16 +137,16 @@ export const MilitaryEcosystemMatrix: React.FC = () => {
               <span className="text-cyan-400 font-bold">iOS 14+ Encrypted</span>
             </div>
             <button 
-              onClick={() => window.open('/api/mobile/profile.mobileconfig', '_blank')}
+              onClick={downloadIosMobileconfig}
               className="w-full py-2 bg-[#1f1f23] hover:bg-[#27272a] text-white border border-[#3f3f46] rounded-xl text-xs font-mono font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer active:scale-98"
             >
               <Download className="w-3.5 h-3.5 text-cyan-400" />
-              <span>Install .mobileconfig</span>
+              <span>Download .mobileconfig</span>
             </button>
           </div>
         </div>
 
-        {/* Pillar 3: Windows Desktop App (.EXE) */}
+        {/* Pillar 3: Windows Desktop App (.EXE / OneClick) */}
         <div className="p-5 rounded-2xl bg-[#141417] border border-[#27272a] hover:border-amber-500/40 transition-all flex flex-col justify-between shadow-lg group">
           <div>
             <div className="flex items-center justify-between mb-3">
@@ -141,26 +154,26 @@ export const MilitaryEcosystemMatrix: React.FC = () => {
                 🪟
               </div>
               <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30 font-bold">
-                STANDALONE .EXE
+                STANDALONE .ZIP
               </span>
             </div>
             <h4 className="font-bold text-sm text-white font-mono">Windows Laptop App</h4>
             <p className="text-xs text-[#71717a] mt-1 leading-relaxed">
-              Loopback Port 53 server with background network watcher, Radix Trie, and automatic network adapter binding.
+              One-click loopback script with background network watcher, Radix Trie, and automatic network adapter binding.
             </p>
           </div>
 
           <div className="mt-4 pt-3 border-t border-[#27272a] space-y-2">
             <div className="flex items-center justify-between text-[11px] font-mono text-[#a1a1aa]">
-              <span>Installer:</span>
-              <span className="text-amber-400 font-bold">NSIS & Portable</span>
+              <span>Package:</span>
+              <span className="text-amber-400 font-bold">One-Click Standalone</span>
             </div>
             <button 
-              onClick={() => window.open('/dist_installer/FUF Setup 1.0.0.exe', '_blank')}
+              onClick={downloadWindowsZip}
               className="w-full py-2 bg-white hover:bg-neutral-100 text-black rounded-xl text-xs font-mono font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer active:scale-98 shadow-md"
             >
               <Download className="w-3.5 h-3.5" />
-              <span>Download .EXE</span>
+              <span>Download Windows Package</span>
             </button>
           </div>
         </div>
@@ -188,11 +201,11 @@ export const MilitaryEcosystemMatrix: React.FC = () => {
               <span className="text-purple-400 font-bold">Vectors 14 & 15 Active</span>
             </div>
             <button 
-              onClick={() => window.open('chrome://extensions', '_blank')}
+              onClick={downloadExtensionZip}
               className="w-full py-2 bg-[#1f1f23] hover:bg-[#27272a] text-white border border-[#3f3f46] rounded-xl text-xs font-mono font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer active:scale-98"
             >
-              <ExternalLink className="w-3.5 h-3.5 text-purple-400" />
-              <span>Load Unpacked</span>
+              <Download className="w-3.5 h-3.5 text-purple-400" />
+              <span>Download Extension (.ZIP)</span>
             </button>
           </div>
         </div>
