@@ -55,6 +55,7 @@ async function testMobileDohAndApi() {
 
   server.close();
   console.log('✅ ALL MOBILE DOH & LAN TESTS PASSED 100%!');
+  process.exit(0);
 }
 
 testMobileDohAndApi().catch(e => {

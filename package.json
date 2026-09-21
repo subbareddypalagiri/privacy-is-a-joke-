@@ -11,6 +11,9 @@
     "build": "tsc && node scripts/build_extension.js",
     "daemon": "node dist/daemon.js",
     "app": "electron electron/main.cjs",
+    "test": "npx tsx tests/engine_test_suite.ts",
+    "test:lan": "npx tsx tests/test_mobile_doh.ts",
+    "typecheck": "tsc --noEmit",
     "preview": "vite preview",
     "dist:win": "electron-builder --win --x64"
   },
@@ -59,6 +62,7 @@
     "electron-builder": "^25.1.8",
     "postcss": "^8.5.3",
     "tailwindcss": "^3.4.17",
+    "tsx": "^4.23.15",
     "typescript": "^5.8.2",
     "vite": "^6.2.0"
   }

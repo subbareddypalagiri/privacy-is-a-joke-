@@ -546,15 +546,17 @@
     // Wrap window.gtag if initialized by page
     const patchGtag = () => {
       const origGtag = (window as any).gtag;
-      if (typeof origGtag === 'function' && !(origGtag as any).__GS_PATCHED__) {
+      if (typeof origGtag === 'function' && !(origGtag as any).__FUF_PATCHED__) {
         (window as any).gtag = function (...args: any[]) {
           if (args[0] === 'event' && args[2] && typeof args[2] === 'object') {
-            args[2]._gs_adv_vec = generateAdversarialVector(8);
-            args[2]._gs_entropy_tag = 'fgsm_' + Math.random().toString(36).substring(2, 8);
+            args[2]._fuf_adv_vec = generateAdversarialVector(8);
+            const entropyBytes = new Uint8Array(4);
+            crypto.getRandomValues(entropyBytes);
+            args[2]._fuf_entropy_tag = 'fgsm_' + Array.from(entropyBytes, b => b.toString(16).padStart(2, '0')).join('');
           }
           return origGtag.apply(this, args);
         };
-        (window as any).gtag.__GS_PATCHED__ = true;
+        (window as any).gtag.__FUF_PATCHED__ = true;
       }
     };
 

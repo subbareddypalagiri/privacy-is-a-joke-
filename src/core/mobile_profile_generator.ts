@@ -4,14 +4,16 @@
  * enabling zero-app system-wide Encrypted DNS & Tracker Sinkholing on mobile smartphones.
  */
 
+import { randomBytes } from 'crypto';
+
 export class MobileProfileGenerator {
   /**
    * Generates a native Apple iOS Mobile Configuration Profile (.mobileconfig)
    * Uses Apple's native com.apple.dnsSettings.managed payload (iOS 14.0+ / iPadOS 14.0+).
    */
   public generateAppleProfile(serverUrl: string = 'https://cloudflare-dns.com/dns-query'): string {
-    const payloadUUID = 'GS-' + Math.random().toString(36).substring(2, 10).toUpperCase();
-    const configUUID = 'GS-CFG-' + Math.random().toString(36).substring(2, 10).toUpperCase();
+    const payloadUUID = 'FUF-' + randomBytes(4).toString('hex').toUpperCase();
+    const configUUID = 'FUF-CFG-' + randomBytes(4).toString('hex').toUpperCase();
 
     return `<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">

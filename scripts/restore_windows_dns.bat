@@ -1,6 +1,6 @@
 @echo off
 echo ========================================================
-echo   GhostShield - Restore Windows DNS to DHCP Defaults
+echo   FUF - Restore Windows DNS to DHCP Defaults
 echo ========================================================
 
 netsh interface ip set dns name="Wi-Fi" dhcp

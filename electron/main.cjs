@@ -1,5 +1,5 @@
 /**
- * GhostShield Native Desktop Application
+ * FUF Native Desktop Application
  * Automatically routes Windows Network DNS to 127.0.0.1 on launch
  * and gracefully restores to DHCP on exit or pause.
  */
@@ -18,7 +18,7 @@ function detectActiveAdapter(callback) {
   exec('powershell -Command "Get-NetAdapter | Where-Object { $_.Status -eq \'Up\' } | Select-Object -ExpandProperty Name -First 1"', (err, stdout) => {
     if (!err && stdout && stdout.trim()) {
       originalAdapterName = stdout.trim();
-      console.log(`[GhostShield Network] Active adapter detected: ${originalAdapterName}`);
+      console.log(`[FUF Network] Active adapter detected: ${originalAdapterName}`);
     }
     if (callback) callback(originalAdapterName);
   });
@@ -30,9 +30,9 @@ function enableLocalDns() {
     const cmd = `netsh interface ip set dns name="${adapter}" static 127.0.0.1 && netsh interface ip add dns name="${adapter}" 1.1.1.1 index=2`;
     exec(cmd, (err) => {
       if (err) {
-        console.warn(`[GhostShield Network] Note: Running netsh may require admin privilege. (${err.message})`);
+        console.warn(`[FUF Network] Note: Running netsh may require admin privilege. (${err.message})`);
       } else {
-        console.log(`[GhostShield Network] ✅ Windows DNS successfully routed to 127.0.0.1 on ${adapter}`);
+        console.log(`[FUF Network] ✅ Windows DNS successfully routed to 127.0.0.1 on ${adapter}`);
       }
     });
   });
@@ -43,7 +43,7 @@ function restoreDefaultDns() {
   const cmd = `netsh interface ip set dns name="${originalAdapterName}" dhcp`;
   exec(cmd, (err) => {
     if (!err) {
-      console.log(`[GhostShield Network] 🔄 Windows DNS restored to DHCP defaults on ${originalAdapterName}`);
+      console.log(`[FUF Network] 🔄 Windows DNS restored to DHCP defaults on ${originalAdapterName}`);
     }
   });
 }
@@ -56,9 +56,9 @@ function startDaemon() {
       env: { ...process.env, SHIELD_PORT: '53' },
       stdio: 'inherit'
     });
-    console.log('[GhostShield Desktop] Background daemon spawned.');
+    console.log('[FUF Desktop] Background daemon spawned.');
   } catch (err) {
-    console.error('[GhostShield Desktop] Daemon spawn error:', err);
+    console.error('[FUF Desktop] Daemon spawn error:', err);
   }
 }
 
@@ -69,7 +69,7 @@ function createWindow() {
     height: 840,
     minWidth: 1024,
     minHeight: 700,
-    title: 'GhostShield - Autonomous Cognitive Privacy Engine',
+    title: 'FUF - Autonomous Cognitive Privacy Engine',
     backgroundColor: '#FAF7F2',
     icon: path.join(__dirname, '../public/icons/icon128.png'),
     autoHideMenuBar: true,
@@ -85,7 +85,7 @@ function createWindow() {
   // Always attempt local dashboard file first, fallback to dev server if needed
   mainWindow.loadFile(localDashboard).catch(() => {
     mainWindow.loadURL(devServerUrl).catch((err) => {
-      console.warn('[GhostShield Desktop] Note loading dashboard:', err.message);
+      console.warn('[FUF Desktop] Note loading dashboard:', err.message);
     });
   });
 
@@ -104,7 +104,7 @@ function createTray() {
   tray = new Tray(iconPath);
 
   const contextMenu = Menu.buildFromTemplate([
-    { label: '🛡️ GhostShield: Online', enabled: false },
+    { label: '🛡️ FUF: Online', enabled: false },
     { type: 'separator' },
     { label: 'Open Control Center', click: () => { mainWindow.show(); mainWindow.focus(); } },
     { 
@@ -121,7 +121,7 @@ function createTray() {
     },
     { type: 'separator' },
     { 
-      label: 'Quit GhostShield', 
+      label: 'Quit FUF', 
       click: () => { 
         app.isQuitting = true; 
         restoreDefaultDns();
@@ -131,7 +131,7 @@ function createTray() {
     }
   ]);
 
-  tray.setToolTip('GhostShield - Autonomous Privacy Shield');
+  tray.setToolTip('FUF - Autonomous Privacy Shield');
   tray.setContextMenu(contextMenu);
 
   tray.on('double-click', () => {

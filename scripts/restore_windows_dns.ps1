@@ -1,7 +1,7 @@
-# GhostShield Windows One-Click DNS Restore Script
+# FUF Windows One-Click DNS Restore Script
 # Restores the active network adapter back to automatic DHCP DNS configuration.
 
-Write-Host "🔄 GhostShield - Restoring Network DNS to Automatic DHCP..." -ForegroundColor Cyan
+Write-Host "🔄 FUF - Restoring Network DNS to Automatic DHCP..." -ForegroundColor Cyan
 
 $adapter = Get-NetAdapter | Where-Object { $_.Status -eq "Up" } | Select-Object -First 1
 
