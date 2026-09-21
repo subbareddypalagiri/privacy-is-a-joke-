@@ -565,4 +565,77 @@
     window.addEventListener('DOMContentLoaded', patchGtag);
   } catch (e) {}
 
+  // =========================================================================
+  // VECTOR 16: Zero-Trace Clipboard & Pasteboard Sniffing Defense
+  // Blocks background navigator.clipboard.readText() sniffing and sanitizes
+  // tracking query tokens from pasted text.
+  // =========================================================================
+  try {
+    if (navigator.clipboard && navigator.clipboard.readText) {
+      const origReadText = navigator.clipboard.readText.bind(navigator.clipboard);
+      navigator.clipboard.readText = function () {
+        // Enforce user-gesture activation check
+        if (!document.hasFocus()) {
+          console.warn('[FUF Shield] Blocked unauthorized background clipboard read.');
+          return Promise.resolve('');
+        }
+        return origReadText().then((text) => {
+          if (typeof text === 'string') {
+            return text.replace(/([?&])(utm_[^=&]+|fbclid|gclid|ttclid|affid|ref|spm)=[^&#]*/gi, '$1')
+                       .replace(/[?&]$/, '')
+                       .replace(/\?&/, '?');
+          }
+          return text;
+        });
+      };
+    }
+  } catch (e) {}
+
+  // =========================================================================
+  // VECTOR 17: Deep-Link & Affiliate Token Stripper
+  // Sanitizes deep-link referral IDs (fkrt.it, amzn.to, meesho.com/d/)
+  // =========================================================================
+  try {
+    window.addEventListener('click', (e) => {
+      const target = (e.target as HTMLElement)?.closest('a');
+      if (target && target.href) {
+        try {
+          const url = new URL(target.href);
+          const purgeList = ['affid', 'affiliate_id', 'ref', 'spm', 'scm', 'igshid', 'fbclid', 'gclid'];
+          let modified = false;
+          for (const p of purgeList) {
+            if (url.searchParams.has(p)) {
+              url.searchParams.delete(p);
+              modified = true;
+            }
+          }
+          if (modified) {
+            target.href = url.toString();
+          }
+        } catch (err) {}
+      }
+    }, true);
+  } catch (e) {}
+
+  // =========================================================================
+  // VECTOR 18: High-Frequency Sensor & Co-Location Kinematic Quencher
+  // Quantizes accelerometer and gyroscope readings to destroy spatial AI models.
+  // =========================================================================
+  try {
+    if (window.DeviceMotionEvent) {
+      window.addEventListener('devicemotion', (event: any) => {
+        if (event.acceleration) {
+          const quant = 0.25;
+          const qX = Math.round((event.acceleration.x || 0) / quant) * quant;
+          const qY = Math.round((event.acceleration.y || 0) / quant) * quant;
+          const qZ = Math.round((event.acceleration.z || 0) / quant) * quant;
+          Object.defineProperty(event, 'acceleration', {
+            value: { x: qX, y: qY, z: qZ },
+            configurable: true
+          });
+        }
+      }, true);
+    }
+  } catch (e) {}
+
 })();

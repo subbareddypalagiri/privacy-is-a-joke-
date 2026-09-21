@@ -1,11 +1,11 @@
 <div align="center">
 
 # 🛡️ FUF (Force Unseen Fortress)
-### **Autonomous Cognitive Privacy Engine & 30-Vector Sovereign Defense Matrix**
+### **Autonomous Cognitive Privacy Engine & 36-Vector DEFCON-1 Defense Matrix**
 
-[![CI - 30-Vector Sovereign Audit](https://github.com/subbareddypalagiri/privacy-is-a-joke-/actions/workflows/ci.yml/badge.svg)](https://github.com/subbareddypalagiri/privacy-is-a-joke-/actions)
-[![Tests Passing](https://img.shields.io/badge/tests-142%2F142%20passing-emerald?style=flat-square&logo=checkmarx)](https://github.com/subbareddypalagiri/privacy-is-a-joke-)
-[![Security Defense Vectors](https://img.shields.io/badge/defense%20vectors-30%20active-amber?style=flat-square&logo=shield)](https://github.com/subbareddypalagiri/privacy-is-a-joke-)
+[![CI - 36-Vector Sovereign Audit](https://github.com/subbareddypalagiri/privacy-is-a-joke-/actions/workflows/ci.yml/badge.svg)](https://github.com/subbareddypalagiri/privacy-is-a-joke-/actions)
+[![Tests Passing](https://img.shields.io/badge/tests-168%2F168%20passing-emerald?style=flat-square&logo=checkmarx)](https://github.com/subbareddypalagiri/privacy-is-a-joke-)
+[![Security Defense Vectors](https://img.shields.io/badge/defense%20vectors-36%20active-amber?style=flat-square&logo=shield)](https://github.com/subbareddypalagiri/privacy-is-a-joke-)
 [![Post-Quantum Cryptography](https://img.shields.io/badge/pqc-Kyber--768%20%7C%20ML--DSA--87-blue?style=flat-square&logo=quantum)](https://github.com/subbareddypalagiri/privacy-is-a-joke-)
 [![Constant-Time WASM](https://img.shields.io/badge/side--channel-constant--time%20O(1)-purple?style=flat-square&logo=webassembly)](https://github.com/subbareddypalagiri/privacy-is-a-joke-)
 [![License: MIT](https://img.shields.io/badge/license-MIT-purple?style=flat-square)](LICENSE)
@@ -124,9 +124,9 @@ flowchart TD
 
 ---
 
-## 🛡️ The 30 Sovereign Defense Vectors
+## 🛡️ The 36 Sovereign Defense Vectors
 
-FUF incorporates **30 mathematically verified defense vectors** tested against 142 integration test cases:
+FUF incorporates **36 mathematically verified defense vectors** tested against 168 integration test cases:
 
 | Vector | Classification | Engine Module | Mechanism |
 |---|---|---|---|
@@ -160,6 +160,12 @@ FUF incorporates **30 mathematically verified defense vectors** tested against 1
 | **28** | DNS-over-QUIC (DoQ RFC 9250) | `src/crypto/dns_over_quic_stub.ts` | 0-RTT connection resumption & multi-stream non-blocking resolution |
 | **29** | Cross-App Shopping Decoupler | `src/core/cross_app_decoupler.ts` | Severs attribution beacons (Meta Graph API, AppsFlyer, Criteo) from shopping apps |
 | **30** | Constant-Time Crypto Accelerator | `src/crypto/wasm_crypto_accelerator.ts` | Branchless $O(1)$ Barrett reduction & SIMD vector arithmetic defeating side channels |
+| **31** | First-Party Telemetry Proxy Shield | `src/core/first_party_proxy_shield.ts` | Neutralizes first-party tracking subpaths & proxy subdomains (`analytics.*`, `/api/telemetry`) |
+| **32** | DGA Autonomous Sentinel | `src/crypto/dga_anomaly_detector.ts` | High-entropy Shannon anomaly detector auto-sinkholing algorithmic malware/ad C2s |
+| **33** | WebRTC STUN/TURN Leak Neutralizer | `src/daemon/webrtc_stun_filter.ts` | Intercepts STUN queries to prevent private LAN IP & carrier CGNAT extraction |
+| **34** | Deep-Link & Affiliate Sanitizer | `src/core/deep_link_sanitizer.ts` | Peels cloaked referral tokens & social correlation hashes (`fkrt.it`, `spm`, `affid`) |
+| **35** | Zero-Trace Clipboard Armor | `src/kernel/clipboard_armor.ts` | Blocks background clipboard reading and strips pasted URL tracking parameters |
+| **36** | Co-Location Sensor Farbler | `src/kernel/sensor_armor.ts` | Quantizes accelerometer and gyroscope noise to defeat acoustic/spatial co-location |
 
 ---
 

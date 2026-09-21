@@ -25,6 +25,12 @@ import { BgpHijackSentinel } from '../src/crypto/bgp_hijack_sentinel';
 import { DnsOverQuicStub } from '../src/crypto/dns_over_quic_stub';
 import { CrossAppTelemetryDecoupler } from '../src/core/cross_app_decoupler';
 import { ConstantTimeCryptoAccelerator } from '../src/crypto/wasm_crypto_accelerator';
+import { FirstPartyProxyShield } from '../src/core/first_party_proxy_shield';
+import { DgaAnomalyDetector } from '../src/crypto/dga_anomaly_detector';
+import { WebRtcStunFilter } from '../src/daemon/webrtc_stun_filter';
+import { DeepLinkSanitizer } from '../src/core/deep_link_sanitizer';
+import { ClipboardArmor } from '../src/kernel/clipboard_armor';
+import { SensorQuencher } from '../src/kernel/sensor_armor';
 
 let passed = 0;
 let failed = 0;
@@ -403,8 +409,77 @@ async function runTestSuite() {
   assert(secretVec.length === 256, 'Generates 256-degree side-channel hardened secret polynomial vector');
   assert(secretVec.every(c => c >= 0 && c < 3329), 'All coefficients strictly bounded within [0, q-1]');
 
+  // 31. First-Party Reverse-Proxy Telemetry & Subpath Stripper (Vector 31)
+  console.log('\n31. First-Party Reverse-Proxy Telemetry & Subpath Stripper (Vector 31):');
+  const fpShield = new FirstPartyProxyShield();
+  const fpSubdomain = fpShield.evaluateDomain('analytics.flipkart.com');
+  assert(fpSubdomain.isFirstPartyTelemetry, 'Detects first-party tracking subdomain analytics.flipkart.com');
+  assert(fpSubdomain.actionTaken === 'SINKHOLED_IN_RAM', 'Sinkholes first-party Flipkart telemetry in RAM');
+  const meeshoSubdomain = fpShield.evaluateDomain('t.meesho.com');
+  assert(meeshoSubdomain.isFirstPartyTelemetry, 'Neutralizes Meesho event proxy subdomain t.meesho.com');
+  const fpPathResult = fpShield.evaluateUrlPath('https://flipkart.com/api/telemetry/v1/user_events');
+  assert(fpPathResult.isFirstPartyTelemetry, 'Detects first-party tracking subpath /api/telemetry/');
+  const cleanStorePath = fpShield.evaluateUrlPath('https://flipkart.com/product/nike-shoes-1234');
+  assert(!cleanStorePath.isFirstPartyTelemetry, 'Preserves legitimate first-party product catalog page');
+
+  // 32. DGA (Domain Generation Algorithm) Autonomous Heuristic Sentinel (Vector 32)
+  console.log('\n32. DGA (Domain Generation Algorithm) Autonomous Heuristic Sentinel (Vector 32):');
+  const dga = new DgaAnomalyDetector();
+  const dgaVerdict = dga.evaluateDomain('x8f2a9b1ckzm7.biz');
+  assert(dgaVerdict.isDga, 'Detects high-entropy DGA malware/surveillance domain x8f2a9b1ckzm7.biz');
+  assert(dgaVerdict.shannonEntropy > 3.0, `Calculates high Shannon character entropy (${dgaVerdict.shannonEntropy} > 3.0)`);
+  assert(dgaVerdict.recommendation === 'SINKHOLE_DGA', 'Recommends immediate SINKHOLE_DGA for algorithmic domain');
+  const dgaCleanDomainVerdict = dga.evaluateDomain('wikipedia.org');
+  assert(!dgaCleanDomainVerdict.isDga, 'Allows standard linguistic human-readable domain wikipedia.org');
+  const dgaCleanBankVerdict = dga.evaluateDomain('onlinesbi.sbi');
+  assert(!dgaCleanBankVerdict.isDga, 'Allows legitimate short banking domain onlinesbi.sbi without false positive');
+
+  // 33. WebRTC STUN/TURN Discovery Leakage Neutralizer (Vector 33)
+  console.log('\n33. WebRTC STUN/TURN Discovery Leakage Neutralizer (Vector 33):');
+  const stun = new WebRtcStunFilter();
+  const stunVerdict = stun.evaluateQuery('stun.l.google.com');
+  assert(stunVerdict.isStunProbe, 'Identifies Google public STUN IP-harvesting probe');
+  assert(stunVerdict.action === 'SINKHOLE_LAN_LEAK', 'Sinkholes STUN probe to protect local LAN IP (192.168.x.x)');
+  const twilioStun = stun.evaluateQuery('global.stun.twilio.com');
+  assert(twilioStun.isStunProbe, 'Neutralizes Twilio STUN tracking probe');
+  const regularQuery = stun.evaluateQuery('github.com');
+  assert(!regularQuery.isStunProbe, 'Allows standard non-STUN domain traffic');
+
+  // 34. In-App Deep-Link & Affiliate Attribution Token Decoupler (Vector 34)
+  console.log('\n34. In-App Deep-Link & Affiliate Attribution Token Decoupler (Vector 34):');
+  const deepLink = new DeepLinkSanitizer();
+  const dirtyShortLink = 'https://fkrt.it/xyz123?affid=PROMO99&ref=whatsapp_share&spm=123.456&pid=PROD_001';
+  const cleanLinkResult = deepLink.sanitize(dirtyShortLink);
+  assert(!cleanLinkResult.sanitizedUrl.includes('affid=PROMO99'), 'Strips affiliate ID from shortened deep link');
+  assert(!cleanLinkResult.sanitizedUrl.includes('ref=whatsapp_share'), 'Strips referral tracking token from deep link');
+  assert(!cleanLinkResult.sanitizedUrl.includes('spm='), 'Strips Alibaba/SPM tracking breadcrumbs');
+  assert(cleanLinkResult.isDeepLink, 'Recognizes fkrt.it as an e-commerce deep link gateway');
+
+  // 35. Zero-Trace Clipboard & Pasteboard Sniffing Shield (Vector 35)
+  console.log('\n35. Zero-Trace Clipboard & Pasteboard Sniffing Shield (Vector 35):');
+  const clipboard = new ClipboardArmor();
+  const dirtyPaste = 'Check this out https://meesho.com/product/123?utm_source=whatsapp&ref=USER_XYZ';
+  const pasteResult = clipboard.sanitizePastedText(dirtyPaste);
+  assert(pasteResult.hadTrackers, 'Detects trackers inside pasted clipboard text');
+  assert(!pasteResult.cleaned.includes('utm_source'), 'Purges utm_source from pasted clipboard string');
+  assert(!pasteResult.cleaned.includes('ref=USER_XYZ'), 'Purges referral ID from pasted clipboard string');
+  assert(clipboard.shouldBlockClipboardRead(false), 'Blocks unauthorized background clipboard read without user gesture');
+  assert(!clipboard.shouldBlockClipboardRead(true), 'Allows user-initiated explicit paste operation');
+
+  // 36. Acoustic, Kinematic & Co-Location Sensor Farbler (Vector 36)
+  console.log('\n36. Acoustic, Kinematic & Co-Location Sensor Farbler (Vector 36):');
+  const sensor = new SensorQuencher();
+  const rawX = 9.8145293847;
+  const rawY = 0.1293847291;
+  const rawZ = -0.4928172634;
+  const quenched = sensor.quenchAcceleration(rawX, rawY, rawZ);
+  assert(quenched.fuzzFactorApplied, 'Applies coarse quantization and micro-jitter to accelerometer');
+  assert(Math.abs(quenched.x - 9.75) < 0.1 || Math.abs(quenched.x - 10.0) < 0.1, 'Quantizes continuous accelerometer float to discrete quantum step');
+  const quenchedRotation = sensor.quenchRotation(45.6789, 12.3456, 89.1234);
+  assert(quenchedRotation.alpha === 46 && quenchedRotation.beta === 12 && quenchedRotation.gamma === 89, 'Quantizes continuous rotation angles to integer step to defeat co-location correlation');
+
   console.log('\n========================================================');
-  console.log(`📊 FUF 30-VECTOR & 2026 APEX DECOUPLER AUDIT FINAL RESULTS: ${passed} PASSED | ${failed} FAILED`);
+  console.log(`📊 FUF 36-VECTOR DEFCON-1 MILITARY AUDIT FINAL RESULTS: ${passed} PASSED | ${failed} FAILED`);
   console.log('========================================================\n');
 
   if (failed > 0) {

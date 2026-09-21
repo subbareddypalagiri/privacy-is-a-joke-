@@ -19,6 +19,10 @@ import { startControlApi } from './daemon_api';
 import { ZeroClickQuarantineEngine } from '../crypto/zero_click_quarantine';
 import { MilitaryChaffEngine } from '../crypto/military_chaff_engine';
 import { CrossAppTelemetryDecoupler } from '../core/cross_app_decoupler';
+import { FirstPartyProxyShield } from '../core/first_party_proxy_shield';
+import { DgaAnomalyDetector } from '../crypto/dga_anomaly_detector';
+import { WebRtcStunFilter } from './webrtc_stun_filter';
+import { DeepLinkSanitizer } from '../core/deep_link_sanitizer';
 import { SecurityEvent, SystemHealthMetrics } from '../core/types';
 
 export class ProductionDnsEngine {
@@ -40,6 +44,10 @@ export class ProductionDnsEngine {
   public zeroClickQuarantine = new ZeroClickQuarantineEngine();
   public militaryChaff = new MilitaryChaffEngine();
   public crossAppDecoupler = new CrossAppTelemetryDecoupler();
+  public firstPartyShield = new FirstPartyProxyShield();
+  public dgaDetector = new DgaAnomalyDetector();
+  public stunFilter = new WebRtcStunFilter();
+  public deepLinkSanitizer = new DeepLinkSanitizer();
 
   private totalQueries: number = 0;
   private blockedQueries: number = 0;
@@ -174,6 +182,30 @@ export class ProductionDnsEngine {
     if (telemetryVerdict.intercepted) {
       this.blockedQueries += 1;
       this.recordSecurityEvent(domain, 'BLOCKED_ADTECH', 'ZONE_SINKHOLE', Date.now() - start, telemetryVerdict.destinationAdBroker);
+      return this.createSinkholeResponse(msg);
+    }
+
+    // Vector 31: First-Party Telemetry Reverse Proxy & Subdomain Neutralizer
+    const firstPartyVerdict = this.firstPartyShield.evaluateDomain(domain);
+    if (firstPartyVerdict.isFirstPartyTelemetry) {
+      this.blockedQueries += 1;
+      this.recordSecurityEvent(domain, 'BLOCKED_ADTECH', 'ZONE_SINKHOLE', Date.now() - start, firstPartyVerdict.parentPlatform);
+      return this.createSinkholeResponse(msg);
+    }
+
+    // Vector 32: DGA (Domain Generation Algorithm) Autonomous Heuristic Sentinel
+    const dgaVerdict = this.dgaDetector.evaluateDomain(domain);
+    if (dgaVerdict.isDga) {
+      this.blockedQueries += 1;
+      this.recordSecurityEvent(domain, 'BLOCKED_ADTECH', 'ZONE_SINKHOLE', Date.now() - start, 'DGA_ALGORITHMIC_C2');
+      return this.createSinkholeResponse(msg);
+    }
+
+    // Vector 33: WebRTC STUN/TURN Discovery Leakage Neutralizer
+    const stunVerdict = this.stunFilter.evaluateQuery(domain);
+    if (stunVerdict.isStunProbe) {
+      this.blockedQueries += 1;
+      this.recordSecurityEvent(domain, 'BLOCKED_ADTECH', 'ZONE_SINKHOLE', Date.now() - start, 'WEBRTC_STUN_LAN_LEAK');
       return this.createSinkholeResponse(msg);
     }
 

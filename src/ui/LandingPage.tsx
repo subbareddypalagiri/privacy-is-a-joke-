@@ -80,7 +80,7 @@ export default function LandingPage() {
             {/* Nav Links */}
             <div className="hidden lg:flex items-center justify-center gap-6 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
               <a href="#vectors" className="text-xs text-[#888888] hover:text-white transition-colors tracking-wide">
-                28-Vector Matrix
+                36-Vector DEFCON Matrix
               </a>
               <a href="#decoupler" className="text-xs text-amber-400 hover:text-amber-300 transition-colors tracking-wide font-medium">
                 Stalker Decoupler
@@ -357,17 +357,17 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 28-Vector Sovereign Defense Grid + 2026 Decoupler */}
+      {/* 36-Vector DEFCON-1 Sovereign Defense Grid */}
       <section id="vectors" className="max-w-7xl mx-auto px-6 py-20 relative z-10 border-t border-[#27272a]">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-xs font-mono uppercase tracking-widest text-amber-400 font-bold px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20">
-            COMPREHENSIVE SURVEILLANCE SINKHOLE
+            DEFCON-1 ZERO-LEAKAGE SINKHOLE
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white mt-4 font-display">
-            The 28-Vector Sovereign Defense Matrix
+            The 36-Vector Sovereign Defense Matrix
           </h2>
           <p className="text-sm sm:text-base text-[#a1a1aa] mt-3 leading-relaxed">
-            Eliminates cross-app tracking, carrier injection, state BGP hijacks, and behavioral profiling across network, OS hardware, and mobile runtimes with zero performance impact.
+            Eliminates cross-app tracking, first-party proxy leaks, DGA malware C2s, WebRTC STUN LAN exposure, deep link traps, and spatial sensor correlation across all devices with zero performance penalty.
           </p>
         </div>
 
@@ -724,6 +724,90 @@ export default function LandingPage() {
               Cuts the background wire between e-commerce apps (Flipkart, Meesho, Myntra, Amazon) and surveillance networks (Meta Graph API, AppsFlyer, Criteo, Branch.io). View products or add to cart freely without ads following you to Instagram, Facebook, or YouTube — 100% first-party shopping speed preserved.
             </p>
             <span className="mt-4 inline-block text-[10px] font-mono text-amber-400 uppercase font-semibold px-2.5 py-0.5 rounded bg-amber-500/10 border border-amber-500/20">WIRE SEVERED AT OS BOUNDARY</span>
+          </div>
+
+          {/* Vector 30 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-purple-500/50 hover:shadow-[0_0_30px_rgba(168,85,247,0.12)] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center mb-4 border border-purple-500/20 group-hover:scale-110 transition-transform">
+              <Cpu className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-semibold text-white">30. Constant-Time Cryptographic Accelerator</h3>
+            <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
+              Branchless O(1) Barrett reduction ($q=3329$) and Montgomery multiplication defeating microarchitectural CPU cache-timing side-channel attacks.
+            </p>
+            <span className="mt-4 inline-block text-[10px] font-mono text-purple-400 uppercase font-semibold px-2 py-0.5 rounded bg-purple-500/10 border border-purple-500/20">CONSTANT-TIME O(1)</span>
+          </div>
+
+          {/* Vector 31 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-red-500/50 hover:shadow-[0_0_30px_rgba(239,68,68,0.12)] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-red-500/10 text-red-400 flex items-center justify-center mb-4 border border-red-500/20 group-hover:scale-110 transition-transform">
+              <Layers className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-semibold text-white">31. First-Party Telemetry & Subpath Proxy Shield</h3>
+            <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
+              Neutralizes disguised first-party subdomains (`analytics.flipkart.com`, `t.meesho.com`) and subpaths (`/api/telemetry`, `/metrics`) that bypass normal DNS filters.
+            </p>
+            <span className="mt-4 inline-block text-[10px] font-mono text-red-400 uppercase font-semibold px-2 py-0.5 rounded bg-red-500/10 border border-red-500/20">FIRST-PARTY SINKHOLED</span>
+          </div>
+
+          {/* Vector 32 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-emerald-500/50 hover:shadow-[0_0_30px_rgba(16,185,129,0.12)] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-4 border border-emerald-500/20 group-hover:scale-110 transition-transform">
+              <Brain className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-semibold text-white">32. DGA Autonomous Heuristic Sentinel</h3>
+            <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
+              High-entropy Shannon character randomness & phonetic perplexity analysis auto-drops Domain Generation Algorithm malware and ad C2s with zero list updates.
+            </p>
+            <span className="mt-4 inline-block text-[10px] font-mono text-emerald-400 uppercase font-semibold px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20">DGA AUTO-DETECT</span>
+          </div>
+
+          {/* Vector 33 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(6,182,212,0.12)] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-4 border border-cyan-500/20 group-hover:scale-110 transition-transform">
+              <Radio className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-semibold text-white">33. WebRTC STUN/TURN LAN Leakage Neutralizer</h3>
+            <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
+              Intercepts STUN discovery probes at wire speed, preventing commercial adtech scripts from harvesting your real private LAN IP (192.168.x.x) and CGNAT gateway.
+            </p>
+            <span className="mt-4 inline-block text-[10px] font-mono text-cyan-400 uppercase font-semibold px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/20">LAN IP CONCEALED</span>
+          </div>
+
+          {/* Vector 34 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-amber-500/50 hover:shadow-[0_0_30px_rgba(245,158,11,0.12)] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-4 border border-amber-500/20 group-hover:scale-110 transition-transform">
+              <Unlink className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-semibold text-white">34. Deep-Link & Affiliate Attribution Decoupler</h3>
+            <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
+              Unwraps shortened mobile deep links (`fkrt.it`, `amzn.to`, `meesho.com/d/`) and strips referral tokens (`affid`, `spm`, `ref`, `igshid`) that link identity graphs.
+            </p>
+            <span className="mt-4 inline-block text-[10px] font-mono text-amber-400 uppercase font-semibold px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/20">DEEP LINK PURGED</span>
+          </div>
+
+          {/* Vector 35 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-indigo-500/50 hover:shadow-[0_0_30px_rgba(99,102,241,0.12)] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-4 border border-indigo-500/20 group-hover:scale-110 transition-transform">
+              <Lock className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-semibold text-white">35. Zero-Trace Clipboard & Pasteboard Shield</h3>
+            <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
+              Blocks unauthorized background clipboard reading by shopping/social apps and cleans embedded tracking parameters from pasted URLs automatically.
+            </p>
+            <span className="mt-4 inline-block text-[10px] font-mono text-indigo-400 uppercase font-semibold px-2 py-0.5 rounded bg-indigo-500/10 border border-indigo-500/20">CLIPBOARD GUARDED</span>
+          </div>
+
+          {/* Vector 36 */}
+          <div className="p-6 rounded-2xl bg-[#0c0c0e]/90 backdrop-blur-xl border border-[#27272a] hover:border-rose-500/50 hover:shadow-[0_0_30px_rgba(244,63,94,0.12)] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-400 flex items-center justify-center mb-4 border border-rose-500/20 group-hover:scale-110 transition-transform">
+              <Activity className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-semibold text-white">36. Co-Location & Kinematic Sensor Farbler</h3>
+            <p className="text-xs text-[#a1a1aa] mt-2 leading-relaxed">
+              Quantizes continuous accelerometer and gyroscope micro-vibrations, preventing algorithms from correlating people sitting in the same room or vehicle.
+            </p>
+            <span className="mt-4 inline-block text-[10px] font-mono text-rose-400 uppercase font-semibold px-2 py-0.5 rounded bg-rose-500/10 border border-rose-500/20">SENSOR QUANTIZED</span>
           </div>
 
         </div>
