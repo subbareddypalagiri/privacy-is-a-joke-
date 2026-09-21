@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- * GHOSTSHIELD ZERO-KNOWLEDGE ANONYMITY & MERKLE STATE ENGINE
+ * FUF ZERO-KNOWLEDGE ANONYMITY & MERKLE STATE ENGINE
  * ============================================================================
  * Provides Zero-Knowledge cryptographic verification of privacy rules and
  * session blinded tokens. Uses SHA-256 Merkle Trees for decentralized state

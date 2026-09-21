@@ -143,7 +143,7 @@ export const Dashboard: React.FC = () => {
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="text-lg sm:text-xl font-bold tracking-tight text-white font-display">
-                  GhostShield
+                  FUF
                 </h1>
                 <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold">
                   APEX FORTRESS
@@ -487,7 +487,7 @@ export const Dashboard: React.FC = () => {
                 </p>
               </div>
               <button 
-                onClick={() => window.open('/dist_installer/GhostShield Setup 1.0.0.exe', '_blank')}
+                onClick={() => window.open('/dist_installer/FUF Setup 1.0.0.exe', '_blank')}
                 className="mt-4 w-full py-2.5 bg-white hover:bg-neutral-100 text-black rounded-xl text-xs font-semibold cursor-pointer transition-colors flex items-center justify-center gap-1.5 shadow-md"
               >
                 <Download className="w-3.5 h-3.5" />
@@ -569,7 +569,7 @@ export const Dashboard: React.FC = () => {
                 </h3>
               </div>
               <p className="text-xs text-[#71717a] leading-relaxed">
-                GhostShield continuously dispatches Poisson-distributed synthetic search graph queries with organic Human-Drift trajectories, destroying ad-tracking models.
+                FUF continuously dispatches Poisson-distributed synthetic search graph queries with organic Human-Drift trajectories, destroying ad-tracking models.
               </p>
             </div>
 
@@ -664,7 +664,7 @@ export const Dashboard: React.FC = () => {
                     <p>1. Open <strong>Settings &gt; Network &amp; Internet &gt; Private DNS</strong>.</p>
                     <p>2. Select <strong>Private DNS provider hostname</strong>.</p>
                     <div className="p-2.5 bg-[#09090b] rounded-xl border border-[#27272a] font-mono text-xs text-amber-300 font-bold select-all text-center">
-                      dns.ghostshield.local
+                      dns.FUF.local
                     </div>
                     <p>3. Tap <strong>Save</strong>. All apps, Flipkart, and games are instantly shielded.</p>
                   </div>
@@ -686,7 +686,7 @@ export const Dashboard: React.FC = () => {
 
       {/* Footer */}
       <footer className="max-w-7xl mx-auto w-full text-center pt-6 mt-6 border-t border-[#27272a] text-[11px] text-[#71717a] font-mono flex flex-col sm:flex-row justify-between items-center gap-2 relative z-10">
-        <span>GhostShield Apex v4.0 Institutional Fortress • 100% Free & Open-Source</span>
+        <span>FUF Apex v4.0 Institutional Fortress • 100% Free & Open-Source</span>
         <span>Dedicated to Complete Human Digital Sovereignty</span>
       </footer>
     </div>

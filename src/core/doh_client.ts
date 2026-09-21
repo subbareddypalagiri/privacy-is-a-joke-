@@ -1,5 +1,5 @@
 /**
- * GhostShield Encrypted DNS-over-HTTPS (DoH) Client
+ * FUF Encrypted DNS-over-HTTPS (DoH) Client
  * Upstream resolver that tunnels all clean DNS queries over encrypted TLS (HTTPS)
  * Prevents local ISPs (Jio, Airtel, ACT, Comcast) from logging or snooping on browsing habits.
  */

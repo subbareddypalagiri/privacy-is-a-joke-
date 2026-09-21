@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- * GHOSTSHIELD MILITARY DEFENSE VECTOR 23: ANTI-ZERO-CLICK EXPLOIT & C2 QUARANTINE
+ * FUF MILITARY DEFENSE VECTOR 23: ANTI-ZERO-CLICK EXPLOIT & C2 QUARANTINE
  * ============================================================================
  * Defends mobile and desktop endpoints against state-sponsored zero-click spyware
  * (NSO Group Pegasus, Cytrox Predator, Candiru, FinFisher) and covert C2 beaconing.

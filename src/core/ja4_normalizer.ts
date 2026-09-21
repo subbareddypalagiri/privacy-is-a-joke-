@@ -1,5 +1,5 @@
 /**
- * GhostShield JA4 / TLS 1.3 ClientHello Cipher Stack Normalizer
+ * FUF JA4 / TLS 1.3 ClientHello Cipher Stack Normalizer
  * Standardizes TLS cipher suites, ALPN protocols, and elliptic curves to match
  * global high-entropy generic Chromium baseline, preventing TCP/TLS fingerprint correlation.
  */

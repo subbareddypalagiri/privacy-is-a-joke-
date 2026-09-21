@@ -1,5 +1,5 @@
 /**
- * GhostShield Institutional-Grade DNS & Behavioral Armor Engine (v3.0 Industrial Edition)
+ * FUF Institutional-Grade DNS & Behavioral Armor Engine (v3.0 Industrial Edition)
  * Zero-latency In-Memory Cache + Multi-Upstream Racing DoH + CNAME Uncloaking + Shannon Graph Poisoning.
  */
 
@@ -79,7 +79,7 @@ export class ProductionDnsEngine {
         this.server = dgram.createSocket({ type: 'udp4', reuseAddr: true });
 
         this.server.on('error', (err) => {
-          console.error('[GhostShield Institutional Engine] UDP Error on Port 53:', err);
+          console.error('[FUF Institutional Engine] UDP Error on Port 53:', err);
           this.server?.close();
           reject(err);
         });
@@ -90,7 +90,7 @@ export class ProductionDnsEngine {
 
         this.server.on('listening', () => {
           const address = this.server?.address();
-          console.log(`[GhostShield Institutional Engine] 🛡️ Port 53 High-Performance Socket Active @ 127.0.0.1:${address?.port}`);
+          console.log(`[FUF Institutional Engine] 🛡️ Port 53 High-Performance Socket Active @ 127.0.0.1:${address?.port}`);
           this.startPoisoningRoutine();
           this.threatSyncer.startPeriodicSync();
           this.networkWatcher.startWatching();
@@ -103,7 +103,7 @@ export class ProductionDnsEngine {
         });
 
           this.server.bind(this.port, '0.0.0.0', () => {
-            console.log(`[GhostShield Institutional Engine] 🛡️ Port 53 Listening on 0.0.0.0 (LAN & Mobile Ready)`);
+            console.log(`[FUF Institutional Engine] 🛡️ Port 53 Listening on 0.0.0.0 (LAN & Mobile Ready)`);
           });
         } catch (err) {
         reject(err);
@@ -117,7 +117,7 @@ export class ProductionDnsEngine {
       this.server.close();
       this.server = null;
       this.networkWatcher.stopWatching();
-      console.log('[GhostShield Institutional Engine] Stopped.');
+      console.log('[FUF Institutional Engine] Stopped.');
     }
   }
 

@@ -1,4 +1,4 @@
-# 🛡️ GhostShield (Project Aegis)
+# 🛡️ FUF (Project Aegis)
 > **Autonomous Cognitive Privacy Engine & On-Device Behavioral Decoupler**  
 > *Dedicated to Human Mental Autonomy, Digital Sovereignty, and Freedom from Algorithmic Surveillance.*
 
@@ -8,11 +8,11 @@
 
 Modern surveillance capitalism treats human thoughts, relationships, and insecurities as raw commercial materials. When you search for a product or talk with friends, machine learning prediction models profile your psychology and commodify your attention.
 
-**GhostShield** is a zero-cost, on-device, sovereign privacy weapon built to permanently break this cycle.
+**FUF** is a zero-cost, on-device, sovereign privacy weapon built to permanently break this cycle.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│                    THE 4 PILLARS OF GHOSTSHIELD                         │
+│                    THE 4 PILLARS OF FUF                         │
 ├──────────────────────────┬──────────────────────────────────────────────┤
 │ 1. Zero Retargeting      │ Shopping & search data never follow you to   │
 │                          │ Instagram, YouTube, or cross-app ad networks.│
@@ -42,7 +42,7 @@ Modern surveillance capitalism treats human thoughts, relationships, and insecur
               │                                             │
               ▼                                             ▼
 ┌────────────────────────────┐                ┌────────────────────────────┐
-│ GHOSTSHIELD NATIVE DAEMON  │                │ GHOSTSHIELD PRIVATE DNS    │
+│ FUF NATIVE DAEMON  │                │ FUF PRIVATE DNS    │
 │ • 127.0.0.1:53 System Loop │                │ • 1-Line Setup Profile     │
 │ • 150k+ Suffix Radix Trie  │                │ • Zero-Battery Packet Drop │
 │ • Encrypted DoH Upstream   │                │ • Mobile App Telemetry Cut │
@@ -61,8 +61,8 @@ Modern surveillance capitalism treats human thoughts, relationships, and insecur
 ### 1. Launch Native Desktop App (Windows / Mac / Linux)
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/ghost-shield.git
-cd ghost-shield
+git clone https://github.com/your-username/fuf.git
+cd fuf
 
 # Install dependencies
 npm install
@@ -72,7 +72,7 @@ npm run app
 ```
 
 ### 2. One-Tap Windows DNS Routing
-* Run as Administrator: `scripts/setup_windows_dns.bat` (Routes all Windows network traffic through GhostShield).
+* Run as Administrator: `scripts/setup_windows_dns.bat` (Routes all Windows network traffic through FUF).
 * To restore: Run `scripts/restore_windows_dns.bat`.
 
 ---
@@ -87,4 +87,4 @@ npm run app
 
 ## 📜 Open-Source Manifesto
 
-Digital privacy is not a luxury for tech-savvy elites. It is a fundamental human right. GhostShield is built to empower every student, parent, and working professional with unbreakable, one-tap digital sovereignty.
+Digital privacy is not a luxury for tech-savvy elites. It is a fundamental human right. FUF is built to empower every student, parent, and working professional with unbreakable, one-tap digital sovereignty.

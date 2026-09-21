@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- * GHOSTSHIELD POST-QUANTUM CRYPTOGRAPHIC ENGINE (NIST FIPS 203 / ML-KEM)
+ * FUF POST-QUANTUM CRYPTOGRAPHIC ENGINE (NIST FIPS 203 / ML-KEM)
  * ============================================================================
  * Implements Lattice-Based Module Learning with Errors (ML-KEM / Kyber-768),
  * Quantum Random Number Generator (QRNG) entropy pooling, and Ring-LWE
@@ -79,7 +79,7 @@ export class QuantumArmorEngine {
     const privKeyHash = crypto
       .createHash('sha3-512')
       .update(seed)
-      .update(Buffer.from('GHOSTSHIELD_KYBER_768_PRIVKEY'))
+      .update(Buffer.from('FUF_KYBER_768_PRIVKEY'))
       .digest('hex');
 
     const keyPair: KyberKeyPair = {

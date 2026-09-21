@@ -1,5 +1,5 @@
 /**
- * GhostShield Background Service Worker
+ * FUF Background Service Worker
  * Manages extension state, declarative rulesets, WebRTC policies, and dynamic script registration.
  */
 
@@ -33,16 +33,16 @@ const DEFAULT_STATE: ShieldState = {
 const poisonEngine = new AIPoisoningEngine();
 
 async function getStoredState(): Promise<ShieldState> {
-  const data = await chrome.storage.local.get('ghost_shield_state');
-  if (data && data.ghost_shield_state) {
-    return data.ghost_shield_state;
+  const data = await chrome.storage.local.get('fuf_state');
+  if (data && data.fuf_state) {
+    return data.fuf_state;
   }
-  await chrome.storage.local.set({ ghost_shield_state: DEFAULT_STATE });
+  await chrome.storage.local.set({ fuf_state: DEFAULT_STATE });
   return DEFAULT_STATE;
 }
 
 async function saveState(state: ShieldState): Promise<void> {
-  await chrome.storage.local.set({ ghost_shield_state: state });
+  await chrome.storage.local.set({ fuf_state: state });
   updateBadge(state);
 }
 
@@ -85,7 +85,7 @@ function enforceGhostTunnelPolicy(enabled: boolean) {
             scope: 'regular',
           },
           () => {
-            console.log('[GhostShield GhostTunnel] 🌐 Smart Split-Tunnel PAC Active (Zone A Direct & Cloaked Relays)');
+            console.log('[FUF GhostTunnel] 🌐 Smart Split-Tunnel PAC Active (Zone A Direct & Cloaked Relays)');
           }
         );
       } else {
@@ -95,13 +95,13 @@ function enforceGhostTunnelPolicy(enabled: boolean) {
             scope: 'regular',
           },
           () => {
-            console.log('[GhostShield GhostTunnel] ⏹️ Direct Routing Restored');
+            console.log('[FUF GhostTunnel] ⏹️ Direct Routing Restored');
           }
         );
       }
     }
   } catch (err) {
-    console.debug('[GhostShield] GhostTunnel setup note:', err);
+    console.debug('[FUF] GhostTunnel setup note:', err);
   }
 }
 
@@ -114,7 +114,7 @@ function enforceWebRTCPolicy(enabled: boolean) {
       });
     }
   } catch (err) {
-    console.debug('[GhostShield] WebRTC policy setup:', err);
+    console.debug('[FUF] WebRTC policy setup:', err);
   }
 }
 
@@ -124,13 +124,13 @@ async function registerMainWorldScripts() {
     if (chrome.scripting && chrome.scripting.registerContentScripts) {
       const existing = await chrome.scripting.getRegisteredContentScripts();
       const ids = existing.map((s) => s.id);
-      if (ids.includes('ghost_shield_main_kernel')) {
-        await chrome.scripting.unregisterContentScripts({ ids: ['ghost_shield_main_kernel'] });
+      if (ids.includes('fuf_main_kernel')) {
+        await chrome.scripting.unregisterContentScripts({ ids: ['fuf_main_kernel'] });
       }
 
       await chrome.scripting.registerContentScripts([
         {
-          id: 'ghost_shield_main_kernel',
+          id: 'fuf_main_kernel',
           matches: ['<all_urls>'],
           js: ['content_scripts/injection_kernel.js'],
           runAt: 'document_start',
@@ -139,10 +139,10 @@ async function registerMainWorldScripts() {
           persistAcrossSessions: true,
         },
       ]);
-      console.log('[GhostShield] MAIN World Kernel Registered with CSP Bypass');
+      console.log('[FUF] MAIN World Kernel Registered with CSP Bypass');
     }
   } catch (err) {
-    console.debug('[GhostShield] Scripting registration note:', err);
+    console.debug('[FUF] Scripting registration note:', err);
   }
 }
 
@@ -176,7 +176,7 @@ chrome.runtime.onInstalled.addListener(async () => {
   enforceGhostTunnelPolicy(state.enabled);
   await registerMainWorldScripts();
   updateBadge(state);
-  console.log('[GhostShield] Core Engine Initialized in Manifest V3');
+  console.log('[FUF] Core Engine Initialized in Manifest V3');
 });
 
 chrome.runtime.onStartup.addListener(async () => {

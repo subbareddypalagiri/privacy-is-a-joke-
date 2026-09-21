@@ -1,5 +1,5 @@
 /**
- * GhostShield Threat Feed Autonomous Syncer
+ * FUF Threat Feed Autonomous Syncer
  * Performs daily differential ETag HTTP polling of verified privacy threat feeds
  * (OISD / StevenBlack / EasyPrivacy) with zero bandwidth waste and circuit breaker resilience.
  */

@@ -1,5 +1,5 @@
 /**
- * GhostShield Server-Side CAPI (Conversion API) Honey-Data Poisoner
+ * FUF Server-Side CAPI (Conversion API) Honey-Data Poisoner
  * Injects mathematically authentic synthetic click identifiers (fbclid, gclid, ttclid)
  * and fuzzed attribution graph tokens into client payloads, neutralizing server-to-server tracking.
  */

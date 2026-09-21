@@ -1,5 +1,5 @@
 /**
- * GhostShield Industrial Strict Type Definitions
+ * FUF Industrial Strict Type Definitions
  * Fully typed, zero 'any' policy for institutional-grade reliability.
  */
 

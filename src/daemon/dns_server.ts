@@ -1,5 +1,5 @@
 /**
- * GhostShield On-Device Local DNS & Telemetry Interceptor Engine
+ * FUF On-Device Local DNS & Telemetry Interceptor Engine
  * Binds directly to Standard System DNS Port 53 on 127.0.0.1.
  * Intercepts all OS-level domain resolutions across all browsers and desktop apps.
  */
@@ -41,7 +41,7 @@ export interface DaemonStats {
   recentLookups: Array<{ domain: string; action: 'BLOCKED' | 'FORWARDED' | 'BANK_SAFE'; timestamp: number }>;
 }
 
-export class GhostShieldLocalDaemon {
+export class FUFLocalDaemon {
   private server: dgram.Socket | null = null;
   private port: number = 53; // Standard Windows DNS Port
   private router = new DualZoneRouter();
@@ -75,7 +75,7 @@ export class GhostShieldLocalDaemon {
         this.server = dgram.createSocket({ type: 'udp4', reuseAddr: true });
 
         this.server.on('error', (err) => {
-          console.error('[GhostShield Daemon] UDP Server error on Port 53:', err);
+          console.error('[FUF Daemon] UDP Server error on Port 53:', err);
           this.server?.close();
           reject(err);
         });
@@ -87,7 +87,7 @@ export class GhostShieldLocalDaemon {
         this.server.on('listening', () => {
           const address = this.server?.address();
           this.stats.running = true;
-          console.log(`[GhostShield Daemon] 🛡️ Standard Port 53 Active on 127.0.0.1:${address?.port} (System-Wide Interceptor)`);
+          console.log(`[FUF Daemon] 🛡️ Standard Port 53 Active on 127.0.0.1:${address?.port} (System-Wide Interceptor)`);
           this.startPoisoningLoop();
           try {
             startControlApi(this);
@@ -107,7 +107,7 @@ export class GhostShieldLocalDaemon {
       this.server.close();
       this.server = null;
       this.stats.running = false;
-      console.log('[GhostShield Daemon] Stopped.');
+      console.log('[FUF Daemon] Stopped.');
     }
   }
 

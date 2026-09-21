@@ -1,5 +1,5 @@
 /**
- * GhostShield Autonomous Cognitive Injection Kernel (v4.0 God-Tier 13-Vector Fortress)
+ * FUF Autonomous Cognitive Injection Kernel (v4.0 God-Tier 13-Vector Fortress)
  * Injected at document_start (RUN_AT_START) in MAIN world execution context.
  * Complete Coverage:
  *  1. WebRTC Local & Public IP Leakage Sanitizer
@@ -21,10 +21,10 @@
   'use strict';
 
   // Prevent duplicate injection
-  if ((window as any).__GHOST_SHIELD_FORTRESS_ACTIVE__) return;
-  (window as any).__GHOST_SHIELD_FORTRESS_ACTIVE__ = true;
+  if ((window as any).__fuf_FORTRESS_ACTIVE__) return;
+  (window as any).__fuf_FORTRESS_ACTIVE__ = true;
 
-  console.log('[GhostShield Fortress] 🛡️ 13-Vector God-Tier Sovereign Armor Engaged');
+  console.log('[FUF Fortress] 🛡️ 13-Vector God-Tier Sovereign Armor Engaged');
 
   // =========================================================================
   // VECTOR 1: WebRTC Real IP Leakage Sanitizer

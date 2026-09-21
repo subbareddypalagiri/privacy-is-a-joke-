@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- * GHOSTSHIELD NEUROMORPHIC BIOMETRIC CAMOUFLAGE ENGINE
+ * FUF NEUROMORPHIC BIOMETRIC CAMOUFLAGE ENGINE
  * ============================================================================
  * Generates synthetic human neuromotor micro-tremors (8-12Hz Fourier physiological tremor)
  * with continuous 3rd-order derivative (jerk vector d^3x/dt^3) and micro-saccadic

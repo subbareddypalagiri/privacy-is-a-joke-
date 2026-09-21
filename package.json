@@ -1,8 +1,8 @@
 {
-  "name": "ghost-shield",
+  "name": "fuf",
   "version": "1.0.0",
   "description": "Autonomous Cognitive Privacy Engine & On-Device Behavioral Decoupler",
-  "author": "GhostShield Community",
+  "author": "FUF Community",
   "private": true,
   "type": "module",
   "main": "electron/main.cjs",
@@ -15,8 +15,8 @@
     "dist:win": "electron-builder --win --x64"
   },
   "build": {
-    "appId": "com.ghostshield.app",
-    "productName": "GhostShield",
+    "appId": "com.FUF.app",
+    "productName": "FUF",
     "directories": {
       "output": "dist_installer"
     },

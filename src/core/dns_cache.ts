@@ -1,5 +1,5 @@
 /**
- * GhostShield Industrial In-Memory LRU DNS Cache
+ * FUF Industrial In-Memory LRU DNS Cache
  * Provides sub-millisecond (< 0.05ms) lookups for clean repeat domains with exact TTL eviction.
  */
 

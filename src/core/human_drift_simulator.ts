@@ -1,5 +1,5 @@
 /**
- * GhostShield Human-Drift Organic Behavioral Simulator
+ * FUF Human-Drift Organic Behavioral Simulator
  * Generates mathematically authentic human interaction signatures (Cubic Bezier trajectories,
  * Fitts's Law velocity curves, Poisson dwell times, and non-linear scroll kinematics)
  * to defeat server-side Machine Learning bot/automation detection filters.

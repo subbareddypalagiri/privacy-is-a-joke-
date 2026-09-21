@@ -1,5 +1,5 @@
 /**
- * GhostShield Windows Network Adapter State Watcher
+ * FUF Windows Network Adapter State Watcher
  * Detects sleep-wake transitions, Wi-Fi network switches, and automatically re-binds DNS.
  */
 
@@ -35,7 +35,7 @@ export class WindowsNetworkWatcher {
       if (!err && stdout && stdout.trim()) {
         const activeName = stdout.trim();
         if (activeName !== this.currentAdapter) {
-          console.log(`[GhostShield Network Watcher] Network switch detected: ${this.currentAdapter} -> ${activeName}. Re-binding DNS...`);
+          console.log(`[FUF Network Watcher] Network switch detected: ${this.currentAdapter} -> ${activeName}. Re-binding DNS...`);
           this.currentAdapter = activeName;
           this.bindDnsToAdapter(activeName);
         }
@@ -47,7 +47,7 @@ export class WindowsNetworkWatcher {
     const cmd = `netsh interface ip set dns name="${adapterName}" static 127.0.0.1 && netsh interface ip add dns name="${adapterName}" 1.1.1.1 index=2`;
     exec(cmd, (err) => {
       if (!err) {
-        console.log(`[GhostShield Network Watcher] ✅ Auto-rebound DNS on ${adapterName}`);
+        console.log(`[FUF Network Watcher] ✅ Auto-rebound DNS on ${adapterName}`);
       }
     });
   }

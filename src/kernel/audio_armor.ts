@@ -63,6 +63,6 @@ export function initAudioArmor(onScrambleLogged?: (details: string) => void) {
       AnalyserNode.prototype.getByteTimeDomainData = patchedGetByteTimeDomainData as any;
     }
   } catch (err) {
-    console.debug('[GhostShield AudioArmor] Init notice:', err);
+    console.debug('[FUF AudioArmor] Init notice:', err);
   }
 }

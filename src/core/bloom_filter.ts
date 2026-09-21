@@ -1,5 +1,5 @@
 /**
- * GhostShield High-Performance Bitwise Bloom Filter
+ * FUF High-Performance Bitwise Bloom Filter
  * 256KB Bitset with 3 optimal FNV-1a & Murmur-style dual hash mixing functions.
  * Guarantees O(1) sub-5-nanosecond negative rejection for 99.9% of clean domain queries.
  * Zero false negatives guaranteed.

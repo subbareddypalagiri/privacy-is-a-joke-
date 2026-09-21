@@ -1,5 +1,5 @@
 /**
- * GhostShield Industrial Radix Trie
+ * FUF Industrial Radix Trie
  * Sub-microsecond O(L) domain suffix matching across massive adtech & retargeting blocklists.
  */
 

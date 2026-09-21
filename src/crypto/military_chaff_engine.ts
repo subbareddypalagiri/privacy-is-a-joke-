@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- * GHOSTSHIELD MILITARY DEFENSE VECTOR 24: CONSTANT-MTU STEGANOGRAPHIC CHAFF
+ * FUF MILITARY DEFENSE VECTOR 24: CONSTANT-MTU STEGANOGRAPHIC CHAFF
  * ============================================================================
  * Defends against state-sponsored Website Fingerprinting & Traffic Analysis
  * attacks (MIL-STD Traffic Cloaking). Normalizes variable-length encrypted

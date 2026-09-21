@@ -1,5 +1,5 @@
 /**
- * GhostShield Institutional Daemon CLI Runner
+ * FUF Institutional Daemon CLI Runner
  */
 
 import { ProductionDnsEngine } from './dns_engine';
@@ -9,7 +9,7 @@ const engine = new ProductionDnsEngine(PORT);
 
 console.log(`
   🛡️  =============================================================
-     GHOSTSHIELD (PROJECT AEGIS) - INSTITUTIONAL EDITION v3.0
+     FUF (PROJECT AEGIS) - INSTITUTIONAL EDITION v3.0
      LRU Cache + Multi-Upstream Racing DoH + Shannon Graph Entropy
   =============================================================
 `);
@@ -33,12 +33,12 @@ engine.start()
     }, 4000);
   })
   .catch((err) => {
-    console.error('❌ Failed to start GhostShield Institutional Engine:', err);
+    console.error('❌ Failed to start FUF Institutional Engine:', err);
     process.exit(1);
   });
 
 process.on('SIGINT', () => {
-  console.log('\n\n🛑 Shutting down GhostShield Institutional Engine gracefully...');
+  console.log('\n\n🛑 Shutting down FUF Institutional Engine gracefully...');
   engine.stop();
   process.exit(0);
 });

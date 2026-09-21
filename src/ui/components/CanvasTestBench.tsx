@@ -35,7 +35,7 @@ export const CanvasTestBench: React.FC = () => {
     // Font Glyph Rendering (Unicode Typography Test)
     ctx.font = '14px "Courier New", monospace';
     ctx.fillStyle = '#ffffff';
-    ctx.fillText('GhostShield 🛡️ 2026', 15, 75);
+    ctx.fillText('FUF 🛡️ 2026', 15, 75);
 
     // Compute simple DJB2/FNV1 hash of the toDataURL result
     const dataUrl = canvas.toDataURL();

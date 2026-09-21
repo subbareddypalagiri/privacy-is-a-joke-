@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- * GHOSTSHIELD FULLY HOMOMORPHIC ENCRYPTION (FHE) ENGINE (BFV/CKKS SCHEME)
+ * FUF FULLY HOMOMORPHIC ENCRYPTION (FHE) ENGINE (BFV/CKKS SCHEME)
  * ============================================================================
  * Enables secure zero-knowledge DNS resolution on encrypted ciphertext.
  * The upstream resolver computes membership filtering directly in the ciphertext

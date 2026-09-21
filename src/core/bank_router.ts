@@ -1,5 +1,5 @@
 /**
- * GhostShield Zone A Financial & Government Whitelist Router
+ * FUF Zone A Financial & Government Whitelist Router
  * Ensures 100% uninterrupted 2FA, OTP delivery, net banking, and tax filing.
  */
 

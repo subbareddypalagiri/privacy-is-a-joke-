@@ -1,5 +1,5 @@
 /**
- * GhostShield v2.0 Multi-Vector Verification Suite
+ * FUF v2.0 Multi-Vector Verification Suite
  */
 
 import dgram from 'dgram';
@@ -70,7 +70,7 @@ function sendQuery(domain, category) {
 async function runLiveTest() {
   console.log(`
   ==============================================================
-  🛡️  GHOSTSHIELD v2.0 MULTI-VECTOR INTERCEPTION TEST SUITE
+  🛡️  FUF v2.0 MULTI-VECTOR INTERCEPTION TEST SUITE
   Target: System Daemon @ ${DAEMON_HOST}:${DAEMON_PORT}
   ==============================================================
   `);
@@ -86,7 +86,7 @@ async function runLiveTest() {
     { domain: 'wikipedia.org', category: 'Clean Web (Encrypted DoH)' },
   ];
 
-  console.log('Dispatching real network packets through GhostShield v2.0 Multi-Vector Engine...\n');
+  console.log('Dispatching real network packets through FUF v2.0 Multi-Vector Engine...\n');
 
   for (const tc of testCases) {
     const result = await sendQuery(tc.domain, tc.category);
@@ -101,7 +101,7 @@ async function runLiveTest() {
     if (res.ok) {
       const stats = await res.json();
       console.log('  ==============================================================');
-      console.log('  📊 GHOSTSHIELD v2.0 MATHEMATICAL ENTROPY & DEFENSE AUDIT');
+      console.log('  📊 FUF v2.0 MATHEMATICAL ENTROPY & DEFENSE AUDIT');
       console.log('  ==============================================================');
       console.log(`  Total Queries Processed:       ${stats.queriesTotal}`);
       console.log(`  Invasive Trackers Sunk:         ${stats.queriesBlocked}`);

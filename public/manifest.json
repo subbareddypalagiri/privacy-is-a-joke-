@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "GhostShield - Synthetic Privacy Engine",
+  "name": "FUF - Synthetic Privacy Engine",
   "version": "1.0.0",
   "description": "Zero-cost client-side synthetic privacy defense against Big Tech tracking, Canvas fingerprinting & AI behavioral profiling.",
   "permissions": [
@@ -37,7 +37,7 @@
   ],
   "action": {
     "default_popup": "popup.html",
-    "default_title": "GhostShield Privacy Status",
+    "default_title": "FUF Privacy Status",
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",

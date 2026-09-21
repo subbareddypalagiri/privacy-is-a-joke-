@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- * GHOSTSHIELD NIST FIPS 204 ML-DSA-87 (CRYSTALS-DILITHIUM) SIGNATURE ENGINE
+ * FUF NIST FIPS 204 ML-DSA-87 (CRYSTALS-DILITHIUM) SIGNATURE ENGINE
  * ============================================================================
  * Provides post-quantum unforgeable lattice-based digital signatures over
  * polynomial ring R_q = Z_q[X] / (X^256 + 1) with modulus q = 8380417.

@@ -156,7 +156,7 @@ export const MilitaryEcosystemMatrix: React.FC = () => {
               <span className="text-amber-400 font-bold">NSIS & Portable</span>
             </div>
             <button 
-              onClick={() => window.open('/dist_installer/GhostShield Setup 1.0.0.exe', '_blank')}
+              onClick={() => window.open('/dist_installer/FUF Setup 1.0.0.exe', '_blank')}
               className="w-full py-2 bg-white hover:bg-neutral-100 text-black rounded-xl text-xs font-mono font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer active:scale-98 shadow-md"
             >
               <Download className="w-3.5 h-3.5" />

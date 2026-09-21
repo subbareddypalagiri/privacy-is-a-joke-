@@ -1,5 +1,5 @@
 /**
- * GhostShield GhostTunnel Split-Tunneling & IP Cloaking Engine ($0 Server Infrastructure)
+ * FUF GhostTunnel Split-Tunneling & IP Cloaking Engine ($0 Server Infrastructure)
  * Generates dynamic PAC (Proxy Auto-Config) scripts that route high-surveillance search engines
  * (Google, Bing, Yahoo) and adtech beacons through free, decentralized Anycast relay nodes
  * while preserving direct, ultra-fast zero-latency routing for Zone A Banking & Govt services.

@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- * GHOSTSHIELD LIVE MATHEMATICAL & CRYPTOGRAPHIC PROBE
+ * FUF LIVE MATHEMATICAL & CRYPTOGRAPHIC PROBE
  * ============================================================================
  * Runs live real-time hardware execution, calculates exact cryptographic hashes,
  * measures sub-nanosecond lookups, and prints raw mathematical proofs.
@@ -18,7 +18,7 @@ import path from 'path';
 
 async function runLiveProbe() {
   console.log('╔══════════════════════════════════════════════════════════════════════╗');
-  console.log('║       🛡️  GHOSTSHIELD RAW MATHEMATICAL & CRYPTOGRAPHIC PROBE         ║');
+  console.log('║       🛡️  FUF RAW MATHEMATICAL & CRYPTOGRAPHIC PROBE         ║');
   console.log('╚══════════════════════════════════════════════════════════════════════╝\n');
 
   // 1. Post-Quantum Lattice Key Encapsulation (ML-KEM-768)

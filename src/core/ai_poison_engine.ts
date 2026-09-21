@@ -1,5 +1,5 @@
 /**
- * GhostShield High-Entropy Behavioral AI Poison Engine
+ * FUF High-Entropy Behavioral AI Poison Engine
  * Generates orthogonal, high-entropy semantic interest queries across 15+ niche scientific and human domains.
  * Dissolves machine learning recommendation models (Meta, Google, Amazon, TikTok).
  */

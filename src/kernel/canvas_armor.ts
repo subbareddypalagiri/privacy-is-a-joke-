@@ -1,5 +1,5 @@
 /**
- * GhostShield Industrial-Grade Full-Spectrum Farbling Kernel
+ * FUF Industrial-Grade Full-Spectrum Farbling Kernel
  * Solves the transparent-pixel PNG quantization issue by targeting non-zero alpha pixels.
  * 100% flips cryptographic hash (Avalanche Effect) while remaining 100% invisible to human eyes.
  */
@@ -118,6 +118,6 @@ export function initCanvasArmor(onScrambleLogged?: (details: string) => void) {
     if (typeof WebGL2RenderingContext !== 'undefined') spoofGL(WebGL2RenderingContext.prototype);
 
   } catch (err) {
-    console.debug('[GhostShield CanvasArmor] Init warning:', err);
+    console.debug('[FUF CanvasArmor] Init warning:', err);
   }
 }

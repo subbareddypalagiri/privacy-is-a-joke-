@@ -1,5 +1,5 @@
 /**
- * GhostShield URL Clickstream & Tracking Parameter Sanitizer
+ * FUF URL Clickstream & Tracking Parameter Sanitizer
  * Strips algorithmic identity parameters (fbclid, gclid, ttclid, utm_*) from URLs.
  * Destroys cross-platform graph link stitching when sharing or clicking links.
  */

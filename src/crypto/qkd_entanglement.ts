@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- * GHOSTSHIELD QUANTUM KEY DISTRIBUTION (QKD) & ENTANGLEMENT VERIFIER
+ * FUF QUANTUM KEY DISTRIBUTION (QKD) & ENTANGLEMENT VERIFIER
  * ============================================================================
  * Implements BB84 Photon Polarization Protocol with Decoy State Method
  * and Bell State Entangled Pair Verification (|Phi+> = (|00> + |11>) / sqrt(2)).

@@ -1,5 +1,5 @@
 /**
- * GhostShield Deep First-Party AI Graph Pollution Engine
+ * FUF Deep First-Party AI Graph Pollution Engine
  * Dispatches multi-modal, Poisson-distributed semantic entropy pulses across 20+ orthogonal human taxonomies.
  * Computes Shannon Entropy H(X) to mathematically verify that the user's category distribution
  * is flattened into pure unpredictable noise, rendering recommendation neural networks blind.

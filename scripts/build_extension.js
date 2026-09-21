@@ -38,7 +38,7 @@ async function runBuild() {
       emptyOutDir: false,
       lib: {
         entry: resolve(__dirname, '../src/content_scripts/injection_kernel.ts'),
-        name: 'GhostShieldKernel',
+        name: 'FUFKernel',
         formats: ['iife'],
         fileName: () => 'injection_kernel.js',
       },
@@ -58,7 +58,7 @@ async function runBuild() {
       emptyOutDir: false,
       lib: {
         entry: resolve(__dirname, '../src/content/content_bridge.ts'),
-        name: 'GhostShieldBridge',
+        name: 'FUFBridge',
         formats: ['iife'],
         fileName: () => 'content_bridge.js',
       },
@@ -78,7 +78,7 @@ async function runBuild() {
       emptyOutDir: false,
       lib: {
         entry: resolve(__dirname, '../src/background/service_worker.ts'),
-        name: 'GhostShieldWorker',
+        name: 'FUFWorker',
         formats: ['es'],
         fileName: () => 'background.js',
       },
@@ -125,7 +125,7 @@ async function runBuild() {
     }
   });
 
-  console.log('✅ GhostShield Clean Build Completed Successfully!');
+  console.log('✅ FUF Clean Build Completed Successfully!');
 }
 
 runBuild().catch((err) => {

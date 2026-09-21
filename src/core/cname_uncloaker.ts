@@ -1,5 +1,5 @@
 /**
- * GhostShield CNAME Uncloaking Engine
+ * FUF CNAME Uncloaking Engine
  * Detects and unmasks third-party trackers disguised as first-party subdomains (CNAME Cloaking).
  * Recursively inspects DNS alias chains to block hidden Criteo, Adobe, and Keywee beacons.
  */

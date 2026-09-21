@@ -1,4 +1,4 @@
-# 🛡️ GhostShield (Project Aegis) — Product Requirements Document (PRD)
+# 🛡️ FUF (Project Aegis) — Product Requirements Document (PRD)
 
 > **Document Version:** 1.0.0-PROD  
 > **Status:** Approved for Full-Scale Development  
@@ -8,7 +8,7 @@
 
 ## 📌 1. Vision & Core Philosophy
 
-GhostShield is an open-source, on-device cognitive privacy engine designed to:
+FUF is an open-source, on-device cognitive privacy engine designed to:
 1. **Kill Cross-App Retargeting:** What you browse/search never follows you to Instagram, YouTube, or web ad networks.
 2. **Destroy Behavioral AI Profiling:** Actively disperses synthetic behavioral entropy to collapse Big Tech prediction models.
 3. **Protect the Entire Device (Laptop & Mobile):** Intercepts background telemetry across all desktop apps and mobile apps.
@@ -28,7 +28,7 @@ GhostShield is an open-source, on-device cognitive privacy engine designed to:
                                      │ (All network packets)
                                      ▼
 ┌─────────────────────────────────────────────────────────────────────────┐
-│               🔒 GHOSTSHIELD ON-DEVICE LOCAL DAEMON                     │
+│               🔒 FUF ON-DEVICE LOCAL DAEMON                     │
 │  • Memory: <15MB RAM | CPU: <0.05%                                      │
 │  • 127.0.0.1:53 Loopback Interceptor & Packet Dropper                   │
 │  • Active Generative Behavioral AI Entropy Injector                     │

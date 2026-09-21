@@ -40,6 +40,6 @@ export function initAntiTamper() {
       writable: true,
     });
   } catch (err) {
-    console.debug('[GhostShield AntiTamper] Init warning:', err);
+    console.debug('[FUF AntiTamper] Init warning:', err);
   }
 }

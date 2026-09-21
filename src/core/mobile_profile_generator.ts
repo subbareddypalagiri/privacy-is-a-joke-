@@ -1,5 +1,5 @@
 /**
- * GhostShield Mobile Zero-Install Profile Generator
+ * FUF Mobile Zero-Install Profile Generator
  * Constructs Apple iOS .mobileconfig profiles and Android Private DNS setup payloads,
  * enabling zero-app system-wide Encrypted DNS & Tracker Sinkholing on mobile smartphones.
  */
@@ -18,11 +18,11 @@ export class MobileProfileGenerator {
 <plist version="1.0">
 <dict>
     <key>PayloadDisplayName</key>
-    <string>GhostShield Sovereign Mobile Armor</string>
+    <string>FUF Sovereign Mobile Armor</string>
     <key>PayloadDescription</key>
     <string>Zero-Latency Encrypted DNS & Tracking Sinkhole for iOS / iPadOS</string>
     <key>PayloadOrganization</key>
-    <string>GhostShield Privacy Project</string>
+    <string>FUF Privacy Project</string>
     <key>PayloadType</key>
     <string>Configuration</string>
     <key>PayloadUUID</key>
@@ -39,11 +39,11 @@ export class MobileProfileGenerator {
             <key>PayloadVersion</key>
             <integer>1</integer>
             <key>PayloadIdentifier</key>
-            <string>com.ghostshield.ios.dns</string>
+            <string>com.FUF.ios.dns</string>
             <key>PayloadUUID</key>
             <string>${configUUID}</string>
             <key>PayloadDisplayName</key>
-            <string>GhostShield Encrypted DoH</string>
+            <string>FUF Encrypted DoH</string>
             <key>DNSSettings</key>
             <dict>
                 <key>DNSProtocol</key>

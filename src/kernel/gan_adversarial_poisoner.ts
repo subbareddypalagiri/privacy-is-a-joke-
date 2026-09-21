@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- * GHOSTSHIELD GAN ADVERSARIAL EMBEDDING POISONER (FGSM / PGD SCHEME)
+ * FUF GAN ADVERSARIAL EMBEDDING POISONER (FGSM / PGD SCHEME)
  * ============================================================================
  * Applies Fast Gradient Sign Method (FGSM: delta = epsilon * sign(grad_x L(theta, x, y)))
  * to synthesize adversarial behavioral feature vectors that maximize prediction

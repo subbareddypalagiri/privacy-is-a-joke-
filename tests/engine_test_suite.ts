@@ -20,6 +20,9 @@ import { AdversarialGANPoisoner } from '../src/kernel/gan_adversarial_poisoner';
 import { ZeroClickQuarantineEngine } from '../src/crypto/zero_click_quarantine';
 import { MilitaryChaffEngine } from '../src/crypto/military_chaff_engine';
 import { InformationTheoreticOtpEngine } from '../src/crypto/information_theoretic_otp';
+import { DeepPacketInspectionShield } from '../src/crypto/deep_packet_inspection_shield';
+import { BgpHijackSentinel } from '../src/crypto/bgp_hijack_sentinel';
+import { DnsOverQuicStub } from '../src/crypto/dns_over_quic_stub';
 
 let passed = 0;
 let failed = 0;
@@ -30,13 +33,13 @@ function assert(condition: boolean, testName: string) {
     passed++;
   } else {
     console.error(`  ❌ [FAIL] ${testName}`);
-    failed++;
+    failed++; 
   }
 }
 
 async function runTestSuite() {
   console.log('========================================================');
-  console.log('🛡️  GHOSTSHIELD 22-VECTOR ADVANCED POST-QUANTUM AUDIT');
+  console.log('🛡️  FUF 28-VECTOR APEX MILITARY SOVEREIGN AUDIT');
   console.log('========================================================\n');
 
   // 1. Radix Trie Suffix Matching (Vectors 1, 2, 8)
@@ -140,7 +143,7 @@ async function runTestSuite() {
   const mobileGen = new MobileProfileGenerator();
   const appleProfile = mobileGen.generateAppleProfile();
   assert(appleProfile.includes('com.apple.dnsSettings.managed'), 'Generates valid Apple com.apple.dnsSettings.managed payload');
-  assert(appleProfile.includes('GhostShield Sovereign Mobile Armor'), 'Sets institutional profile display name');
+  assert(appleProfile.includes('FUF Sovereign Mobile Armor'), 'Sets institutional profile display name');
   const androidConfig = mobileGen.generateAndroidPrivateDnsConfig();
   assert(androidConfig.hostname === 'one.one.one.one', 'Configures high-speed Android Private DNS DoT hostname');
   assert(androidConfig.quickSteps.length >= 4, 'Provides clear zero-app setup instructions');
@@ -231,7 +234,7 @@ async function runTestSuite() {
   // 20. NIST FIPS 204 ML-DSA-87 (CRYSTALS-Dilithium) Quantum Digital Signatures
   console.log('\n20. NIST FIPS 204 ML-DSA-87 Quantum Digital Signatures:');
   const dilithium = new DilithiumSignatureEngine();
-  const payload = 'GHOSTSHIELD_KERNEL_FIREWALL_RULES_V4';
+  const payload = 'FUF_KERNEL_FIREWALL_RULES_V4';
   const signature = dilithium.signPayload(payload);
   assert(signature.signature.startsWith('sig_mldsa87_'), 'Generates ML-DSA-87 lattice signature vector over R_q');
   assert(dilithium.verifySignature(payload, signature), 'Cryptographically verifies ML-DSA-87 signature validity');
@@ -285,8 +288,72 @@ async function runTestSuite() {
   otp.zeroizeMemory(singleUsePad);
   assert(singleUsePad.every(b => b === 0), 'Zeroizes single-use pad in memory to defeat physical cold-boot attacks');
 
+  // 26. Deep Packet Inspection (DPI) Shield — ISP Carrier Injection Defense
+  console.log('\n26. DPI Shield — ISP Carrier Injection & Flow Correlation Defense (Vector 26):');
+  const dpi = new DeepPacketInspectionShield();
+  const dpiCleanPage = '<html><body>Hello World</body></html>';
+  const dpiCleanResult = dpi.scanForDpiInjection(dpiCleanPage);
+  assert(dpiCleanResult.recommendation === 'PASS', 'Clean HTTP response passes DPI scan without false positive');
+  assert(dpiCleanResult.payloadEntropy > 0, 'Shannon entropy computed on clean response payload');
+  const jioInjectedHtml = '<html><body>Content</body><script src="//jioads.jio.com/banner.js"></script></html>';
+  const jioScanResult = dpi.scanForDpiInjection(jioInjectedHtml);
+  assert(jioScanResult.dpiInjectionDetected, 'Detects Reliance Jio carrier ad-injection signature');
+  assert(jioScanResult.carrierName === 'Reliance Jio', 'Identifies Jio as the injecting carrier');
+  assert(jioScanResult.recommendation === 'STRIP_INJECTION', 'Recommends STRIP_INJECTION for confirmed carrier injection');
+  const strippedBody = dpi.stripInjection(jioInjectedHtml, 'jioads.jio.com');
+  assert(!strippedBody.includes('jioads.jio.com'), 'Strips injected carrier script from response body');
+  const dpiChunked = dpi.generateChunkedPattern(8192);
+  assert(dpiChunked.chunkSizes.length > 1, 'Generates multi-chunk transfer pattern to defeat DPI flow-size fingerprinting');
+  assert(dpiChunked.chunkSizes.reduce((a, b) => a + b, 0) === dpiChunked.totalBytes, 'Chunk sizes sum exactly equals declared total bytes');
+  const dpiSniResult = dpi.camouflageBlockedSni('blocked-vpn.example.com', 'vpn');
+  assert(dpiSniResult.camouflageDecoy === 'software.microsoft.com', 'Camouflages VPN SNI as innocuous Microsoft software update SNI');
+  const dpiStats = dpi.getStats();
+  assert(dpiStats.injectionBlockCount === 1, 'DPI injection block counter incremented correctly');
+
+  // 27. BGP Hijack Sentinel — Route Origin Validation & RPKI Defense
+  console.log('\n27. BGP Hijack Sentinel — Prefix Origin Validation & State-Hijack Defense (Vector 27):');
+  const bgp = new BgpHijackSentinel();
+  const bgpCleanVerdict = bgp.evaluatePrefix('1.1.1.1', 13335); // Correct ASN
+  assert(!bgpCleanVerdict.hijackDetected, 'Allows Cloudflare 1.1.1.1 with correct AS13335 — no hijack');
+  assert(bgpCleanVerdict.rpkiValid, 'Confirms Cloudflare prefix is RPKI-valid');
+  assert(bgpCleanVerdict.recommendation === 'ALLOW', 'Returns ALLOW recommendation for legitimate prefix origin');
+  const bgpHijackVerdict = bgp.evaluatePrefix('1.1.1.1', 197695); // Rostelecom ASN
+  assert(bgpHijackVerdict.hijackDetected, 'Detects BGP hijack: Rostelecom (AS197695) announcing Cloudflare prefix');
+  assert(bgpHijackVerdict.hijackConfidence >= 0.5, 'Assigns high hijack confidence score to state-ASN route injection');
+  assert(bgpHijackVerdict.recommendation === 'FAILOVER_DOH', 'Triggers FAILOVER_DOH for high-confidence BGP hijack');
+  assert(bgp.isQuarantined('1.1.1.1'), 'Adds hijacked IP to active quarantine set');
+  const bgpStats = bgp.getStats();
+  assert(bgpStats.hijackDetectionCount === 1, 'BGP hijack counter correctly incremented');
+  assert(bgpStats.monitoredPrefixCount >= 8, 'Monitors at least 8 known-good DoH resolver prefixes');
+
+  // 28. DNS-over-QUIC (RFC 9250) Stub Resolver — 0-RTT & Connection Migration
+  console.log('\n28. DNS-over-QUIC (RFC 9250) Stub — 0-RTT, Multistream, Connection Migration (Vector 28):');
+  const doq = new DnsOverQuicStub('10.0.0.1');
+  const doqDnsWire = Buffer.from([0x00, 0x01, 0x01, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]);
+  const doqFrame = doq.encodeDoqFrame(doqDnsWire);
+  assert(doqFrame.lengthPrefix.readUInt16BE(0) === doqDnsWire.length, 'RFC 9250 §4.2: 2-byte length prefix correctly encodes DNS message size');
+  assert(doqFrame.totalBytes === 2 + doqDnsWire.length, 'DoQ frame total bytes = 2 (length prefix) + DNS message length');
+  const doqRawFrame = Buffer.concat([doqFrame.lengthPrefix, doqFrame.dnsMessage]);
+  const doqDecoded = doq.decodeDoqFrame(doqRawFrame);
+  assert(doqDecoded.valid, 'DoQ frame round-trips: decode produces valid DNS message');
+  assert(doqDecoded.dnsMessage.equals(doqDnsWire), 'Decoded DNS message is byte-identical to original');
+  const doqTicket = doq.issueSessionTicket('dns.adguard-dns.com');
+  assert(doqTicket.resumable, 'Issues resumable 0-RTT session ticket for DoQ server');
+  assert(doq.hasValidTicket('dns.adguard-dns.com'), '0-RTT session ticket recognized as valid before expiry');
+  const doqZeroRttQuery = doq.simulateQuery('FUF.io', 0);
+  assert(doqZeroRttQuery.zeroRttUsed, 'Uses 0-RTT connection resumption for subsequent query to same server');
+  assert(doqZeroRttQuery.responseTimeMs < 15, `0-RTT latency ${doqZeroRttQuery.responseTimeMs}ms is below 15ms threshold`);
+  const doqMultiResult = doq.multiplexQueries(['ads.example.com', 'tracker.io', 'analytics.net', 'pixel.com']);
+  assert(doqMultiResult.headOfLineBlockingEliminated, 'Independent QUIC streams eliminate TCP head-of-line blocking');
+  assert(doqMultiResult.totalStreams === 4, 'Multiplexes 4 DNS queries over 4 independent QUIC streams simultaneously');
+  const doqMigration = doq.migrateConnection('10.0.0.2');
+  assert(doqMigration.migrationSuccessful, 'QUIC connection migration succeeds when device IP changes (4G→5G handoff)');
+  assert(doqMigration.oldIp === '10.0.0.1' && doqMigration.newIp === '10.0.0.2', 'Connection migration correctly transitions from old to new IP address');
+  const doqStats = doq.getStats();
+  assert(doqStats.availableServers === 3, 'Three DoQ server endpoints available for failover');
+
   console.log('\n========================================================');
-  console.log(`📊 FINAL APEX MILITARY AUDIT RESULTS: ${passed} PASSED | ${failed} FAILED`);
+  console.log(`📊 FUF 28-VECTOR SOVEREIGN AUDIT FINAL RESULTS: ${passed} PASSED | ${failed} FAILED`);
   console.log('========================================================\n');
 
   if (failed > 0) {

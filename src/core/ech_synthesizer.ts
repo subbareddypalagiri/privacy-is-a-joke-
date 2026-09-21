@@ -1,5 +1,5 @@
 /**
- * GhostShield Encrypted Client Hello (ECH) & DNS Type 65 (HTTPS RR) Synthesizer (RFC 9460)
+ * FUF Encrypted Client Hello (ECH) & DNS Type 65 (HTTPS RR) Synthesizer (RFC 9460)
  * Forces modern browsers (Chromium 117+, Firefox 118+, Safari 17+) to encrypt the TLS SNI header,
  * preventing ISP Deep Packet Inspection (DPI) firewalls from observing visited domains.
  */

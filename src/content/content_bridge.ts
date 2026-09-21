@@ -1,5 +1,5 @@
 /**
- * GhostShield Content Bridge
+ * FUF Content Bridge
  * Runs at document_start.
  * Uses chrome.runtime.getURL to load injection_kernel.js conforming strictly to CSP.
  */
@@ -12,12 +12,12 @@
     (document.head || document.documentElement).appendChild(script);
     script.onload = () => script.remove();
   } catch (err) {
-    console.debug('[GhostShield Bridge] URL injection error:', err);
+    console.debug('[FUF Bridge] URL injection error:', err);
   }
 
   // Telemetry relay
   window.addEventListener('message', (event) => {
-    if (event.source !== window || !event.data || event.data.source !== 'GHOST_SHIELD_KERNEL') {
+    if (event.source !== window || !event.data || event.data.source !== 'fuf_KERNEL') {
       return;
     }
     try {

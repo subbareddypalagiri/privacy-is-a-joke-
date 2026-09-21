@@ -1,5 +1,5 @@
 /**
- * GhostShield Master Synchronous Kernel
+ * FUF Master Synchronous Kernel
  * Injected synchronously into the page MAIN world at document_start.
  */
 
@@ -43,11 +43,11 @@ export function runMasterKernel() {
 
       const isBank = trusted.some((d) => hostname === d || hostname.endsWith('.' + d));
       if (isBank) {
-        console.log(`%c[GhostShield]%c Zone A (Bank Safe) active for ${hostname}`, 'color:#22c55e;font-weight:bold;', 'color:#38bdf8;');
+        console.log(`%c[FUF]%c Zone A (Bank Safe) active for ${hostname}`, 'color:#22c55e;font-weight:bold;', 'color:#38bdf8;');
         return;
       }
 
-      console.log(`%c[GhostShield]%c Zone B (Armor Active) on ${hostname}`, 'color:#38bdf8;font-weight:bold;', 'color:#a855f7;');
+      console.log(`%c[FUF]%c Zone B (Armor Active) on ${hostname}`, 'color:#38bdf8;font-weight:bold;', 'color:#a855f7;');
 
       // 3. High-Impact Canvas Farbler
       const origToDataURL = HTMLCanvasElement.prototype.toDataURL;
@@ -68,7 +68,7 @@ export function runMasterKernel() {
           }
         } catch (e) {}
 
-        window.postMessage({ source: 'GHOST_SHIELD_KERNEL', type: 'LOG_EVENT', payload: { type: 'CANVAS_SCRAMBLE', domain: hostname, details: 'toDataURL signature randomized' } }, '*');
+        window.postMessage({ source: 'fuf_KERNEL', type: 'LOG_EVENT', payload: { type: 'CANVAS_SCRAMBLE', domain: hostname, details: 'toDataURL signature randomized' } }, '*');
         return (origToDataURL as any).apply(this, args);
       }, 'toDataURL');
 
@@ -125,7 +125,7 @@ export function runMasterKernel() {
       }
 
     } catch (err) {
-      console.debug('[GhostShield] Synchronous kernel note:', err);
+      console.debug('[FUF] Synchronous kernel note:', err);
     }
   })();
 }

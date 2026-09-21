@@ -156,7 +156,7 @@ export const Popup: React.FC = () => {
           </div>
           <div>
             <h1 className="text-base font-bold tracking-tight text-white flex items-center gap-1.5">
-              GhostShield <span className="text-[9px] text-amber-400 font-mono font-bold px-1.5 py-0.2 rounded border border-amber-500/30 bg-amber-500/10">16-VECT</span>
+              FUF <span className="text-[9px] text-amber-400 font-mono font-bold px-1.5 py-0.2 rounded border border-amber-500/30 bg-amber-500/10">16-VECT</span>
             </h1>
             <p className="text-[10px] text-[#71717a] font-mono">Cognitive Privacy Extension</p>
           </div>

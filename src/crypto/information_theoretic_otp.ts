@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- * GHOSTSHIELD MILITARY DEFENSE VECTOR 25: INFORMATION-THEORETIC ONE-TIME PAD
+ * FUF MILITARY DEFENSE VECTOR 25: INFORMATION-THEORETIC ONE-TIME PAD
  * ============================================================================
  * Implements Shannon's Theorem of Perfect Secrecy (Shannon 1949: H(M|C) = H(M)).
  * Provides mathematically unbreakable point-to-point payload blinding with

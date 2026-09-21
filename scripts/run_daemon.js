@@ -1,15 +1,15 @@
 /**
- * GhostShield Daemon Runner (Node ESM)
+ * FUF Daemon Runner (Node ESM)
  */
 
-import { GhostShieldLocalDaemon } from '../src/daemon/dns_server.ts';
+import { FUFLocalDaemon } from '../src/daemon/dns_server.ts';
 
 const PORT = process.env.SHIELD_PORT ? parseInt(process.env.SHIELD_PORT) : 5353;
-const daemon = new GhostShieldLocalDaemon(PORT);
+const daemon = new FUFLocalDaemon(PORT);
 
 console.log(`
   🛡️  ======================================================
-     GHOSTSHIELD (PROJECT AEGIS) - LOCAL ON-DEVICE DAEMON
+     FUF (PROJECT AEGIS) - LOCAL ON-DEVICE DAEMON
      Zero-Cost Cognitive Counter-Surveillance Engine
   ======================================================
 `);

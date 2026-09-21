@@ -1,5 +1,5 @@
 /**
- * GhostShield Double-Buffered Dynamic Threat Filter Engine
+ * FUF Double-Buffered Dynamic Threat Filter Engine
  * Manages Active and Shadow in-memory buffers with atomic hot-swap,
  * Bloom filter pre-validation, Suffix Radix compression, and fast binary serialization.
  */

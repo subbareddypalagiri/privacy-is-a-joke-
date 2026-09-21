@@ -1,5 +1,5 @@
 /**
- * GhostShield Multi-Upstream Racing & Failover DoH Engine
+ * FUF Multi-Upstream Racing & Failover DoH Engine
  * Proactively measures latency across global privacy providers (Cloudflare, Quad9, Mullvad)
  * and dispatches encrypted queries to the fastest active upstream.
  */

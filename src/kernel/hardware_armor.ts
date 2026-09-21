@@ -65,6 +65,6 @@ export function initHardwareArmor(onMaskLogged?: (details: string) => void) {
       } catch (e) {}
     }
   } catch (err) {
-    console.debug('[GhostShield HardwareArmor] Init notice:', err);
+    console.debug('[FUF HardwareArmor] Init notice:', err);
   }
 }

@@ -1,5 +1,5 @@
 /**
- * GhostShield Behavioral Biometric Armor
+ * FUF Behavioral Biometric Armor
  * Neutralizes mouse-trajectory profiling, typing cadence biometrics, and accelerometer motion tracking.
  * Injects sub-millisecond Gaussian phase jitter to render behavioral biometric fingerprinting ineffective.
  */

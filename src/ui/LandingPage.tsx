@@ -61,7 +61,7 @@ export default function LandingPage() {
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-sm font-semibold tracking-wide text-white">
-                  GhostShield
+                  FUF
                 </span>
                 <span className="text-[8px] uppercase px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">
                   APEX v4.0
@@ -94,7 +94,7 @@ export default function LandingPage() {
                 Control Center
               </button>
               <button 
-                onClick={() => window.open('/dist_installer/GhostShield Setup 1.0.0.exe', '_blank')}
+                onClick={() => window.open('/dist_installer/FUF Setup 1.0.0.exe', '_blank')}
                 className="px-3.5 py-1.5 rounded-lg text-xs text-black bg-white hover:bg-neutral-100 transition-all cursor-pointer shadow-sm flex items-center gap-1.5"
               >
                 <Download size={13} />
@@ -121,7 +121,7 @@ export default function LandingPage() {
             <a href="/dashboard.html" className="block text-xs text-amber-400 font-medium py-1">Live Control Center</a>
             <div className="pt-3 border-t border-[#27272a]">
               <button 
-                onClick={() => window.open('/dist_installer/GhostShield Setup 1.0.0.exe', '_blank')}
+                onClick={() => window.open('/dist_installer/FUF Setup 1.0.0.exe', '_blank')}
                 className="w-full py-2 bg-white text-black text-xs rounded-lg flex items-center justify-center gap-1.5"
               >
                 <Download size={14} /> Download for Windows
@@ -253,7 +253,7 @@ export default function LandingPage() {
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2 text-xs font-semibold text-white">
                   <Shield className="w-4 h-4 text-amber-400" />
-                  <span className="font-mono">GhostShield Telemetry HUD</span>
+                  <span className="font-mono">FUF Telemetry HUD</span>
                 </div>
                 <div className="hidden sm:block h-4 w-[1px] bg-[#27272a]" />
                 <div className="hidden sm:block">
@@ -678,62 +678,109 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Mobile Zero-Install Section */}
+      {/* Military Ecosystem Deployment Section */}
       <section id="mobile" className="max-w-7xl mx-auto px-6 py-20 relative z-10 border-t border-[#27272a]">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          <div className="lg:col-span-6 space-y-4">
-            <span className="text-xs font-mono uppercase tracking-widest text-amber-400 font-bold px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20">
-              ZERO-INSTALL MOBILE ARMOR
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white font-display">
-              Protect Mobile Phones Without Installing Any Heavy Apps
-            </h2>
-            <p className="text-sm text-[#a1a1aa] leading-relaxed">
-              Mobile users never need to download battery-draining background utility apps. GhostShield uses native OS-level encrypted DNS profiles built directly into Apple iOS and Android.
-            </p>
+        <div className="text-center mb-12">
+          <span className="text-xs font-mono uppercase tracking-widest text-amber-400 font-bold px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20">
+            DEFCON-1 SOVEREIGN DEPLOYMENT
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white mt-4 font-display">
+            One App Install. Total Coverage.<br className="hidden sm:block" /> Every Device. Every Platform.
+          </h2>
+          <p className="text-sm text-[#a1a1aa] mt-3 max-w-2xl mx-auto leading-relaxed">
+            FUF deploys across all 4 attack surfaces simultaneously — Android App, iOS Armor, Windows Desktop, and Browser Extension. 28 military-grade defense vectors running 24/7.
+          </p>
+        </div>
 
-            <div className="space-y-3 pt-2">
-              <div className="flex items-start gap-3 p-3.5 rounded-xl bg-[#0c0c0e] border border-[#27272a]">
-                <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="text-xs font-bold text-white">Apple iOS / iPadOS Native Profile</h4>
-                  <p className="text-[11px] text-[#71717a] mt-0.5">Encrypted <code className="text-amber-400 font-mono">.mobileconfig</code> with 0% background battery drain.</p>
-                </div>
+        {/* 4-Pillar Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+          {[
+            {
+              icon: '🤖',
+              label: 'Android App',
+              sub: 'APK · VpnService Loopback',
+              desc: 'Local VPN tunnel intercepts all app traffic. Flipkart, Meesho, game ads — sinkholed instantly. Zero root required.',
+              badge: 'DEFCON-1',
+              badgeColor: 'text-red-400 border-red-500/30 bg-red-500/10',
+              stat: '22+ vectors',
+            },
+            {
+              icon: '🍎',
+              label: 'iOS Armor',
+              sub: '.mobileconfig · NEDNSProxyProvider',
+              desc: 'Encrypted DoH profile signed & delivered. Works without any background app. 0% battery drain. iOS 17+ native.',
+              badge: 'NATIVE',
+              badgeColor: 'text-blue-400 border-blue-500/30 bg-blue-500/10',
+              stat: '0% battery',
+            },
+            {
+              icon: '🪟',
+              label: 'Windows .EXE',
+              sub: 'Electron · Daemon on :5354',
+              desc: 'System-tray daemon running local DNS on port 5354. Intercepts all browser and app traffic. Ships as NSIS installer.',
+              badge: 'OFFLINE',
+              badgeColor: 'text-emerald-400 border-emerald-500/30 bg-emerald-500/10',
+              stat: 'NSIS installer',
+            },
+            {
+              icon: '🧩',
+              label: 'Browser Extension',
+              sub: 'Chrome · Firefox · Edge',
+              desc: '28 injection vectors fired in the browser layer. GAN ad poisoner, tremor camouflage, FGSM perturbation — live.',
+              badge: 'MV3',
+              badgeColor: 'text-amber-400 border-amber-500/30 bg-amber-500/10',
+              stat: '28 vectors',
+            },
+          ].map((item) => (
+            <div key={item.label} className="p-5 rounded-2xl bg-[#0c0c0e] border border-[#27272a] hover:border-amber-500/30 transition-all group">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-2xl">{item.icon}</span>
+                <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border ${item.badgeColor}`}>
+                  {item.badge}
+                </span>
               </div>
-
-              <div className="flex items-start gap-3 p-3.5 rounded-xl bg-[#0c0c0e] border border-[#27272a]">
-                <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="text-xs font-bold text-white">Android Private DNS (DoT)</h4>
-                  <p className="text-[11px] text-[#71717a] mt-0.5">Blocks in-app ads and trackers in Flipkart, Meesho, games, and Chrome.</p>
-                </div>
+              <h3 className="text-sm font-bold text-white font-display">{item.label}</h3>
+              <p className="text-[10px] text-amber-400 font-mono mt-0.5 mb-2">{item.sub}</p>
+              <p className="text-[11px] text-[#71717a] leading-relaxed">{item.desc}</p>
+              <div className="mt-3 pt-3 border-t border-[#27272a] flex items-center justify-between">
+                <span className="text-[10px] text-[#a1a1aa] font-mono">{item.stat}</span>
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
               </div>
             </div>
+          ))}
+        </div>
 
-            <button
-              onClick={() => setShowMobileModal(true)}
-              className="mt-4 px-6 py-3 rounded-xl font-bold text-xs text-black bg-white hover:bg-neutral-100 transition-all cursor-pointer flex items-center gap-2 shadow-lg"
-            >
-              <Smartphone className="w-4 h-4" />
-              <span>Configure Mobile Device Now</span>
-            </button>
-          </div>
-
-          <div className="lg:col-span-6 p-6 sm:p-8 rounded-3xl bg-[#0c0c0e] border border-[#27272a] shadow-2xl">
-            <h3 className="text-base font-bold text-white font-display mb-4">Live Android & iOS Configuration</h3>
-            <div className="space-y-4 text-xs font-mono">
-              <div className="p-4 rounded-xl bg-[#141417] border border-[#27272a]">
-                <span className="text-[#71717a] block text-[10px] uppercase font-bold">Android Private DNS Hostname:</span>
-                <span className="text-amber-400 font-bold text-sm select-all mt-1 block">dns.ghostshield.local</span>
-              </div>
-              <div className="p-4 rounded-xl bg-[#141417] border border-[#27272a]">
-                <span className="text-[#71717a] block text-[10px] uppercase font-bold">iOS Profile Payload:</span>
-                <span className="text-emerald-400 font-bold text-sm block mt-1">com.apple.dnsSettings.managed</span>
-              </div>
+        {/* Stats Bar */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-6 rounded-2xl bg-[#0c0c0e] border border-[#27272a]">
+          {[
+            { value: '28', label: 'Military Vectors', color: 'text-amber-400' },
+            { value: '150k+', label: 'Domains Blocked', color: 'text-red-400' },
+            { value: '0ms', label: 'Bank Delay', color: 'text-emerald-400' },
+            { value: '4', label: 'Platforms Covered', color: 'text-blue-400' },
+          ].map((s) => (
+            <div key={s.label} className="text-center">
+              <div className={`text-2xl sm:text-3xl font-bold font-display ${s.color}`}>{s.value}</div>
+              <div className="text-[11px] text-[#71717a] mt-1">{s.label}</div>
             </div>
-          </div>
+          ))}
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row gap-3 mt-6 justify-center">
+          <button
+            onClick={() => setShowMobileModal(true)}
+            className="px-6 py-3 rounded-xl font-bold text-xs text-black bg-white hover:bg-neutral-100 transition-all cursor-pointer flex items-center justify-center gap-2 shadow-lg"
+          >
+            <Smartphone className="w-4 h-4" />
+            <span>Configure Mobile Device</span>
+          </button>
+          <button className="px-6 py-3 rounded-xl font-bold text-xs text-white border border-[#27272a] hover:border-amber-500/40 bg-[#0c0c0e] transition-all cursor-pointer flex items-center justify-center gap-2">
+            <Download className="w-4 h-4 text-amber-400" />
+            <span>Download for Windows</span>
+          </button>
         </div>
       </section>
+
 
       {/* Zone A Banking Section */}
       <section id="banking" className="max-w-7xl mx-auto px-6 py-20 relative z-10 border-t border-[#27272a]">
@@ -746,7 +793,7 @@ export default function LandingPage() {
               Zone A Banking & Govt Safe-Pass: 0ms Delay, Zero False Positives
             </h2>
             <p className="text-sm sm:text-base text-[#a1a1aa] mt-3 leading-relaxed">
-              Unlike aggressive adblockers that break banking authentication and OTPs, GhostShield automatically classifies trusted financial and essential institutions into <strong>Zone A</strong> for transparent pass-through.
+              Unlike aggressive adblockers that break banking authentication and OTPs, FUF automatically classifies trusted financial and essential institutions into <strong>Zone A</strong> for transparent pass-through.
             </p>
           </div>
 
@@ -852,7 +899,7 @@ export default function LandingPage() {
                     <p>1. Open <strong>Settings &gt; Network &amp; Internet &gt; Private DNS</strong>.</p>
                     <p>2. Select <strong>Private DNS provider hostname</strong>.</p>
                     <div className="p-2.5 bg-[#09090b] rounded-xl border border-[#27272a] font-mono text-xs text-amber-300 font-bold select-all text-center">
-                      dns.ghostshield.local
+                      dns.FUF.local
                     </div>
                     <p>3. Tap <strong>Save</strong>. All apps, Flipkart, and games are instantly shielded.</p>
                   </div>
@@ -874,10 +921,10 @@ export default function LandingPage() {
 
       {/* Footer */}
       <footer className="max-w-7xl mx-auto px-6 py-10 border-t border-[#27272a] text-center text-xs font-mono text-[#71717a] flex flex-col sm:flex-row justify-between items-center gap-3 relative z-10">
-        <span>GhostShield Apex v4.0 Institutional Matrix • 100% Free & Open-Source</span>
+        <span>FUF Apex v4.0 Institutional Matrix • 100% Free & Open-Source</span>
         <div className="flex items-center gap-6">
           <a href="/dashboard.html" className="hover:text-white transition-colors">Control Center</a>
-          <a href="/dist_installer/GhostShield Setup 1.0.0.exe" className="hover:text-white transition-colors">Windows App</a>
+          <a href="/dist_installer/FUF Setup 1.0.0.exe" className="hover:text-white transition-colors">Windows App</a>
           <a href="#vectors" className="hover:text-white transition-colors">17 Vectors</a>
         </div>
       </footer>

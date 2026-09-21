@@ -1,5 +1,5 @@
 /**
- * GhostShield Local Control API Server
+ * FUF Local Control API Server
  * Exposes a lightweight local HTTP API on 127.0.0.1:5354 for Dashboard integration.
  */
 
@@ -118,7 +118,7 @@ export function startControlApi(engine: any, port: number = 5354): http.Server {
       const profile = mobileGen.generateAppleProfile(serverUrl);
       res.writeHead(200, {
         'Content-Type': 'application/x-apple-aspen-config',
-        'Content-Disposition': 'attachment; filename="ghostshield.mobileconfig"',
+        'Content-Disposition': 'attachment; filename="FUF.mobileconfig"',
       });
       res.end(profile);
       return;
@@ -161,7 +161,7 @@ export function startControlApi(engine: any, port: number = 5354): http.Server {
         JSON.stringify({
           merkleRoot: zkEngine.getRoot(),
           proof,
-          blindedToken: zkEngine.generateBlindedSessionToken('ghostshield_session_alpha')
+          blindedToken: zkEngine.generateBlindedSessionToken('FUF_session_alpha')
         })
       );
       return;
@@ -207,14 +207,14 @@ export function startControlApi(engine: any, port: number = 5354): http.Server {
 
   server.on('error', (err: any) => {
     if (err.code === 'EADDRINUSE') {
-      console.log(`[GhostShield Control API] Port ${port} active, reusing endpoint.`);
+      console.log(`[FUF Control API] Port ${port} active, reusing endpoint.`);
     } else {
-      console.error('[GhostShield Control API] Server error:', err);
+      console.error('[FUF Control API] Server error:', err);
     }
   });
 
   server.listen(port, '0.0.0.0', () => {
-    console.log(`[GhostShield Control API] ⚡ Active on http://0.0.0.0:${port} (LAN & Mobile Ready)`);
+    console.log(`[FUF Control API] ⚡ Active on http://0.0.0.0:${port} (LAN & Mobile Ready)`);
   });
 
   return server;
