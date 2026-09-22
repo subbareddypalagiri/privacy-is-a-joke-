@@ -33,16 +33,33 @@ export class CrossAppTelemetryDecoupler {
     'app-measurement.com': { broker: 'Google Firebase Mobile Event Collector', category: 'ATTRIBUTION_TRACKER' },
     'events.appsflyer.com': { broker: 'AppsFlyer Purchase & Cart Event Ingestion', category: 'ECOMMERCE_LEAK' },
     'pixel.facebook.com': { broker: 'Meta Client/Server Conversion API', category: 'ECOMMERCE_LEAK' },
-    'analytics.tiktok.com': { broker: 'TikTok Events SDK Retargeting Bridge', category: 'ECOMMERCE_LEAK' }
+    'analytics.tiktok.com': { broker: 'TikTok Events SDK Retargeting Bridge', category: 'ECOMMERCE_LEAK' },
+    'spiky.clevertap-prod.com': { broker: 'CleverTap Mobile Behavioral Tracker', category: 'BEHAVIORAL_BROKER' },
+    'clevertap.com': { broker: 'CleverTap In-App User Funnel Analytics', category: 'BEHAVIORAL_BROKER' },
+    'sdk-01.moengage.com': { broker: 'MoEngage Mobile Push & Behavioral Profiler', category: 'BEHAVIORAL_BROKER' },
+    'control.kochava.com': { broker: 'Kochava Mobile Attribution Engine', category: 'ATTRIBUTION_TRACKER' }
   };
 
-  // E-commerce app domains whose core shopping MUST function smoothly while shedding trackers
+  // E-commerce, food delivery, and quick commerce apps whose core operations MUST function smoothly
   private static readonly ESSENTIAL_ECOMMERCE_HOSTS = new Set([
     'flipkart.com',
     'api.flipkart.net',
     'meesho.com',
     'myntra.com',
     'amazon.in',
+    'amazon.com',
+    'swiggy.com',
+    'api.swiggy.com',
+    'zomato.com',
+    'api.zomato.com',
+    'blinkit.com',
+    'zepto.com',
+    'zeptonow.com',
+    'ajio.com',
+    'nykaa.com',
+    'bigbasket.com',
+    'uber.com',
+    'olacabs.com',
     'reliancedigital.in',
     'tatacliq.com'
   ]);

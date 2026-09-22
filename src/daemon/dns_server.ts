@@ -178,10 +178,43 @@ export class FUFLocalDaemon {
   }
 
   private createBlockedDnsResponse(queryPacket: Buffer): Buffer {
-    const response = Buffer.from(queryPacket);
-    response[2] = 0x81;
-    response[3] = 0x80;
-    return response;
+    if (queryPacket.length < 12) {
+      return Buffer.from([0x00, 0x00, 0x81, 0x83, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]);
+    }
+
+    let offset = 12;
+    while (offset < queryPacket.length && queryPacket[offset] !== 0) {
+      offset += 1 + queryPacket[offset];
+    }
+    offset += 1;
+    offset += 4;
+
+    if (offset > queryPacket.length) {
+      const resp = Buffer.from(queryPacket);
+      resp[2] = 0x81;
+      resp[3] = 0x80;
+      return resp;
+    }
+
+    const header = Buffer.alloc(12);
+    header.writeUInt16BE(queryPacket.readUInt16BE(0), 0);
+    header.writeUInt16BE(0x8180, 2);
+    header.writeUInt16BE(1, 4);
+    header.writeUInt16BE(1, 6);
+    header.writeUInt16BE(0, 8);
+    header.writeUInt16BE(0, 10);
+
+    const question = queryPacket.subarray(12, offset);
+    const answer = Buffer.from([
+      0xc0, 0x0c,
+      0x00, 0x01,
+      0x00, 0x01,
+      0x00, 0x00, 0x00, 0x3c,
+      0x00, 0x04,
+      0x00, 0x00, 0x00, 0x00
+    ]);
+
+    return Buffer.concat([header, question, answer]);
   }
 
   private forwardQueryToUpstream(msg: Buffer, rinfo: dgram.RemoteInfo) {

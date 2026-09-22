@@ -15,7 +15,10 @@
     "test:lan": "npx tsx tests/test_mobile_doh.ts",
     "typecheck": "tsc --noEmit",
     "preview": "vite preview",
-    "dist:win": "electron-builder --win --x64"
+    "dist:win": "electron-builder --win --x64",
+    "mobile:build": "npm run build && npx cap sync android",
+    "mobile:sync": "npx cap sync android",
+    "mobile:open": "npx cap open android"
   },
   "build": {
     "appId": "com.FUF.app",
@@ -45,6 +48,9 @@
     }
   },
   "dependencies": {
+    "@capacitor/android": "^8.5.2",
+    "@capacitor/cli": "^8.5.2",
+    "@capacitor/core": "^8.5.2",
     "clsx": "^2.1.1",
     "lucide-react": "^1.16.0",
     "react": "^19.0.0",

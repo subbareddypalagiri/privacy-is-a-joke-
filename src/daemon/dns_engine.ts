@@ -23,6 +23,8 @@ import { FirstPartyProxyShield } from '../core/first_party_proxy_shield';
 import { DgaAnomalyDetector } from '../crypto/dga_anomaly_detector';
 import { WebRtcStunFilter } from './webrtc_stun_filter';
 import { DeepLinkSanitizer } from '../core/deep_link_sanitizer';
+import { DeepPayloadInspector } from '../core/deep_payload_inspector';
+import { ChameleonGhostEngine } from '../core/chameleon_ghost_engine';
 import { SecurityEvent, SystemHealthMetrics } from '../core/types';
 
 export class ProductionDnsEngine {
@@ -48,6 +50,8 @@ export class ProductionDnsEngine {
   public dgaDetector = new DgaAnomalyDetector();
   public stunFilter = new WebRtcStunFilter();
   public deepLinkSanitizer = new DeepLinkSanitizer();
+  public payloadInspector = new DeepPayloadInspector();
+  public chameleon = new ChameleonGhostEngine();
 
   private totalQueries: number = 0;
   private blockedQueries: number = 0;
@@ -317,9 +321,44 @@ export class ProductionDnsEngine {
   }
 
   private createSinkholeResponse(query: Buffer): Buffer {
-    const response = Buffer.from(query);
-    response[2] = 0x81;
-    response[3] = 0x80;
-    return response;
+    if (query.length < 12) {
+      return Buffer.from([0x00, 0x00, 0x81, 0x83, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]);
+    }
+
+    let offset = 12;
+    while (offset < query.length && query[offset] !== 0) {
+      offset += 1 + query[offset];
+    }
+    offset += 1; // skip null byte
+    offset += 4; // skip QTYPE (2) + QCLASS (2)
+
+    if (offset > query.length) {
+      const resp = Buffer.from(query);
+      resp[2] = 0x81;
+      resp[3] = 0x80;
+      return resp;
+    }
+
+    const header = Buffer.alloc(12);
+    header.writeUInt16BE(query.readUInt16BE(0), 0); // Preserved Transaction ID
+    header.writeUInt16BE(0x8180, 2); // Response, Recursion Available, NoError
+    header.writeUInt16BE(1, 4);      // QDCOUNT: 1
+    header.writeUInt16BE(1, 6);      // ANCOUNT: 1 (One Sinkhole Answer)
+    header.writeUInt16BE(0, 8);      // NSCOUNT: 0
+    header.writeUInt16BE(0, 10);     // ARCOUNT: 0
+
+    const question = query.subarray(12, offset);
+
+    // RFC 1035 A Record pointing to 0.0.0.0
+    const answer = Buffer.from([
+      0xc0, 0x0c,             // Compressed name pointer to QNAME at byte 12
+      0x00, 0x01,             // Type: A (IPv4)
+      0x00, 0x01,             // Class: IN (Internet)
+      0x00, 0x00, 0x00, 0x3c, // TTL: 60 seconds
+      0x00, 0x04,             // RDLENGTH: 4 bytes
+      0x00, 0x00, 0x00, 0x00  // RDATA: 0.0.0.0 (Sinkholed)
+    ]);
+
+    return Buffer.concat([header, question, answer]);
   }
 }

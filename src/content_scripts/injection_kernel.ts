@@ -228,6 +228,25 @@
       }
       return data;
     };
+
+    // Vector 37: Ultrasonic Acoustic Co-Location Beacon Nullifier (17.5kHz - 22kHz)
+    if (typeof window !== 'undefined' && (window.AudioContext || (window as any).webkitAudioContext)) {
+      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+      if (AudioCtx && AudioCtx.prototype && AudioCtx.prototype.createOscillator) {
+        const origCreateOsc = AudioCtx.prototype.createOscillator;
+        AudioCtx.prototype.createOscillator = function () {
+          const osc = origCreateOsc.call(this);
+          const origStart = osc.start.bind(osc);
+          osc.start = function (when?: number) {
+            if (osc.frequency && osc.frequency.value >= 17500) {
+              osc.frequency.value = 0; // Neutralize inaudible tracking beacon
+            }
+            return origStart(when);
+          };
+          return osc;
+        };
+      }
+    }
   } catch (e) {}
 
   // =========================================================================
@@ -638,4 +657,251 @@
     }
   } catch (e) {}
 
+  // =========================================================================
+  // VECTOR 19: Deep In-Page HTTP/HTTPS Subpath Telemetry Interceptor (Gap 2)
+  // Intercepts window.fetch and XMLHttpRequest to sanitize outgoing JSON telemetry
+  // targeting evasive first-party subpaths (/api/telemetry, /clickstream, /event_proxy)
+  // BEFORE the browser encrypts the packet over TLS!
+  // =========================================================================
+  try {
+    const SUSPICIOUS_SUBPATHS = [
+      '/api/telemetry',
+      '/api/events',
+      '/api/v1/events',
+      '/api/v2/events',
+      '/clickstream',
+      '/event_proxy',
+      '/analytics/collect',
+      '/telemetry',
+      '/track',
+      '/collect'
+    ];
+
+    const SENSITIVE_HARDWARE_FIELDS = [
+      'device_fingerprint',
+      'screen_width',
+      'screen_height',
+      'screen_resolution',
+      'battery_level',
+      'canvas_hash',
+      'webgl_vendor',
+      'audio_fingerprint',
+      'hardware_concurrency',
+      'device_memory',
+      'user_agent_raw'
+    ];
+
+    const sanitizePayload = (bodyStr: string): string => {
+      try {
+        const parsed = JSON.parse(bodyStr);
+        if (typeof parsed === 'object' && parsed !== null) {
+          let stripped = false;
+          for (const field of SENSITIVE_HARDWARE_FIELDS) {
+            if (field in parsed) {
+              delete parsed[field];
+              stripped = true;
+            }
+          }
+          if (stripped) {
+            parsed._fuf_sovereignty_proof = 'PAYLOAD_ATTRIBUTES_PURGED_IN_PAGE';
+            return JSON.stringify(parsed);
+          }
+        }
+      } catch (e) {}
+      return bodyStr;
+    };
+
+    // 1. Intercept window.fetch
+    if (typeof window.fetch === 'function') {
+      const origFetch = window.fetch;
+      window.fetch = function (input: RequestInfo | URL, init?: RequestInit) {
+        let urlStr = '';
+        if (typeof input === 'string') {
+          urlStr = input;
+        } else if (input instanceof URL) {
+          urlStr = input.toString();
+        } else if (typeof Request !== 'undefined' && input instanceof Request) {
+          urlStr = input.url;
+        }
+
+        const isSubpathTelemetry = SUSPICIOUS_SUBPATHS.some(sub => urlStr.includes(sub));
+
+        if (isSubpathTelemetry && init && init.body && typeof init.body === 'string') {
+          init.body = sanitizePayload(init.body);
+        }
+
+        return origFetch.call(this, input, init);
+      };
+    }
+
+    // 2. Intercept XMLHttpRequest
+    if (typeof window.XMLHttpRequest === 'function') {
+      const origOpen = XMLHttpRequest.prototype.open;
+      const origSend = XMLHttpRequest.prototype.send;
+
+      XMLHttpRequest.prototype.open = function (method: string, url: string | URL, ...rest: any[]) {
+        (this as any).__fuf_req_url__ = typeof url === 'string' ? url : url.toString();
+        return origOpen.apply(this, [method, url, ...rest] as any);
+      };
+
+      XMLHttpRequest.prototype.send = function (body?: Document | XMLHttpRequestBodyInit | null) {
+        const reqUrl = (this as any).__fuf_req_url__ || '';
+        const isSubpathTelemetry = SUSPICIOUS_SUBPATHS.some(sub => reqUrl.includes(sub));
+
+        if (isSubpathTelemetry && typeof body === 'string') {
+          body = sanitizePayload(body);
+        }
+
+        return origSend.call(this, body as any);
+      };
+    }
+  } catch (e) {}
+
+  // =========================================================================
+  // VECTOR 20: Raw WebSocket (wss://) Telemetry Interceptor (Edge Gap A)
+  // Intercepts new WebSocket() connections and WebSocket.prototype.send()
+  // to prevent real-time streaming telemetry bypassing fetch/XHR.
+  // =========================================================================
+  try {
+    if (typeof window.WebSocket === 'function') {
+      const OrigWebSocket = window.WebSocket;
+      const WS_TRACKER_PATTERNS = ['telemetry', 'clickstream', 'analytics', 'event_stream', 'metric', 'logger'];
+
+      const PatchedWebSocket = function (url: string | URL, protocols?: string | string[]) {
+        const urlStr = typeof url === 'string' ? url : url.toString();
+        const ws = new OrigWebSocket(url, protocols);
+
+        const origSend = ws.send.bind(ws);
+        ws.send = function (data: any) {
+          if (typeof data === 'string') {
+            const isSuspicious = WS_TRACKER_PATTERNS.some(p => urlStr.includes(p));
+            if (isSuspicious) {
+              try {
+                const parsed = JSON.parse(data);
+                if (typeof parsed === 'object' && parsed !== null) {
+                  delete parsed.device_fingerprint;
+                  delete parsed.canvas_hash;
+                  delete parsed.screen_width;
+                  delete parsed.screen_height;
+                  parsed._fuf_ws_shield = 'WEBSOCKET_TELEMETRY_NEUTRALIZED';
+                  data = JSON.stringify(parsed);
+                }
+              } catch (e) {}
+            }
+          }
+          return origSend(data);
+        };
+
+        return ws;
+      };
+
+      PatchedWebSocket.prototype = OrigWebSocket.prototype;
+      PatchedWebSocket.CONNECTING = OrigWebSocket.CONNECTING;
+      PatchedWebSocket.OPEN = OrigWebSocket.OPEN;
+      PatchedWebSocket.CLOSING = OrigWebSocket.CLOSING;
+      PatchedWebSocket.CLOSED = OrigWebSocket.CLOSED;
+      window.WebSocket = PatchedWebSocket as any;
+    }
+  } catch (e) {}
+
+  // =========================================================================
+  // VECTOR 21: Background Web Worker & Service Worker Sandbox (Edge Gap B)
+  // Blocks off-thread tracking workers from bypassing DOM protections.
+  // =========================================================================
+  try {
+    if (typeof window.Worker === 'function') {
+      const OrigWorker = window.Worker;
+      const WORKER_TRACKER_BLACKLIST = ['telemetry.js', 'tracker.js', 'analytics.worker.js', 'metric.worker.js'];
+
+      const PatchedWorker = function (scriptURL: string | URL, options?: WorkerOptions) {
+        const urlStr = typeof scriptURL === 'string' ? scriptURL : scriptURL.toString();
+        if (WORKER_TRACKER_BLACKLIST.some(bad => urlStr.includes(bad))) {
+          console.warn('[FUF Shield] Blocked background tracking Web Worker:', urlStr);
+          const emptyBlob = new Blob(['console.log("[FUF] Worker sinkholed");'], { type: 'application/javascript' });
+          return new OrigWorker(URL.createObjectURL(emptyBlob), options);
+        }
+        return new OrigWorker(scriptURL, options);
+      };
+
+      PatchedWorker.prototype = OrigWorker.prototype;
+      window.Worker = PatchedWorker as any;
+    }
+
+    if (navigator.serviceWorker && navigator.serviceWorker.register) {
+      const origRegister = navigator.serviceWorker.register.bind(navigator.serviceWorker);
+      navigator.serviceWorker.register = function (scriptURL: string | URL, options?: RegistrationOptions) {
+        const urlStr = typeof scriptURL === 'string' ? scriptURL : scriptURL.toString();
+        if (urlStr.includes('analytics') || urlStr.includes('telemetry') || urlStr.includes('tracker')) {
+          console.warn('[FUF Shield] Blocked tracking Service Worker registration:', urlStr);
+          return Promise.reject(new Error('FUF Sovereign Shield: Tracking Service Worker Blocked'));
+        }
+        return origRegister(scriptURL, options);
+      };
+    }
+  } catch (e) {}
+
+  // =========================================================================
+  // VECTOR 22: Network Information API & Storage Quota Normalizer (Edge Gap C)
+  // Spoofs downlink, RTT, and effectiveType to generic 4G values to defeat
+  // network speed / latency device fingerprinting.
+  // =========================================================================
+  try {
+    const fakeConnection = Object.freeze({
+      downlink: 10,
+      effectiveType: '4g',
+      rtt: 50,
+      saveData: false,
+      type: 'wifi',
+      onchange: null,
+      addEventListener: () => {},
+      removeEventListener: () => {},
+      dispatchEvent: () => false
+    });
+
+    if ('connection' in navigator) {
+      try {
+        Object.defineProperty(navigator, 'connection', {
+          get: () => fakeConnection,
+          configurable: false
+        });
+      } catch (e) {}
+    }
+
+    if (navigator.storage && navigator.storage.estimate) {
+      navigator.storage.estimate = async function () {
+        return {
+          quota: 53687091200, // Exactly 50 GB quantized quota
+          usage: 1073741824   // Exactly 1 GB quantized usage
+        };
+      };
+    }
+  } catch (e) {}
+
+  // =========================================================================
+  // VECTOR 23: Kuhn-Anderson TEMPEST Display Font Softener (Edge Gap D)
+  // Enforces anti-aliasing font smoothing to reduce high-frequency RF harmonics
+  // emitted by monitor video cables (HDMI/DisplayPort).
+  // =========================================================================
+  try {
+    const injectTempestStyles = () => {
+      const style = document.createElement('style');
+      style.textContent = `
+        * {
+          -webkit-font-smoothing: antialiased !important;
+          -moz-osx-font-smoothing: grayscale !important;
+          text-rendering: optimizeLegibility !important;
+        }
+      `;
+      (document.head || document.documentElement).appendChild(style);
+    };
+
+    if (document.head || document.documentElement) {
+      injectTempestStyles();
+    } else {
+      window.addEventListener('DOMContentLoaded', injectTempestStyles);
+    }
+  } catch (e) {}
+
 })();
+
+

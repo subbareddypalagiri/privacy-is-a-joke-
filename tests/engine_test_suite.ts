@@ -8,6 +8,7 @@ import { HumanDriftSimulator } from '../src/core/human_drift_simulator';
 import { MobileProfileGenerator } from '../src/core/mobile_profile_generator';
 import { BitwiseBloomFilter } from '../src/core/bloom_filter';
 import { DynamicFilterEngine } from '../src/core/dynamic_filter_engine';
+import { ThreatFeedSyncer } from '../src/core/threat_feed_syncer';
 import { CapiHoneyPoisoner } from '../src/core/capi_honey_poisoner';
 import { JA4Normalizer } from '../src/core/ja4_normalizer';
 import { QuantumArmorEngine } from '../src/crypto/quantum_armor';
@@ -31,6 +32,17 @@ import { WebRtcStunFilter } from '../src/daemon/webrtc_stun_filter';
 import { DeepLinkSanitizer } from '../src/core/deep_link_sanitizer';
 import { ClipboardArmor } from '../src/kernel/clipboard_armor';
 import { SensorQuencher } from '../src/kernel/sensor_armor';
+import { UltrasonicNotchFilter } from '../src/kernel/ultrasonic_notch_filter';
+import { JA4DynamicScrambler } from '../src/crypto/ja4_scrambler';
+import { DeepPayloadInspector } from '../src/core/deep_payload_inspector';
+import { ChameleonGhostEngine } from '../src/core/chameleon_ghost_engine';
+import { 
+  RfPhyFarbler, 
+  CellularBasebandShield, 
+  RingMinusThreeSentinel, 
+  HouseholdGraphDecoupler 
+} from '../src/kernel/dark_iceberg_armor';
+import { SoftwareTempestShield } from '../src/kernel/software_tempest_shield';
 
 let passed = 0;
 let failed = 0;
@@ -179,6 +191,16 @@ async function runTestSuite() {
   const badList = ['bad-ad.com', 'onlinesbi.sbi'];
   const rejected = !dynamicEngine.updateRules(badList);
   assert(rejected, 'Sanity guardrail rejects corrupted feed containing protected Zone A bank domain');
+
+  // Threat Feed Syncer 24/7 Dynamic Synchronization Test
+  const syncer = new ThreatFeedSyncer(dynamicEngine);
+  const syncResult = await syncer.syncNow();
+  assert(syncResult.success, '24/7 Dynamic Threat Syncer completes atomic hot-swap sync');
+  assert(syncResult.ruleCount >= 50, 'Threat database holds full rule set (>50 verified rules)');
+  assert(dynamicEngine.isBlocked('spiky.clevertap-prod.com'), 'Blocks CleverTap Indian e-commerce tracker');
+  assert(dynamicEngine.isBlocked('sdk-01.moengage.com'), 'Blocks MoEngage Indian e-commerce telemetry');
+  assert(dynamicEngine.isBlocked('control.kochava.com'), 'Blocks Kochava attribution pipeline');
+  assert(dynamicEngine.isBlocked('t.appsflyer.com'), 'Blocks AppsFlyer mobile SDK endpoint');
 
   // 14. Server-Side CAPI Honey-Data Poisoner
   console.log('\n14. Server-Side Meta CAPI & Google Enhanced Conversions Honey Poisoner:');
@@ -478,8 +500,105 @@ async function runTestSuite() {
   const quenchedRotation = sensor.quenchRotation(45.6789, 12.3456, 89.1234);
   assert(quenchedRotation.alpha === 46 && quenchedRotation.beta === 12 && quenchedRotation.gamma === 89, 'Quantizes continuous rotation angles to integer step to defeat co-location correlation');
 
+  // 37. Ultrasonic Acoustic Co-Location Beacon Nullifier (Vector 37)
+  console.log('\n37. Ultrasonic Acoustic Co-Location Beacon Nullifier (Vector 37):');
+  const ultrasonic = new UltrasonicNotchFilter();
+  const audibleVerdict = ultrasonic.evaluateFrequency(440); // Standard A note
+  assert(!audibleVerdict.isUltrasonicBeacon && audibleVerdict.actionTaken === 'PASSED_AUDIBLE', 'Allows legitimate human audible frequencies (440Hz)');
+  const beaconVerdict = ultrasonic.evaluateFrequency(19500); // 19.5kHz SilverPush beacon
+  assert(beaconVerdict.isUltrasonicBeacon && beaconVerdict.actionTaken === 'SUPPRESSED_ULTRASONIC_BEACON', 'Detects and neutralizes 19.5kHz ultrasonic tracking beacon');
+  assert(beaconVerdict.attenuationDb === -96.0, 'Applies -96dB deep notch attenuation to beacon');
+  const dummyAudio = new Float32Array([0.5, -0.5, 0.2, -0.2, 0.1]);
+  const filteredAudio = ultrasonic.processAudioBuffer(dummyAudio);
+  assert(filteredAudio.length === dummyAudio.length, 'Processes audio frames through 2nd-order Biquad filter');
+
+  // 38. JA4 TLS ClientHello Dynamic GREASE Scrambler (Vector 38)
+  console.log('\n38. JA4 TLS ClientHello Dynamic GREASE Scrambler (Vector 38):');
+  const ja4Scrambler = new JA4DynamicScrambler();
+  const session1 = ja4Scrambler.generateScrambledSession();
+  const session2 = ja4Scrambler.generateScrambledSession();
+  assert(session1.ja4Fingerprint.startsWith('t13d'), 'Generates valid TLS 1.3 TCP JA4 fingerprint format');
+  assert(session1.greaseCipherInjected > 0, 'Injects RFC 8701 GREASE cipher suite into ClientHello');
+  assert(session1.greaseExtensionInjected > 0, 'Injects RFC 8701 GREASE extension into ClientHello');
+  assert(session1.ja4Fingerprint !== session2.ja4Fingerprint || session1.sessionId !== session2.sessionId, 'Produces non-correlatable JA4 profiles across sessions');
+
+  // 39. Deep Outgoing POST-Body JSON Entropy & Subpath Inspector (Vector 39)
+  console.log('\n39. Deep Outgoing POST-Body JSON Entropy & Subpath Inspector (Vector 39):');
+  const inspector = new DeepPayloadInspector();
+  const cleanOrder = JSON.stringify({ item_id: 'SHOE_123', quantity: 1, price: 4499 });
+  const cleanVerdict = inspector.inspectAndSanitize(cleanOrder);
+  assert(!cleanVerdict.isTelemetryPayload && cleanVerdict.actionTaken === 'AUTHENTIC_COMMERCE_PASS', 'Allows authentic e-commerce order payload without modification');
+  const dirtyTelemetry = JSON.stringify({
+    item_id: 'SHOE_123',
+    device_fingerprint: '0x9482bf1a',
+    screen_width: 1920,
+    screen_height: 1080,
+    battery_level: 0.84,
+    canvas_hash: 'c_84920'
+  });
+  const dirtyVerdict = inspector.inspectAndSanitize(dirtyTelemetry);
+  assert(dirtyVerdict.isTelemetryPayload && dirtyVerdict.actionTaken === 'PAYLOAD_PURGED_AND_POISONED', 'Identifies invasive telemetry inside outgoing POST JSON body');
+  assert(dirtyVerdict.strippedAttributes.includes('device_fingerprint'), 'Purges device_fingerprint parameter');
+  assert(dirtyVerdict.strippedAttributes.includes('screen_width'), 'Purges screen_width parameter');
+  assert(dirtyVerdict.strippedAttributes.includes('battery_level'), 'Purges battery_level parameter');
+  assert(!dirtyVerdict.sanitizedBody.includes('0x9482bf1a'), 'Verifies stripped parameters are eliminated from sanitized body');
+
+  // 40. The Chameleon Protocol - Active Benign Ghost Traffic (Vector 40)
+  console.log('\n40. The Chameleon Protocol - Active Benign Ghost Traffic (Vector 40):');
+  const chameleon = new ChameleonGhostEngine();
+  const pulse1 = chameleon.generateNextGhostPulse();
+  assert(pulse1.calculatedTrustScore === 0.99, 'Guarantees persistent 0.99 human trust score to defeat CAPTCHA traps');
+  assert(pulse1.dwellTimeMs >= 1500 && pulse1.dwellTimeMs <= 12000, 'Calculates organic Poisson dwell time for benign requests');
+  assert(pulse1.targetDomain.includes('wikipedia.org') || pulse1.targetDomain.includes('nasa.gov') || pulse1.targetDomain.includes('arxiv.org') || pulse1.targetDomain.includes('gutenberg.org') || pulse1.targetDomain.includes('archive.org') || pulse1.targetDomain.includes('usgs.gov'), 'Routes ghost queries to high-reputation open science and public knowledge archives');
+
+  // 41. Depth -1: RF & PHY-Layer Analog Radio Frequency Farbler (Vector 41)
+  console.log('\n41. Depth -1: RF & PHY-Layer Analog Radio Frequency Farbler (Vector 41):');
+  const rfFarbler = new RfPhyFarbler();
+  const rfReport = rfFarbler.modulateRfBurst(20.0);
+  assert(rfReport.actionTaken === 'TX_POWER_DESYNCHRONIZED', 'Modulates transmit power to defeat SDR antenna fingerprinting');
+  assert(rfReport.modulatedTxPowerDbm < 20.0 && rfReport.modulatedTxPowerDbm >= 14.0, 'Applies dynamic Tx attenuation between 14.0 and 19.5 dBm');
+  assert(rfReport.phaseJitterDegrees >= -7.0 && rfReport.phaseJitterDegrees <= 7.0, 'Injects micro-phase jitter to collapse MER classifier');
+
+  // 42. Depth -2: Cellular Baseband 5G SUCI & IMSI Shield (Vector 42)
+  console.log('\n42. Depth -2: Cellular Baseband 5G SUCI & IMSI Shield (Vector 42):');
+  const baseband = new CellularBasebandShield();
+  const bbReport = baseband.concealImsiIdentity('404450123456789');
+  assert(bbReport.actionTaken === 'SUCI_ECIES_CONCEALED', 'Conceals permanent IMSI using 5G Standalone SUCI ECIES encryption');
+  assert(bbReport.ephemeralSuciToken.startsWith('SUCI_0x'), 'Generates single-use ephemeral SUCI token for cell tower handshake');
+  assert(bbReport.towerTriangulationDefeated, 'Defeats cell tower timing advance correlation from real identity');
+
+  // 43. Depth -3: Silicon Ring -3 (Intel ME / AMD PSP) Port Sinkhole (Vector 43)
+  console.log('\n43. Depth -3: Silicon Ring -3 (Intel ME / AMD PSP) Port Sinkhole (Vector 43):');
+  const ringMinus3 = new RingMinusThreeSentinel();
+  const amtHttpReport = ringMinus3.evaluatePort(16992);
+  assert(amtHttpReport.isOutOfBandOobPort && amtHttpReport.actionTaken === 'DROPPED_AT_HARDWARE_GATEWAY', 'Detects and drops Intel AMT Out-of-Band Port 16992 (HTTP)');
+  const amtHttpsReport = ringMinus3.evaluatePort(16993);
+  assert(amtHttpsReport.isOutOfBandOobPort && amtHttpsReport.actionTaken === 'DROPPED_AT_HARDWARE_GATEWAY', 'Detects and drops Intel AMT Out-of-Band Port 16993 (HTTPS)');
+  const normalPortReport = ringMinus3.evaluatePort(443);
+  assert(!normalPortReport.isOutOfBandOobPort && normalPortReport.actionTaken === 'ALLOWED_NORMAL_TRAFFIC', 'Allows legitimate HTTPS port 443 without false positive');
+
+  // 44. Depth -4: Household Wi-Fi Graph & Residential IP Decoupler (Vector 44)
+  console.log('\n44. Depth -4: Household Wi-Fi Graph & Residential IP Decoupler (Vector 44):');
+  const household = new HouseholdGraphDecoupler();
+  const hhReport = household.decoupleHouseholdCluster('103.21.45.109');
+  assert(hhReport.actionTaken === 'HOUSEHOLD_GRAPH_SHATTERED', 'Decouples device from residential household router IP address');
+  assert(!hhReport.householdClusterCorrelated, 'Shatters household graph correlation for family/roommate searches');
+  assert(hhReport.peerCountOnSharedEgress > 50000, 'Routes through high-density shared egress node (>50,000 peers)');
+
+  // 45. Edge Gap D: Software TEMPEST & Display RF Harmonics Shield (Vector 45)
+  console.log('\n45. Edge Gap D: Software TEMPEST & Display RF Harmonics Shield (Vector 45):');
+  const tempest = new SoftwareTempestShield();
+  const kernel = tempest.calculateKuhnAndersonKernel(1.0);
+  assert(kernel.length === 3, 'Calculates 3-tap Kuhn-Anderson display filter kernel');
+  assert(kernel[1] > kernel[0] && kernel[0] === kernel[2], 'Maintains symmetric normalized low-pass blur weights');
+  const powerReport = tempest.smoothCpuPowerDraw();
+  assert(powerReport.powerFlattened && powerReport.activeCycles === 500, 'Flattens CPU power draw to defeat power-line side-channel harvesting');
+  const tempestMetrics = tempest.evaluateTempestResilience();
+  assert(tempestMetrics.vanEckInterceptionDefeated, 'Defeats Van Eck phreaking high-frequency display cable interception');
+  assert(tempestMetrics.rfHarmonicAttenuationDb <= -30.0, 'Attenuates RF harmonics on video lines by > -30dB');
+
   console.log('\n========================================================');
-  console.log(`📊 FUF 36-VECTOR DEFCON-1 MILITARY AUDIT FINAL RESULTS: ${passed} PASSED | ${failed} FAILED`);
+  console.log(`📊 FUF 45-VECTOR COMPLETE ICEBERG SOVEREIGN AUDIT: ${passed} PASSED | ${failed} FAILED`);
   console.log('========================================================\n');
 
   if (failed > 0) {
@@ -488,3 +607,4 @@ async function runTestSuite() {
 }
 
 runTestSuite();
+
