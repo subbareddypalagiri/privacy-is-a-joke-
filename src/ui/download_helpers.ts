@@ -86,5 +86,15 @@ export function downloadExtensionZip() {
   document.body.removeChild(a);
 }
 
+export function downloadAndroidApk() {
+  const a = document.createElement('a');
+  a.href = 'https://github.com/subbareddypalagiri/privacy-is-a-joke-/releases/download/v1.0.0/FUF-Sovereign-Android-v1.0.0-Debug.apk';
+  a.download = 'FUF-Sovereign-v1.0.0.apk';
+  a.target = '_blank';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
 export const ANDROID_RECOMMENDED_DOT = 'dns.adguard-dns.com';
 export const ANDROID_FALLBACK_DOT = 'security.cloudflare-dns.com';

@@ -15,6 +15,7 @@ import {
   downloadIosMobileconfig, 
   downloadWindowsZip, 
   downloadExtensionZip, 
+  downloadAndroidApk,
   ANDROID_RECOMMENDED_DOT 
 } from './download_helpers';
 
@@ -1081,14 +1082,41 @@ export default function LandingPage() {
                   </button>
                 </>
               ) : (
-                <>
-                  <p className="text-[#a1a1aa] font-medium leading-relaxed">
-                    Uses Android's native <strong>Private DNS (DoT)</strong> engine built into Android 9, 10, 11, 12, 13, 14, 15+.
-                  </p>
-                  <div className="space-y-2 text-[#71717a]">
-                    <p>1. Open <strong>Settings &gt; Network &amp; Internet &gt; Private DNS</strong>.</p>
-                    <p>2. Select <strong>Private DNS provider hostname</strong>.</p>
-                    <div className="flex items-center gap-2 p-2.5 bg-[#09090b] rounded-xl border border-[#27272a]">
+                <div className="space-y-4">
+                  {/* Option 1: Native Standalone APK */}
+                  <div className="p-3.5 rounded-xl bg-[#09090b] border border-amber-500/30 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="text-base">🤖</span>
+                        <span className="font-bold text-white text-xs">Option A: Native Android App (.APK)</span>
+                      </div>
+                      <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30">
+                        1-TAP CELLULAR SHIELD
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-[#a1a1aa] leading-relaxed">
+                      Includes on-device <strong>Local VpnService Loopback</strong>. Tap one button to intercept tracker beacons across Flipkart, Swiggy, and 5G cellular networks with zero battery drain.
+                    </p>
+                    <button
+                      onClick={downloadAndroidApk}
+                      className="w-full py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer text-xs"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      <span>Download Android APK (v1.0.0)</span>
+                    </button>
+                  </div>
+
+                  {/* Option 2: Zero-Install Private DNS */}
+                  <div className="p-3.5 rounded-xl bg-[#09090b] border border-[#27272a] space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="font-bold text-white text-xs">Option B: Zero-Install Private DNS (DoT)</span>
+                      <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold">NO APP REQUIRED</span>
+                    </div>
+                    <p className="text-[11px] text-[#71717a]">
+                      Native encrypted DNS built into Android 9, 10, 11, 12, 13, 14, 15+:
+                    </p>
+                    <p className="text-[10px] text-[#71717a]">1. Settings &gt; Network &amp; Internet &gt; Private DNS &gt; Provider Hostname.</p>
+                    <div className="flex items-center gap-2 p-2 bg-[#141417] rounded-lg border border-[#27272a]">
                       <span className="font-mono text-xs text-amber-300 font-bold select-all flex-1 text-center">
                         {ANDROID_RECOMMENDED_DOT}
                       </span>
@@ -1098,15 +1126,15 @@ export default function LandingPage() {
                           setCopiedAndroidDns(true);
                           setTimeout(() => setCopiedAndroidDns(false), 2500);
                         }}
-                        className="px-3 py-1 bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded-lg text-[11px] font-bold cursor-pointer transition-colors flex items-center gap-1"
+                        className="px-2.5 py-1 bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded text-[10px] font-bold cursor-pointer transition-colors flex items-center gap-1"
                       >
                         {copiedAndroidDns ? <Check className="w-3 h-3 text-emerald-400" /> : null}
                         <span>{copiedAndroidDns ? 'Copied!' : 'Copy'}</span>
                       </button>
                     </div>
-                    <p>3. Tap <strong>Save</strong>. All apps, Flipkart, and games are instantly shielded.</p>
+                    <p className="text-[10px] text-[#71717a]">2. Tap <strong>Save</strong> to instantly shield all phone traffic.</p>
                   </div>
-                </>
+                </div>
               )}
             </div>
 

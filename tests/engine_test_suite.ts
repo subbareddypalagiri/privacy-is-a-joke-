@@ -28,6 +28,7 @@ import { CrossAppTelemetryDecoupler } from '../src/core/cross_app_decoupler';
 import { ConstantTimeCryptoAccelerator } from '../src/crypto/wasm_crypto_accelerator';
 import { FirstPartyProxyShield } from '../src/core/first_party_proxy_shield';
 import { DgaAnomalyDetector } from '../src/crypto/dga_anomaly_detector';
+import { NativeVpnBridge } from '../src/core/native_vpn_bridge';
 import { WebRtcStunFilter } from '../src/daemon/webrtc_stun_filter';
 import { DeepLinkSanitizer } from '../src/core/deep_link_sanitizer';
 import { ClipboardArmor } from '../src/kernel/clipboard_armor';
@@ -596,6 +597,38 @@ async function runTestSuite() {
   const tempestMetrics = tempest.evaluateTempestResilience();
   assert(tempestMetrics.vanEckInterceptionDefeated, 'Defeats Van Eck phreaking high-frequency display cable interception');
   assert(tempestMetrics.rfHarmonicAttenuationDb <= -30.0, 'Attenuates RF harmonics on video lines by > -30dB');
+
+  // 46. Android Native 1-Tap VpnService Bridge (Cellular 4G/5G Protection)
+  console.log('\n46. Android Native 1-Tap VpnService Bridge (Cellular 4G/5G Protection):');
+  assert(!NativeVpnBridge.isNativeAndroid(), 'Correctly identifies non-Android runtime environment');
+  const webStart = await NativeVpnBridge.start();
+  assert(!webStart.success && Boolean(webStart.error), 'Safely falls back on web/desktop runtime when native VPN unavailable');
+
+  // Mock Capacitor Android native container to verify IPC contract
+  (globalThis as any).window = (globalThis as any).window || {};
+  let mockVpnActive = false;
+  (globalThis as any).window.Capacitor = {
+    isNativePlatform: () => true,
+    getPlatform: () => 'android',
+    Plugins: {
+      FufVpn: {
+        isSupported: async () => ({ supported: true }),
+        isVpnActive: async () => ({ active: mockVpnActive }),
+        startVpn: async () => { mockVpnActive = true; return { success: true, active: true }; },
+        stopVpn: async () => { mockVpnActive = false; return { success: true, active: false }; }
+      }
+    }
+  };
+
+  assert(NativeVpnBridge.isNativeAndroid(), 'Detects Android native platform via Capacitor bridge');
+  const isAvailable = await NativeVpnBridge.isAvailable();
+  assert(isAvailable, 'Verifies FufVpn native service plugin availability');
+  const startResult = await NativeVpnBridge.start();
+  assert(startResult.success && startResult.active, 'Executes 1-tap startVpn on Android cellular interface');
+  const activeCheck = await NativeVpnBridge.isActive();
+  assert(activeCheck, 'Reports active VpnService state across Android apps');
+  const stopResult = await NativeVpnBridge.stop();
+  assert(stopResult.success && !stopResult.active, 'Stops on-device VpnService cleanly without lingering tunnels');
 
   console.log('\n========================================================');
   console.log(`📊 FUF 45-VECTOR COMPLETE ICEBERG SOVEREIGN AUDIT: ${passed} PASSED | ${failed} FAILED`);

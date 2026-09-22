@@ -20,8 +20,10 @@ import {
   downloadIosMobileconfig, 
   downloadWindowsZip, 
   downloadExtensionZip, 
+  downloadAndroidApk,
   ANDROID_RECOMMENDED_DOT 
 } from './download_helpers';
+import { NativeVpnBridge } from '../core/native_vpn_bridge';
 
 interface DaemonStats {
   running: boolean;
@@ -510,18 +512,27 @@ export const Dashboard: React.FC = () => {
                 <div className="w-8 h-8 rounded-xl bg-[#1f1f23] flex items-center justify-center text-emerald-400 font-bold text-sm mb-3 group-hover:scale-110 transition-transform">
                   🤖
                 </div>
-                <h4 className="font-bold text-sm text-white">Android System DNS</h4>
+                <h4 className="font-bold text-sm text-white">Android Native &amp; DoT</h4>
                 <p className="text-[11px] text-[#71717a] mt-1 leading-relaxed">
-                  Zero-Install Private DNS (DoT) config. Shields all APKs, Flipkart, Meesho.
+                  Standalone APK with 1-Tap VpnService Loopback or Zero-Install Private DNS.
                 </p>
               </div>
-              <button 
-                onClick={() => { setMobileTab('android'); setShowMobileModal(true); }}
-                className="mt-4 w-full py-2.5 bg-[#1f1f23] hover:bg-[#27272a] text-white border border-[#3f3f46] rounded-xl text-xs font-semibold cursor-pointer transition-colors flex items-center justify-center gap-1.5"
-              >
-                <Smartphone className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Configure DoT</span>
-              </button>
+              <div className="mt-4 flex flex-col gap-2">
+                <button 
+                  onClick={downloadAndroidApk}
+                  className="w-full py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 border border-emerald-500/40 rounded-xl text-xs font-semibold cursor-pointer transition-colors flex items-center justify-center gap-1.5"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Download APK (.apk)</span>
+                </button>
+                <button 
+                  onClick={() => { setMobileTab('android'); setShowMobileModal(true); }}
+                  className="w-full py-1.5 bg-[#1f1f23] hover:bg-[#27272a] text-[#a1a1aa] hover:text-white border border-[#3f3f46] rounded-xl text-[11px] font-semibold cursor-pointer transition-colors flex items-center justify-center gap-1.5"
+                >
+                  <Smartphone className="w-3 h-3 text-emerald-400" />
+                  <span>Configure Private DNS</span>
+                </button>
+              </div>
             </div>
 
             <div className="p-5 rounded-2xl bg-[#141417] border border-[#27272a] flex flex-col justify-between hover:border-cyan-500/40 transition-all group shadow-lg">
