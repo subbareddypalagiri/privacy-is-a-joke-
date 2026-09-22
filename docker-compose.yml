@@ -1,0 +1,19 @@
+services:
+  fuf-shield:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fuf-sovereign-daemon
+    restart: unless-stopped
+    ports:
+      - "53:53/udp"
+      - "53:53/tcp"
+      - "5354:5354/tcp"
+    environment:
+      - SHIELD_PORT=53
+      - NODE_ENV=production
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"

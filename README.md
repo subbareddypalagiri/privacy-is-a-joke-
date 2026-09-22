@@ -1,15 +1,15 @@
 <div align="center">
 
 # 🛡️ FUF (Force Unseen Fortress)
-### **Autonomous Cognitive Privacy Engine & 36-Vector DEFCON-1 Defense Matrix**
+### **Autonomous Cognitive Privacy Engine & 46-Vector Sovereign Defense Matrix**
 
-[![CI - 36-Vector Sovereign Audit](https://github.com/subbareddypalagiri/privacy-is-a-joke-/actions/workflows/ci.yml/badge.svg)](https://github.com/subbareddypalagiri/privacy-is-a-joke-/actions)
-[![Tests Passing](https://img.shields.io/badge/tests-168%2F168%20passing-emerald?style=flat-square&logo=checkmarx)](https://github.com/subbareddypalagiri/privacy-is-a-joke-)
-[![Security Defense Vectors](https://img.shields.io/badge/defense%20vectors-36%20active-amber?style=flat-square&logo=shield)](https://github.com/subbareddypalagiri/privacy-is-a-joke-)
-[![Post-Quantum Cryptography](https://img.shields.io/badge/pqc-Kyber--768%20%7C%20ML--DSA--87-blue?style=flat-square&logo=quantum)](https://github.com/subbareddypalagiri/privacy-is-a-joke-)
-[![Constant-Time WASM](https://img.shields.io/badge/side--channel-constant--time%20O(1)-purple?style=flat-square&logo=webassembly)](https://github.com/subbareddypalagiri/privacy-is-a-joke-)
+[![CI - 46-Vector Sovereign Audit](https://github.com/subbareddypalagiri/privacy-is-a-joke-/actions/workflows/ci.yml/badge.svg)](https://github.com/subbareddypalagiri/privacy-is-a-joke-/actions)
+[![Tests Passing](https://img.shields.io/badge/tests-215%2F215%20passing-emerald?style=flat-square&logo=checkmarx)](https://github.com/subbareddypalagiri/privacy-is-a-joke-)
+[![Security Defense Vectors](https://img.shields.io/badge/defense%20vectors-46%20active-amber?style=flat-square&logo=shield)](https://github.com/subbareddypalagiri/privacy-is-a-joke-)
+[![Platform Matrix](https://img.shields.io/badge/platform-Extension%20%7C%20Web%20%7C%20Windows%20%7C%20Android%20APK-blue?style=flat-square)](#-mobile-architecture)
+[![Post-Quantum Cryptography](https://img.shields.io/badge/pqc-Kyber--768%20%7C%20ML--DSA--87-purple?style=flat-square&logo=quantum)](https://github.com/subbareddypalagiri/privacy-is-a-joke-)
+[![Docker Ready](https://img.shields.io/badge/docker-1--click%20cloud%20vps-blue?style=flat-square&logo=docker)](Dockerfile)
 [![License: MIT](https://img.shields.io/badge/license-MIT-purple?style=flat-square)](LICENSE)
-[![Zero Battery Drain](https://img.shields.io/badge/mobile%20battery%20drain-0.00%25-brightgreen?style=flat-square)](#-mobile-architecture)
 
 **FUF** is an on-device, post-quantum sovereign privacy and ad-blocking platform that protects users across **Mobile (Android & iOS)**, **Desktop (Windows/macOS/Linux)**, and **Web Browsers (MV3 Extension)** simultaneously.
 
@@ -198,41 +198,52 @@ cd privacy-is-a-joke-
 # Install dependencies
 npm install
 
-# Run the 28-Vector Sovereign Cryptographic Audit (120 Tests)
+# Run the 46-Vector Sovereign Cryptographic Audit (215 Tests)
 npm test
+
+# Run Mobile DoH & LAN Status Verification
+npm run test:lan
 
 # Build production artifacts (Extension, Electron Desktop, Daemon)
 npm run build
 ```
 
-### 2. Run the Autonomous DNS Daemon
+### 2. Run with Self-Healing Watchdog (Supervisor)
 ```bash
-# Starts local RFC 8484 DoH + DNS Server on 0.0.0.0:5354
-npm run daemon
+# Double-click FUF-ULTRA-LAUNCHER.bat on Windows, or run:
+node scripts/daemon_watchdog.js
+```
+*Features auto-restart (<1s) and automatic atomic DHCP rollback if a crash loop is detected.*
+
+### 3. Native Android Standalone App (.APK)
+```bash
+# Double-click BUILD-ANDROID-APP.bat on Windows, or run:
+npm run mobile:build
+cd android && ./gradlew assembleDebug
+# Generated APK: android/app/build/outputs/apk/debug/app-debug.apk
+```
+*Equipped with 1-Tap On-Device VpnService Loopback for 4G/5G Cellular Data.*
+
+### 4. Cloud VPS 24/7 Deployment (Docker)
+```bash
+# Deploy 24/7 on AWS, Oracle Cloud Free Tier, DigitalOcean, or Fly.io:
+docker compose up -d
 ```
 
-### 3. Launch Standalone Desktop Application (Windows / Linux / macOS)
+### 5. Launch Standalone Desktop Application (Windows / Linux / macOS)
 ```bash
 npm run app
-```
-
-### 4. Windows One-Click DNS Routing
-```powershell
-# Run PowerShell as Administrator to route all OS traffic through FUF:
-.\scripts\setup_windows_dns.ps1
-
-# To restore default DHCP DNS settings:
-.\scripts\restore_windows_dns.ps1
 ```
 
 ---
 
 ## 📱 Mobile Architecture
 
-### Android (VpnService Loopback)
-* Configures an on-device virtual loopback interface (`127.0.0.1`).
-* Intercepts all traffic from applications before packets leave the physical network adapter.
+### Android (1-Tap Native VpnService Loopback & DoT)
+* Configures an on-device virtual loopback interface (`FufVpnService.java`).
+* Intercepts all traffic from applications on Wi-Fi and 5G cellular before packets leave the physical network adapter.
 * Queries matching blocklists are answered immediately with `0.0.0.0`, killing ad-requests and trackers before video or image data is ever transferred.
+* Zero-Install option: Android Private DNS (`Settings -> Network -> Private DNS`).
 
 ### Apple iOS (Native Encrypted Profile)
 * Generates an Apple configuration profile (`.mobileconfig`) leveraging native `com.apple.dnsSettings.managed`.
